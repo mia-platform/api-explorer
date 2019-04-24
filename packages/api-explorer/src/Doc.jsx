@@ -106,7 +106,7 @@ class Doc extends React.Component {
     this.setState({ showEndpoint: true });
   }
 
-  renderContentTypeSelect(){
+  renderContentTypeSelect() {
     const list = getContentTypeFromOperation(this.getOperation())
     return <Select options={list} onChange={(e) => this.setState({selectedContentType: e.currentTarget.value})} />
   }

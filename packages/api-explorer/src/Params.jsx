@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ContentWithTitle from './components/ContentWithTitle'
 
 const PropTypes = require('prop-types');
 const Form = require('react-jsonschema-form').default;
@@ -6,8 +7,6 @@ const UpDownWidget = require('react-jsonschema-form/lib/components/widgets/UpDow
 const TextWidget = require('react-jsonschema-form/lib/components/widgets/TextWidget').default;
 const DateTimeWidget = require('react-jsonschema-form/lib/components/widgets/DateTimeWidget')
   .default;
-
-import ContentWithTitle from './components/ContentWithTitle'
 
 const DescriptionField = require('./form-components/DescriptionField');
 const createBaseInput = require('./form-components/BaseInput');
@@ -24,7 +23,7 @@ const parametersToJsonSchema = require('./lib/parameters-to-json-schema');
 class Params extends Component{
   
   renderParam(schema) {
-    const{
+    const {
       operation,
       formData,
       onChange,
@@ -45,31 +44,31 @@ class Params extends Component{
         schema={schema.schema}
         style={{margin: 0}}
         widgets={{
-            int64: UpDownWidget,
-            int32: UpDownWidget,
-            double: UpDownWidget,
-            float: UpDownWidget,
-            binary: FileWidget,
-            byte: TextWidget,
-            string: TextWidget,
-            uuid: TextWidget,
-            duration: TextWidget,
-            dateTime: DateTimeWidget,
-            integer: UpDownWidget,
-            json: TextareaWidget,
-            BaseInput,
-            SelectWidget,
-          }}
+          int64: UpDownWidget,
+          int32: UpDownWidget,
+          double: UpDownWidget,
+          float: UpDownWidget,
+          binary: FileWidget,
+          byte: TextWidget,
+          string: TextWidget,
+          uuid: TextWidget,
+          duration: TextWidget,
+          dateTime: DateTimeWidget,
+          integer: UpDownWidget,
+          json: TextareaWidget,
+          BaseInput,
+          SelectWidget,
+        }}
         onSubmit={onSubmit}
         formData={formData[schema.type]}
         onChange={form => {
-            return onChange({ [schema.type]: form.formData });
-          }}
+          return onChange({ [schema.type]: form.formData });
+        }}
         fields={{
-            DescriptionField,
-            ArrayField,
-            SchemaField,
-          }}
+          DescriptionField,
+          ArrayField,
+          SchemaField,
+        }}
       >
         <button type="submit" style={{ display: 'none' }} />
       </Form>
