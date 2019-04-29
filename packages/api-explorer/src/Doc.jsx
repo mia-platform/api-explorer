@@ -118,15 +118,15 @@ class Doc extends React.Component {
     }
 
     return list && list.length !== 0 && showTitle ? (
-        <ContentWithTitle
-          title='Select Content Type'
-          showBorder={false}
-          showDivider={false}
-          theme={'dark'}
-          titleUpperCase
-          content={renderSelect()}
-        />
-      ) : renderSelect()
+      <ContentWithTitle
+        title='Select Content Type'
+        showBorder={false}
+        showDivider={false}
+        theme={'dark'}
+        titleUpperCase
+        content={renderSelect()}
+      />
+    ) : renderSelect()
   }
 
   renderCodeAndResponse() {
@@ -311,7 +311,7 @@ class Doc extends React.Component {
         oas={this.oas}
         operation={this.getOperation()}
         formData={this.state.formData}
-        onChange={(e) => this.onChange(e)}
+        onChange={this.onChange}
         onSubmit={this.onSubmit}
       />
     );
