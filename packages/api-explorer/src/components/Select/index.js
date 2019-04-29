@@ -2,7 +2,6 @@ import React from 'react'
 import { Select as SelectComponent } from 'antd'
 
 export default class Select extends React.PureComponent {
-
   render() {
     const { options, value, onChange } = this.props
     return (
