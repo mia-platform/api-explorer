@@ -293,12 +293,11 @@ class Doc extends React.Component {
         oas={this.oas}
         operation={this.getOperation()}
         formData={this.state.formData}
-        selectedContentType={this.state.selectedContentType}
         onChange={(e) => {
-            if (e.contentType !== undefined) {
-              this.setState({selectedContentType: e.contentType})
-              return
-            }
+            // if (e.contentType !== undefined) {
+            //   this.setState({selectedContentType: e.contentType})
+            //   return
+            // }
             this.onChange(e)
           }
         }
