@@ -45,10 +45,7 @@ class Params extends Component{
         <Select 
           options={list}
           value={selectedContentType}
-          onChange={(e) => {
-            console.log('CHANGED CONTENT TYPE', e);
-            return onChange({contentType: e})
-          }} 
+          onChange={(e) => onChange({contentType: e})} 
         />
         <Form
           key={`${schema.type}-form`}
