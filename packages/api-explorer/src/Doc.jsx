@@ -107,13 +107,30 @@ class Doc extends React.Component {
     this.setState({ showEndpoint: true });
   }
 
-  renderContentTypeSelect() {
+  renderContentTypeSelect(showTitle = false) {
     const list = getContentTypeFromOperation(this.getOperation())
-    return (<Select
-      value={this.state.selectedContentType}
-      options={list}
-      onChange={(e) => this.setState({selectedContentType: e})} 
-    />)
+    const renderSelect = () => {
+      return (<Select
+        value={this.state.selectedContentType}
+        options={list}
+        onChange={(e) => this.setState({selectedContentType: e})} 
+      />)
+    }
+
+    return (
+      <Fragment>
+        {list && list.length !== 0 && showTitle ? (
+          <ContentWithTitle
+            title='Select Content Type'
+            showBorder={false}
+            showDivider={false}
+            theme={'dark'}
+            titleUpperCase
+            content={renderSelect()}
+          />
+        ) : renderSelect()}
+      </Fragment>
+    )
   }
 
   renderCodeAndResponse() {
@@ -122,6 +139,7 @@ class Doc extends React.Component {
       whiteSpace: 'pre-wrap',
       wordBreak: 'break-word',
     }
+
     return(
       // <div className="hub-reference-section hub-reference-section-code">
       <div style={{display: 'grid', gridGap: '8px'}}>
@@ -242,6 +260,7 @@ class Doc extends React.Component {
                   {this.renderPathUrl()}  
                   {this.renderDescription()}
                   {this.renderLogs()}
+                  {this.renderContentTypeSelect(true)}
                   {this.renderParams()}
                 </div>
               </div>
@@ -296,14 +315,7 @@ class Doc extends React.Component {
         oas={this.oas}
         operation={this.getOperation()}
         formData={this.state.formData}
-        onChange={(e) => {
-            // if (e.contentType !== undefined) {
-            //   this.setState({selectedContentType: e.contentType})
-            //   return
-            // }
-            this.onChange(e)
-          }
-        }
+        onChange={(e) => this.onChange(e)}
         onSubmit={this.onSubmit}
       />
     );
