@@ -117,20 +117,16 @@ class Doc extends React.Component {
       />)
     }
 
-    return (
-      <Fragment>
-        {list && list.length !== 0 && showTitle ? (
-          <ContentWithTitle
-            title='Select Content Type'
-            showBorder={false}
-            showDivider={false}
-            theme={'dark'}
-            titleUpperCase
-            content={renderSelect()}
-          />
-        ) : renderSelect()}
-      </Fragment>
-    )
+    return list && list.length !== 0 && showTitle ? (
+        <ContentWithTitle
+          title='Select Content Type'
+          showBorder={false}
+          showDivider={false}
+          theme={'dark'}
+          titleUpperCase
+          content={renderSelect()}
+        />
+      ) : renderSelect()
   }
 
   renderCodeAndResponse() {
