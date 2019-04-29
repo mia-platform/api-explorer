@@ -35,43 +35,41 @@ class Params extends Component{
       TextareaWidget,
       FileWidget,
     } = this.props
-    
-    return(
-      <Fragment>
-        <Form
-          key={`${schema.type}-form`}
-          id={`form-${operation.operationId}`}
-          idPrefix={operation.operationId}
-          schema={schema.schema}
-          style={{margin: 0}}
-          widgets={{
-            int64: UpDownWidget,
-            int32: UpDownWidget,
-            double: UpDownWidget,
-            float: UpDownWidget,
-            binary: FileWidget,
-            byte: TextWidget,
-            string: TextWidget,
-            uuid: TextWidget,
-            duration: TextWidget,
-            dateTime: DateTimeWidget,
-            integer: UpDownWidget,
-            json: TextareaWidget,
-            BaseInput,
-            SelectWidget,
-          }}
-          onSubmit={onSubmit}
-          formData={formData[schema.type]}
-          onChange={form => onChange({ [schema.type]: form.formData })}
-          fields={{
-            DescriptionField,
-            ArrayField,
-            SchemaField,
-          }}
-        >
-          <button type="submit" style={{ display: 'none' }} />
-        </Form>
-      </Fragment>
+
+    return (
+      <Form
+        key={`${schema.type}-form`}
+        id={`form-${operation.operationId}`}
+        idPrefix={operation.operationId}
+        schema={schema.schema}
+        style={{margin: 0}}
+        widgets={{
+          int64: UpDownWidget,
+          int32: UpDownWidget,
+          double: UpDownWidget,
+          float: UpDownWidget,
+          binary: FileWidget,
+          byte: TextWidget,
+          string: TextWidget,
+          uuid: TextWidget,
+          duration: TextWidget,
+          dateTime: DateTimeWidget,
+          integer: UpDownWidget,
+          json: TextareaWidget,
+          BaseInput,
+          SelectWidget,
+        }}
+        onSubmit={onSubmit}
+        formData={formData[schema.type]}
+        onChange={form => onChange({ [schema.type]: form.formData })}
+        fields={{
+          DescriptionField,
+          ArrayField,
+          SchemaField,
+        }}
+      >
+        <button type="submit" style={{ display: 'none' }} />
+      </Form>
     )
   }
 
