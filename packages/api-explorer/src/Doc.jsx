@@ -37,7 +37,7 @@ class Doc extends React.Component {
       needsAuth: false,
       result: null,
       showEndpoint: false,
-      selectedContentType: null
+      selectedContentType: undefined,
     };
     this.onChange = this.onChange.bind(this);
     this.oas = new Oas(this.props.oas, this.props.user);
@@ -108,11 +108,10 @@ class Doc extends React.Component {
 
   renderContentTypeSelect() {
     const list = getContentTypeFromOperation(this.getOperation())
-    return (<Select 
+    return (<Select
+      value={this.state.selectedContentType}
       options={list}
-      onChange={(e) => {
-        console.log(e); this.setState({selectedContentType: e})
-      }} 
+      onChange={(e) => this.setState({selectedContentType: e})} 
     />)
   }
 
@@ -294,7 +293,15 @@ class Doc extends React.Component {
         oas={this.oas}
         operation={this.getOperation()}
         formData={this.state.formData}
-        onChange={this.onChange}
+        selectedContentType={this.state.selectedContentType}
+        onChange={(e) => {
+            if (e.contentType !== undefined) {
+              this.setState({selectedContentType: e.contentType})
+              return
+            }
+            this.onChange(e)
+          }
+        }
         onSubmit={this.onSubmit}
       />
     );

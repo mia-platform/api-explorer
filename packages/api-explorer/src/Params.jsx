@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import ContentWithTitle from './components/ContentWithTitle'
+import Select from './components/Select'
 
 const PropTypes = require('prop-types');
 const Form = require('react-jsonschema-form').default;
@@ -19,6 +20,7 @@ const Oas = require('./lib/Oas');
 
 const { Operation } = Oas;
 const parametersToJsonSchema = require('./lib/parameters-to-json-schema');
+const getContentTypeFromOperation = require('./lib/get-content-type')
 
 class Params extends Component{
   
@@ -34,51 +36,60 @@ class Params extends Component{
       SchemaField,
       TextareaWidget,
       FileWidget,
+      selectedContentType,
     } = this.props
+    const list = getContentTypeFromOperation(operation)
 
     return(
-      <Form
-        key={`${schema.type}-form`}
-        id={`form-${operation.operationId}`}
-        idPrefix={operation.operationId}
-        schema={schema.schema}
-        style={{margin: 0}}
-        widgets={{
-          int64: UpDownWidget,
-          int32: UpDownWidget,
-          double: UpDownWidget,
-          float: UpDownWidget,
-          binary: FileWidget,
-          byte: TextWidget,
-          string: TextWidget,
-          uuid: TextWidget,
-          duration: TextWidget,
-          dateTime: DateTimeWidget,
-          integer: UpDownWidget,
-          json: TextareaWidget,
-          BaseInput,
-          SelectWidget,
-        }}
-        onSubmit={onSubmit}
-        formData={formData[schema.type]}
-        onChange={form => {
-          return onChange({ [schema.type]: form.formData });
-        }}
-        fields={{
-          DescriptionField,
-          ArrayField,
-          SchemaField,
-        }}
-      >
-        <button type="submit" style={{ display: 'none' }} />
-      </Form>
+      <Fragment>
+        <Select 
+          options={list}
+          value={selectedContentType}
+          onChange={(e) => {
+            console.log('CHANGED CONTENT TYPE', e);
+            return onChange({contentType: e})
+          }} 
+        />
+        <Form
+          key={`${schema.type}-form`}
+          id={`form-${operation.operationId}`}
+          idPrefix={operation.operationId}
+          schema={schema.schema}
+          style={{margin: 0}}
+          widgets={{
+            int64: UpDownWidget,
+            int32: UpDownWidget,
+            double: UpDownWidget,
+            float: UpDownWidget,
+            binary: FileWidget,
+            byte: TextWidget,
+            string: TextWidget,
+            uuid: TextWidget,
+            duration: TextWidget,
+            dateTime: DateTimeWidget,
+            integer: UpDownWidget,
+            json: TextareaWidget,
+            BaseInput,
+            SelectWidget,
+          }}
+          onSubmit={onSubmit}
+          formData={formData[schema.type]}
+          onChange={form => onChange({ [schema.type]: form.formData })}
+          fields={{
+            DescriptionField,
+            ArrayField,
+            SchemaField,
+          }}
+        >
+          <button type="submit" style={{ display: 'none' }} />
+        </Form>
+      </Fragment>
     )
   }
 
   render() {
     const {oas, operation} = this.props
     const jsonSchema = parametersToJsonSchema(operation, oas);
-
     return (
       jsonSchema &&
       jsonSchema.map((schema) => {
@@ -108,7 +119,12 @@ Params.propTypes = {
   SchemaField: PropTypes.func.isRequired,
   TextareaWidget: PropTypes.func.isRequired,
   FileWidget: PropTypes.func.isRequired,
+  selectedContentType: PropTypes.string,
 };
+
+Params.defaultProps = {
+  selectedContentType: undefined,
+}
 
 function createParams(oas) {
   const BaseInput = createBaseInput(oas);
