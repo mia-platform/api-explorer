@@ -56,6 +56,7 @@ class Doc extends React.Component {
       };
     });
   }
+
   onSubmit() {
     const operation = this.getOperation();
 
@@ -193,7 +194,8 @@ class Doc extends React.Component {
     )
   }
 
-  renderContentWithUpperTitle(title, content){
+  // eslint-disable-next-line class-methods-use-this
+  renderContentWithUpperTitle(title, content) {
     return(
       <ContentWithTitle
         title={title}
@@ -205,7 +207,8 @@ class Doc extends React.Component {
       />
     )
   }
-  renderDescription(){
+
+  renderDescription() {
     const {doc} = this.props
     return(
       <Fragment>
