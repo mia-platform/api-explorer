@@ -113,7 +113,7 @@ class Doc extends React.Component {
       return (<Select
         value={this.state.selectedContentType}
         options={list}
-        onChange={(e) => this.setState({selectedContentType: e})} 
+        onChange={value => this.setState({selectedContentType: value})} 
       />)
     }
 
