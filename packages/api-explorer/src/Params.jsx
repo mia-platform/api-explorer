@@ -1,6 +1,5 @@
 import React, {Component, Fragment} from 'react'
 import ContentWithTitle from './components/ContentWithTitle'
-import Select from './components/Select'
 
 const PropTypes = require('prop-types');
 const Form = require('react-jsonschema-form').default;
@@ -20,7 +19,6 @@ const Oas = require('./lib/Oas');
 
 const { Operation } = Oas;
 const parametersToJsonSchema = require('./lib/parameters-to-json-schema');
-const getContentTypeFromOperation = require('./lib/get-content-type')
 
 class Params extends Component{
   
@@ -36,17 +34,10 @@ class Params extends Component{
       SchemaField,
       TextareaWidget,
       FileWidget,
-      selectedContentType,
     } = this.props
-    const list = getContentTypeFromOperation(operation)
-
+    
     return(
       <Fragment>
-        <Select 
-          options={list}
-          value={selectedContentType}
-          onChange={(e) => onChange({contentType: e})} 
-        />
         <Form
           key={`${schema.type}-form`}
           id={`form-${operation.operationId}`}
@@ -116,12 +107,7 @@ Params.propTypes = {
   SchemaField: PropTypes.func.isRequired,
   TextareaWidget: PropTypes.func.isRequired,
   FileWidget: PropTypes.func.isRequired,
-  selectedContentType: PropTypes.string,
 };
-
-Params.defaultProps = {
-  selectedContentType: undefined,
-}
 
 function createParams(oas) {
   const BaseInput = createBaseInput(oas);
