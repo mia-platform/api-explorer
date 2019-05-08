@@ -2,6 +2,7 @@ form.rjsf {
   --field-tag-color: #efefef;
   --field-border-color: #d1d1d1;
   --custom-border-color: #e8e8e8;
+  --antd-primary-color: #40a9ff;
 }
 
 /* Add margin to left- and right-sides of RJSF component. */
@@ -265,15 +266,16 @@ form.rjsf .btn.btn-default:hover {
 form.rjsf .btn.btn-add {
   transform: rotate(45deg);
   font-weight: bold;
-  font-size: 11px;
-  color: rgb(76, 85, 90);
-  background: rgba(255, 255, 255, 0);
+  font-size: 15px;
+  color: white;
+  background: var(--antd-primary-color);
   margin-bottom: 1em;
+  border-radius: 100% !important;
 }
 
 form.rjsf .btn.btn-add::after {
   content: '✕';
-  font-size: 11px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -487,7 +489,7 @@ form.rjsf fieldset {
 }
 
 form.rjsf .form-group .array-item-add {
-  text-align: center;
+  padding-left: 10px;
 }
 
 /* Remove x button icon. */
