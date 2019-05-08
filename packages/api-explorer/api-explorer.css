@@ -3,6 +3,7 @@ form.rjsf {
   --field-border-color: #d1d1d1;
   --custom-border-color: #e8e8e8;
   --antd-primary-color: #40a9ff;
+  --trash-bin-red: #f5222d;
 }
 
 /* Add margin to left- and right-sides of RJSF component. */
@@ -266,16 +267,17 @@ form.rjsf .btn.btn-default:hover {
 form.rjsf .btn.btn-add {
   transform: rotate(45deg);
   font-weight: bold;
-  font-size: 15px;
+  font-size: 12px;
   color: white;
   background: var(--antd-primary-color);
   margin-bottom: 1em;
   border-radius: 100% !important;
+  padding: 2px 7px !important;
 }
 
 form.rjsf .btn.btn-add::after {
   content: '✕';
-  font-size: 15px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -499,6 +501,10 @@ form.rjsf .form-group .btn.array-item-remove::after {
 
 /* Add delete icon substituting all glyphicon remove with the trash bin. */
 form.rjsf .form-group button i.glyphicon.glyphicon-remove::after {
+  margin-top: 4px;
+  border: 1px solid var(--trash-bin-red);
+  padding: 8px 6px 4px 6px;
+  border-radius: 100%;
   content: url('./assets/delete.svg') !important; 
 }
 
