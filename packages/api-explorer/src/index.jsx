@@ -96,7 +96,7 @@ class ApiExplorer extends React.Component {
     
     const oasFromProps = this.props.oasFiles[apiSetting]
     let oas
-    if(oasFromProps){
+    if (oasFromProps) {
       const extensionDefault = Object.assign({}, extensions.defaults)
       const xSampleLanguages = extensionDefault[extensions.SAMPLES_LANGUAGES]
       oas = {
