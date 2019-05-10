@@ -270,18 +270,44 @@ describe('defaultOpen', () => {
   it('should pass defaultActiveKey a value (default behaviour)', () => {
     const explorer = mount(<ApiExplorer {...props} />);
     const collapse = explorer.find('Collapse')
-    expect(collapse.at(0).prop('defaultActiveKey')).toEqual(['0']);
+    expect(collapse.at(1).prop('defaultActiveKey')).toEqual(['0']);
   })
 
   it('should pass null to defaultActiveKey a value if property is false', () => {
     const explorer = mount(<ApiExplorer {...props} defaultOpen={false} />);
     const collapse = explorer.find('Collapse')
-    expect(collapse.at(0).prop('defaultActiveKey')).toEqual(null);
+    expect(collapse.at(1).prop('defaultActiveKey')).toEqual(null);
   })
 
   it('should pass a value to defaultActiveKey a value if property is true', () => {
     const explorer = mount(<ApiExplorer {...props} defaultOpen />);
     const collapse = explorer.find('Collapse')
-    expect(collapse.at(0).prop('defaultActiveKey')).toEqual(['0']);
+    expect(collapse.at(1).prop('defaultActiveKey')).toEqual(['0']);
+  })
+})
+
+describe('openDoc', () => {
+  it('should open panel 0 if none is provided (default behaviour)', () => {
+    const explorer = mount(<ApiExplorer {...props} />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(1).state().activeKey).toEqual(['0']);
+  })
+
+  it('should open specified panel', () => {
+    const explorer = mount(<ApiExplorer {...props} openDoc="3" />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(1).state().activeKey).toEqual(['3']);
+  })
+
+  it('should open specified panel', () => {
+    const explorer = mount(<ApiExplorer {...props} openDoc="5" />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(1).state().activeKey).toEqual(['5']);
+  })
+
+  it('should not open if defaultOpen is false', () => {
+    const explorer = mount(<ApiExplorer {...props} defaultOpen={false} openDoc="1" />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(1).state().activeKey).toEqual([]);
   })
 })

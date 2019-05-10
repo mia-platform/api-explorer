@@ -200,17 +200,18 @@ class ApiExplorer extends React.Component {
       borderRadius: 5,
       overflow: 'hidden',
     }
+
+    const defaultOpen = this.props.defaultOpen ? [this.props.openDoc !== '' ? `${this.props.openDoc}` : '0'] : null
     return (
       <div className={`is-lang-${this.state.language}`}>
         {this.props.showOnlyAPI ? null : this.renderDescription()}
         <div
           id="hub-reference"
-          className={`content-body hub-reference-sticky hub-reference-theme-${this.props.appearance
-            .referenceLayout}`}
+          className={`content-body hub-reference-sticky hub-reference-theme-${this.props.appearance.referenceLayout}`}
           style={{padding: 16}}
         >
           <Collapse
-            defaultActiveKey={this.props.defaultOpen ? ['0'] : null}
+            defaultActiveKey={defaultOpen}
             style={{background: 'none', border: 'none'}}
             accordion
           >
@@ -257,6 +258,7 @@ ApiExplorer.propTypes = {
   }),
   showOnlyAPI: PropTypes.bool,
   defaultOpen: PropTypes.bool,
+  openDoc: PropTypes.string,
 };
 
 ApiExplorer.defaultProps = {
@@ -273,6 +275,7 @@ ApiExplorer.defaultProps = {
   },
   showOnlyAPI: false,
   defaultOpen: true,
+  openDoc: '',
 };
 
 module.exports = props => (
