@@ -201,7 +201,8 @@ class ApiExplorer extends React.Component {
       overflow: 'hidden',
     }
 
-    const defaultOpen = this.props.defaultOpen ? [this.props.openDoc !== '' ? `${this.props.openDoc}` : '0'] : null
+    const defaultOpenDoc = this.props.defaultOpenDoc !== '' ? `${this.props.defaultOpenDoc}` : '0'
+    const defaultOpen = this.props.defaultOpen ? [defaultOpenDoc] : null
     return (
       <div className={`is-lang-${this.state.language}`}>
         {this.props.showOnlyAPI ? null : this.renderDescription()}
@@ -258,7 +259,7 @@ ApiExplorer.propTypes = {
   }),
   showOnlyAPI: PropTypes.bool,
   defaultOpen: PropTypes.bool,
-  openDoc: PropTypes.string,
+  defaultOpenDoc: PropTypes.string,
 };
 
 ApiExplorer.defaultProps = {
@@ -275,7 +276,7 @@ ApiExplorer.defaultProps = {
   },
   showOnlyAPI: false,
   defaultOpen: true,
-  openDoc: '',
+  defaultOpenDoc: '',
 };
 
 module.exports = props => (

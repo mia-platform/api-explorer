@@ -286,7 +286,7 @@ describe('defaultOpen', () => {
   })
 })
 
-describe('openDoc', () => {
+describe('defaultOpenDoc', () => {
   it('should open panel 0 if none is provided (default behaviour)', () => {
     const explorer = mount(<ApiExplorer {...props} />);
     const collapse = explorer.find('Collapse')
@@ -294,19 +294,19 @@ describe('openDoc', () => {
   })
 
   it('should open specified panel', () => {
-    const explorer = mount(<ApiExplorer {...props} openDoc="3" />);
+    const explorer = mount(<ApiExplorer {...props} defaultOpenDoc="3" />);
     const collapse = explorer.find('Collapse')
     expect(collapse.at(1).state().activeKey).toEqual(['3']);
   })
 
   it('should open specified panel', () => {
-    const explorer = mount(<ApiExplorer {...props} openDoc="5" />);
+    const explorer = mount(<ApiExplorer {...props} defaultOpenDoc="5" />);
     const collapse = explorer.find('Collapse')
     expect(collapse.at(1).state().activeKey).toEqual(['5']);
   })
 
   it('should not open if defaultOpen is false', () => {
-    const explorer = mount(<ApiExplorer {...props} defaultOpen={false} openDoc="1" />);
+    const explorer = mount(<ApiExplorer {...props} defaultOpen={false} defaultOpenDoc="1" />);
     const collapse = explorer.find('Collapse')
     expect(collapse.at(1).state().activeKey).toEqual([]);
   })
