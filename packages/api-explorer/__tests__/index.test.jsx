@@ -248,3 +248,20 @@ describe('auth', () => {
     expect(explorer.state('auth')).toEqual({ api_key: '7890', petstore_auth: '123456' });
   });
 });
+
+describe('showOnlyAPI', () => {
+  it('should render description if property is not provided (default behaviour)', () => {
+    const explorer = mount(<ApiExplorer {...props} />);
+    expect(explorer.exists('div#oas-initial-description')).toBe(true);
+  })
+
+  it('should not render description if property is provided', () => {
+    const explorer = mount(<ApiExplorer {...props} showOnlyAPI />);
+    expect(explorer.exists('div#oas-initial-description')).toBe(false);
+  })
+
+  it('should render description if property is provided with false value', () => {
+    const explorer = mount(<ApiExplorer {...props} showOnlyAPI={false} />);
+    expect(explorer.exists('div#oas-initial-description')).toBe(true);
+  })
+})
