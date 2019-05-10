@@ -215,7 +215,7 @@ class ApiExplorer extends React.Component {
             defaultActiveKey={defaultOpen}
             style={{background: 'none', border: 'none'}}
             accordion
-            onChange={this.props.onChange}
+            onChange={this.props.onDocChange}
           >
             {this.props.docs.map((doc, index) => (
               <Panel header={this.renderHeaderPanel(doc)} style={{...styleByMethod(doc.api.method), ...panelStyle}} key={index}>
@@ -261,7 +261,7 @@ ApiExplorer.propTypes = {
   showOnlyAPI: PropTypes.bool,
   defaultOpen: PropTypes.bool,
   defaultOpenDoc: PropTypes.string,
-  onChange: PropTypes.func,
+  onDocChange: PropTypes.func,
 };
 
 ApiExplorer.defaultProps = {
@@ -279,7 +279,7 @@ ApiExplorer.defaultProps = {
   showOnlyAPI: false,
   defaultOpen: true,
   defaultOpenDoc: '',
-  onChange: () => {},
+  onDocChange: () => {},
 };
 
 module.exports = props => (

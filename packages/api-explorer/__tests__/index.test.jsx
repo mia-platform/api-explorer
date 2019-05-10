@@ -312,10 +312,10 @@ describe('defaultOpenDoc', () => {
   })
 })
 
-describe('onChange', () => {
-  it('should call provided onChange', () => {
+describe('onDocChange', () => {
+  it('should be call if collapse#onChange is called', () => {
     const mock = jest.fn()
-    const explorer = mount(<ApiExplorer {...props} onChange={mock} />);
+    const explorer = mount(<ApiExplorer {...props} onDocChange={mock} />);
     const collapse = explorer.find('Collapse').at(1)
 
     // Simulate click by calling antd property.
