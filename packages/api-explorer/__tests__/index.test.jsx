@@ -311,3 +311,17 @@ describe('defaultOpenDoc', () => {
     expect(collapse.at(1).state().activeKey).toEqual([]);
   })
 })
+
+describe('onChange', () => {
+  it('should call provided onChange', () => {
+    const mock = jest.fn()
+    const explorer = mount(<ApiExplorer {...props} onChange={mock} />);
+    const collapse = explorer.find('Collapse').at(1)
+
+    // Simulate click by calling antd property.
+    collapse.props().onChange(4)
+
+    expect(mock).toBeCalled()
+    expect(mock).toBeCalledWith(4)
+  })
+})
