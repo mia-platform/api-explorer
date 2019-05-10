@@ -210,7 +210,7 @@ class ApiExplorer extends React.Component {
           style={{padding: 16}}
         >
           <Collapse
-            defaultActiveKey={['0']}
+            defaultActiveKey={this.props.defaultOpen ? ['0'] : null}
             style={{background: 'none', border: 'none'}}
             accordion
           >
@@ -256,6 +256,7 @@ ApiExplorer.propTypes = {
     defaultLocale: PropTypes.string,
   }),
   showOnlyAPI: PropTypes.bool,
+  defaultOpen: PropTypes.bool,
 };
 
 ApiExplorer.defaultProps = {
@@ -270,7 +271,8 @@ ApiExplorer.defaultProps = {
     locale: 'en',
     defaultLocale: 'en',
   },
-  showOnlyAPI: false
+  showOnlyAPI: false,
+  defaultOpen: true,
 };
 
 module.exports = props => (

@@ -265,3 +265,23 @@ describe('showOnlyAPI', () => {
     expect(explorer.exists('div#oas-initial-description')).toBe(true);
   })
 })
+
+describe('defaultOpen', () => {
+  it('should pass defaultActiveKey a value (default behaviour)', () => {
+    const explorer = mount(<ApiExplorer {...props} />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(0).prop('defaultActiveKey')).toEqual(['0']);
+  })
+
+  it('should pass null to defaultActiveKey a value if property is false', () => {
+    const explorer = mount(<ApiExplorer {...props} defaultOpen={false} />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(0).prop('defaultActiveKey')).toEqual(null);
+  })
+
+  it('should pass a value to defaultActiveKey a value if property is true', () => {
+    const explorer = mount(<ApiExplorer {...props} defaultOpen />);
+    const collapse = explorer.find('Collapse')
+    expect(collapse.at(0).prop('defaultActiveKey')).toEqual(['0']);
+  })
+})
