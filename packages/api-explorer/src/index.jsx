@@ -201,7 +201,7 @@ class ApiExplorer extends React.Component {
       overflow: 'hidden',
     }
 
-    const defaultOpenDoc = this.props.defaultOpenDoc !== '' ? `${this.props.defaultOpenDoc}` : '0'
+    const defaultOpenDoc = this.props.defaultOpenDoc ? this.props.defaultOpenDoc : '0'
     const defaultOpen = this.props.defaultOpen ? [defaultOpenDoc] : null
     return (
       <div className={`is-lang-${this.state.language}`}>
