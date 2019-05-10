@@ -61,10 +61,6 @@ function Demo({ fetchSwagger, status, docs, oas, oauth }) {
               defaults: [],
             }}
             glossaryTerms={[{ term: 'apiKey', definition: 'This is a definition' }]}
-            onChange={(id) => {
-              console.log('CHANGE', id);
-            }}
-            // openDoc={1}
           />
         )
       }
