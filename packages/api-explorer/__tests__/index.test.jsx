@@ -325,3 +325,10 @@ describe('onDocChange', () => {
     expect(mock).toBeCalledWith(4)
   })
 })
+
+describe('fallbackUrl', () => {
+  it('should default to empty string', () => {
+    const explorer = mount(<ApiExplorer {...props} />);
+    expect(explorer.prop('fallbackUrl')).toBe('')
+  })
+})

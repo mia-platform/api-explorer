@@ -262,6 +262,7 @@ ApiExplorer.propTypes = {
   defaultOpen: PropTypes.bool,
   defaultOpenDoc: PropTypes.string,
   onDocChange: PropTypes.func,
+  fallbackUrl: PropTypes.string,
 };
 
 ApiExplorer.defaultProps = {
@@ -280,6 +281,7 @@ ApiExplorer.defaultProps = {
   defaultOpen: true,
   defaultOpenDoc: '',
   onDocChange: () => {},
+  fallbackUrl: '',
 };
 
 module.exports = props => (
