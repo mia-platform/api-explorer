@@ -64,7 +64,7 @@ function renderUrl(oas, operation, fallbackUrl = '') {
   }
 
   const url = oas.servers && oas.servers.length > 0 ? oas.url() : fallbackUrl
-  return(
+  return (
     <div style={style.container}>
       <span>{url}</span>
       {splitPath(operation.path).map(part => (
@@ -103,13 +103,13 @@ function PathUrl({
   return (
     <div style={containerStyle}>
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-  
+
         <div style={{display: 'flex'}}>
           {renderOperationMethod(operation)}
 
           {renderUrl(oas, operation, fallbackUrl)}
         </div>
-          
+
         {oas[extensions.EXPLORER_ENABLED] && (
           <div style={{display: 'flex', alignItems: 'center'}}>
             <div style={{marginRight: 10}}>
