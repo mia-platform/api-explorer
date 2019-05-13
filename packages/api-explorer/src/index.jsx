@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react'
-import { Collapse, Tag } from 'antd';
+import { Collapse, Tag, Divider } from 'antd';
 import get from 'lodash.get'
 import extensions from '@mia-platform/oas-extensions'
 
@@ -169,10 +169,9 @@ class ApiExplorer extends React.Component {
     )
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderHeaderPanel(doc) {
-    const oas = this.getOas(doc)
     const swagger = doc.swagger
-
     const tagStyle = {
       textTransform: 'uppercase',
       color: colors.defaultTag,
@@ -182,10 +181,12 @@ class ApiExplorer extends React.Component {
     const method = <Tag color={colors[doc.api.method].border} style={tagStyle}>{doc.api.method}</Tag>
     return(
       <div>
-        {method} <b style={{color: colors.bold}}>
-          {oas && oas.servers && oas.servers[0].url}
+        {method}
+        <b style={{color: colors.bold}}>
           {swagger && swagger.path}
-        </b> {doc.title}
+        </b>
+        <Divider type="vertical" />
+        {doc.title}
       </div>    
     )
   }

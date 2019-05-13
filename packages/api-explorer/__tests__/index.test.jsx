@@ -355,7 +355,28 @@ describe('fallbackUrl', () => {
       />
     );
     const renderDocs = explorer.find('Doc')
-    console.log(renderDocs.props())
     expect(renderDocs.prop('fallbackUrl')).toEqual(fallback)
+  })
+})
+
+describe('CollapsePanel', () => {
+  it('should only show URI path', () => {
+    const explorer = mount(
+      <ApiExplorer
+        {...props}
+        docs={[{
+          _id: 1,
+          title: 'title',
+          slug: 'slug',
+          type: 'endpoint',
+          api: { method: 'get' },
+          swagger: { path: '/some-path' },
+          category: { apiSetting: 'api-setting' }
+        }]}
+      />
+    );
+
+    const panel = explorer.find('CollapsePanel div.ant-collapse-header b')
+    expect(panel.text).toEqual('/some-path')
   })
 })
