@@ -46,7 +46,7 @@ function renderOperationMethod(operation){
   )
 }
 
-function renderUrl(oas, operation){
+function renderUrl(oas, operation, fallbackUrl = '') {
   const style = {
     container: {
       color: colors.pathUrl,
@@ -62,18 +62,17 @@ function renderUrl(oas, operation){
       borderBottom: `1px solid ${colors.pathVariableBorder}`
     }
   }
+
+  const url = oas.servers && oas.servers.length > 0 ? oas.url() : fallbackUrl
   return(
-    oas.servers &&
-      oas.servers.length > 0 && (
-        <div style={style.container}>
-          <span>{oas.url()}</span>
-          {splitPath(operation.path).map(part => (
-            <span key={part.value} style={style[part.type]}>
-              {part.value}
-            </span>
-          ))}
-        </div>
-      )
+    <div style={style.container}>
+      <span>{url}</span>
+      {splitPath(operation.path).map(part => (
+        <span key={part.value} style={style[part.type]}>
+          {part.value}
+        </span>
+      ))}
+    </div>
   )
 }
 
@@ -91,7 +90,8 @@ function PathUrl({
   auth,
   onReset,
   showReset,
-  error
+  error,
+  fallbackUrl,
 }) {
   const containerStyle = {
     background: colors.pathUrlBackground,
@@ -107,7 +107,7 @@ function PathUrl({
         <div style={{display: 'flex'}}>
           {renderOperationMethod(operation)}
 
-          {renderUrl(oas, operation)}
+          {renderUrl(oas, operation, fallbackUrl)}
         </div>
           
         {oas[extensions.EXPLORER_ENABLED] && (
@@ -151,7 +151,8 @@ PathUrl.propTypes = {
   auth: PropTypes.shape({}),
   showReset: PropTypes.bool,
   onReset: PropTypes.func,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  fallbackUrl: PropTypes.string,
 };
 
 PathUrl.defaultProps = {
@@ -161,7 +162,8 @@ PathUrl.defaultProps = {
   auth: {},
   showReset: true,
   error: false,
-  onReset: () => {}
+  onReset: () => {},
+  fallbackUrl: '',
 };
 module.exports = PathUrl;
 module.exports.splitPath = splitPath;
