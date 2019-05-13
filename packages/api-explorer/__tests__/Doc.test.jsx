@@ -400,4 +400,21 @@ describe('fallbackUrl', () => {
     ).find('Doc');
     expect(doc.prop('fallbackUrl')).toBe('')
   })
+
+  it('should inject servers in oas if it has no server', () => {
+    const fallback = 'https://somexample.com/';
+    const clonedOas = Object.assign({}, oas);
+    delete clonedOas.servers;
+
+    const doc = mountWithIntl(
+      <IntlProvider>
+        <Doc
+          {...props}
+          oas={clonedOas}
+          fallbackUrl={fallback}
+        />
+      </IntlProvider>
+    ).find('Doc');
+    expect(doc.instance().oas.servers).toEqual([{url: fallback}])
+  })
 })
