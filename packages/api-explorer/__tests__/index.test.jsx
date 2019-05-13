@@ -377,6 +377,6 @@ describe('CollapsePanel', () => {
     );
 
     const panel = explorer.find('CollapsePanel div.ant-collapse-header b')
-    expect(panel.text).toEqual('/some-path')
+    expect(panel.text()).toEqual('/some-path')
   })
 })

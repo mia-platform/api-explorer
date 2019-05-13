@@ -34,7 +34,7 @@ const getContentTypeFromOperation = require('./lib/get-content-type')
 function Description({doc, suggestedEdits, baseUrl, intl}) {
   const description = intl.formatMessage({id: 'doc.description', defaultMessage: 'Description'})
   const decriptionNa = intl.formatMessage({id: 'doc.description.na', defaultMessage: 'Description not available'})
-  return(
+  return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
       {suggestedEdits && (
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
@@ -57,7 +57,7 @@ function Description({doc, suggestedEdits, baseUrl, intl}) {
         titleUpperCase
       />
     </div>
-    )
+  )
 }
 
 class Doc extends React.Component {

@@ -23,6 +23,13 @@ const props = {
   apiKey: '',
 };
 
+describe('fallbackUrl', () => {
+  it('should defaut to empty string', () => {
+    const pathUrl = shallow(<PathUrl {...props} />);
+    expect(pathUrl.prop('fallbackUrl')).toEqual('')
+  });
+})
+
 test('should display the path', () => {
   const pathUrl = shallow(<PathUrl {...props} />);
 
