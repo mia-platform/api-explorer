@@ -400,5 +400,4 @@ describe('fallbackUrl', () => {
     ).find('Doc');
     expect(doc.prop('fallbackUrl')).toBe('')
   })
-
 })

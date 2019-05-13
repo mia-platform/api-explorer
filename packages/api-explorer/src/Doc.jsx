@@ -359,6 +359,7 @@ class Doc extends React.Component {
         error={error}
         onReset={this.onAuthReset}
         showReset={this.state.auth !== null}
+        fallbackUrl={this.props.fallbackUrl}
       />
     );
   }
