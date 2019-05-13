@@ -390,3 +390,15 @@ test('should output with an error message if the endpoint fails to load', () => 
 
   expect(doc.find('ErrorBoundary').length).toBe(1);
 });
+
+describe('fallbackUrl', () => {
+  it('should default to empty string', () => {
+    const doc = mountWithIntl(
+      <IntlProvider>
+        <Doc {...props} />
+      </IntlProvider>
+    ).find('Doc');
+    expect(doc.prop('fallbackUrl')).toBe('')
+  })
+
+})

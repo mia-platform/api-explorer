@@ -327,8 +327,35 @@ describe('onDocChange', () => {
 })
 
 describe('fallbackUrl', () => {
+  const fallback = 'https://example.com'
+
   it('should default to empty string', () => {
     const explorer = mount(<ApiExplorer {...props} />);
     expect(explorer.prop('fallbackUrl')).toBe('')
+  })
+
+  it('should be provided to Doc children', () => {
+    const baseDoc = {
+      _id: 1,
+      title: 'title',
+      slug: 'slug',
+      type: 'endpoint',
+      category: {},
+      api: { method: 'get' },
+    };
+
+    const explorer = mount(
+      <ApiExplorer 
+        {...props}
+        fallbackUrl={fallback}
+        docs={[Object.assign({}, baseDoc, {
+          swagger: { path: '' },
+          category: { apiSetting: 'api-setting' } 
+        })]}
+      />
+    );
+    const renderDocs = explorer.find('Doc')
+    console.log(renderDocs.props())
+    expect(renderDocs.prop('fallbackUrl')).toEqual(fallback)
   })
 })

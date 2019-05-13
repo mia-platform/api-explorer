@@ -159,6 +159,7 @@ class ApiExplorer extends React.Component {
                   tryItMetrics={this.props.tryItMetrics}
                   auth={this.state.auth}
                   onAuthChange={this.onAuthChange}
+                  fallbackUrl={this.props.fallbackUrl}
                 />
               </SelectedAppContext.Provider>
             </GlossaryTermsContext.Provider>

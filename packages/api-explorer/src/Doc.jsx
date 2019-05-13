@@ -446,6 +446,7 @@ Doc.propTypes = {
   intl: PropTypes.shape({
     formatMessage: PropTypes.func.isRequired,
   }).isRequired,
+  fallbackUrl: PropTypes.string,
 };
 
 Doc.defaultProps = {
@@ -460,4 +461,5 @@ Doc.defaultProps = {
   Logs: undefined,
   user: undefined,
   baseUrl: '/',
+  fallbackUrl: '',
 };
