@@ -23,7 +23,7 @@ const props = {
   apiKey: '',
 };
 
-describe('fallbackUrl', () => {
+describe('PathUrl endpoint', () => {
   test('should display the oas path', () => {
     const pathUrl = shallow(<PathUrl {...props} />);
 
@@ -31,25 +31,6 @@ describe('fallbackUrl', () => {
       return node.type() === 'span' && node.text() === oas.servers[0].url;
     }).length).toBe(1);
   });
-
-  test('should display the oas path even if there is a fallback path', () => {
-    const fallback = 'http://thisis.the-fallback.com/'
-    const pathUrl = shallow(<PathUrl {...props} fallbackUrl={fallback} />);
-
-    expect(pathUrl.findWhere((node) => {
-      return node.type() === 'span' && node.text() === oas.servers[0].url;
-    }).length).toBe(1);
-  });
-
-  it('should display fallback if oas path is empty', () => {
-    const overwrittenProps = Object.assign({}, props, {oas: new Oas()})
-    const fallback = 'http://thisis.the-fallback.com/'
-    const pathUrl = shallow(<PathUrl {...overwrittenProps} fallbackUrl={fallback} />);
-
-    expect(pathUrl.findWhere((node) => {
-      return node.type() === 'span' && node.text() === fallback;
-    }).length).toBe(1);
-  })
 })
 
 describe('loading prop', () => {

@@ -76,7 +76,12 @@ class Doc extends React.Component {
       selectedContentType: undefined,
     };
     this.onChange = this.onChange.bind(this);
-    this.oas = new Oas(this.props.oas, this.props.user);
+    const oas = new Oas(this.props.oas, this.props.user);
+    if (!oas.servers || oas.servers.length === 0 && this.props.fallbackUrl) {
+      oas.servers = [{url: this.props.fallbackUrl}]
+    }
+    this.oas = oas;    
+
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleAuth = this.toggleAuth.bind(this);
     this.hideResults = this.hideResults.bind(this);
@@ -359,7 +364,6 @@ class Doc extends React.Component {
         error={error}
         onReset={this.onAuthReset}
         showReset={this.state.auth !== null}
-        fallbackUrl={this.props.fallbackUrl}
       />
     );
   }

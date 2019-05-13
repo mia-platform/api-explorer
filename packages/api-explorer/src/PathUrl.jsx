@@ -21,7 +21,7 @@ function splitPath(path) {
     });
 }
 
-function renderButtonTry(loading, onSubmit, error){
+function renderButtonTry(loading, onSubmit, error) {
   return(
     <Button 
       disabled={loading}
@@ -46,7 +46,7 @@ function renderOperationMethod(operation){
   )
 }
 
-function renderUrl(oas, operation, fallbackUrl = '') {
+function renderUrl(oas, operation) {
   const style = {
     container: {
       color: colors.pathUrl,
@@ -63,16 +63,17 @@ function renderUrl(oas, operation, fallbackUrl = '') {
     }
   }
 
-  const url = oas.servers && oas.servers.length > 0 ? oas.url() : fallbackUrl
   return (
-    <div style={style.container}>
-      <span>{url}</span>
-      {splitPath(operation.path).map(part => (
-        <span key={part.value} style={style[part.type]}>
-          {part.value}
-        </span>
+    oas.servers && oas.servers.length > 0 && (
+      <div style={style.container}>
+        <span>{oas.url()}</span>
+        {splitPath(operation.path).map(part => (
+          <span key={part.value} style={style[part.type]}>
+            {part.value}
+          </span>
       ))}
-    </div>
+      </div>
+    )
   )
 }
 
@@ -91,7 +92,6 @@ function PathUrl({
   onReset,
   showReset,
   error,
-  fallbackUrl,
 }) {
   const containerStyle = {
     background: colors.pathUrlBackground,
@@ -107,7 +107,7 @@ function PathUrl({
         <div style={{display: 'flex'}}>
           {renderOperationMethod(operation)}
 
-          {renderUrl(oas, operation, fallbackUrl)}
+          {renderUrl(oas, operation)} 
         </div>
 
         {oas[extensions.EXPLORER_ENABLED] && (
@@ -152,7 +152,6 @@ PathUrl.propTypes = {
   showReset: PropTypes.bool,
   onReset: PropTypes.func,
   error: PropTypes.bool,
-  fallbackUrl: PropTypes.string,
 };
 
 PathUrl.defaultProps = {
@@ -163,7 +162,6 @@ PathUrl.defaultProps = {
   showReset: true,
   error: false,
   onReset: () => {},
-  fallbackUrl: '',
 };
 module.exports = PathUrl;
 module.exports.splitPath = splitPath;
