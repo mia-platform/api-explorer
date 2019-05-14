@@ -178,12 +178,16 @@ class ApiExplorer extends React.Component {
       color: colors.defaultTag,
       fontWeight: 600,
     }
+    const uriStyle = {
+      color: colors.bold,
+      fontFamily: 'monospace',
+    }
 
     const method = <Tag color={colors[doc.api.method].border} style={tagStyle}>{doc.api.method}</Tag>
     return(
       <div>
         {method}
-        <b style={{color: colors.bold}}>
+        <b style={uriStyle}>
           {swagger && swagger.path}
         </b>
         <Divider type="vertical" />
