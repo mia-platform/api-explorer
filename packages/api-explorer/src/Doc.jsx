@@ -197,6 +197,7 @@ class Doc extends React.Component {
       color: 'white',
       whiteSpace: 'pre-wrap',
       wordBreak: 'break-word',
+      fontFamily: 'monospace',
     }
 
     return(
