@@ -62,6 +62,7 @@ function Demo({ fetchSwagger, status, docs, oas, oauth }) {
             }}
             fallbackUrl="https://example.test.com"
             glossaryTerms={[{ term: 'apiKey', definition: 'This is a definition' }]}
+            stripSlash={false}
           />
         )
       }
