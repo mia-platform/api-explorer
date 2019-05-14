@@ -194,7 +194,7 @@ class Doc extends React.Component {
 
   renderCodeAndResponse() {
     const definitionStyle = {
-      color: 'white',
+      color: colors.white,
       whiteSpace: 'pre-wrap',
       wordBreak: 'break-word',
       fontFamily: 'monospace',
