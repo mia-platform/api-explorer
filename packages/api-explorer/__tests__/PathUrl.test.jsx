@@ -42,7 +42,9 @@ describe('PathUrl endpoint', () => {
     }
     const pathUrl = mountWithIntl(<PathUrl {...clonedProps} />);
 
-    expect(pathUrl.find('div#oas-url').text()).toEqual(`${oas.servers[0].url}/store/inventory/`);
+    expect(pathUrl.findWhere((node) => {
+      return node.type() === 'div' && node.text() === `${oas.servers[0].url}/store/inventory/`;
+    }).length).toBe(1);
   })
 })
 
