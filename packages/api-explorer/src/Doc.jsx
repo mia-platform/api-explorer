@@ -104,7 +104,7 @@ class Doc extends React.Component {
     if (!isAuthReady(operation, auth || this.props.auth)) {
       this.setState({ showAuthBox: true });
       setTimeout(() => {
-        if (this.authInput) {
+        if (this.authInput && this.authInput.focus) {
           this.authInput.focus();
         }
         this.setState({ needsAuth: true });
