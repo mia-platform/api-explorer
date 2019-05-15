@@ -361,7 +361,6 @@ class Doc extends React.Component {
         authInputRef={el => {
           if (el) { 
             this.authInput = el
-            console.log('UPDATE REF', this.authInput)
           }
         }}
         auth={this.getCurrentAuth()}
