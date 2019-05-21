@@ -131,41 +131,27 @@ class ApiExplorer extends React.Component {
   }
 
   renderDoc(doc) {
-    const localizedMessages = messages[this.props.i18n.locale] || messages[this.props.i18n.defaultLocale]
     return (
-      <IntlProvider
-        locale={this.props.i18n.locale}
-        defaultLocale={this.props.i18n.defaultLocale}
-        messages={localizedMessages}
-      >
-        <VariablesContext.Provider value={this.props.variables}>
-          <OauthContext.Provider value={this.props.oauth}>
-            <GlossaryTermsContext.Provider value={this.props.glossaryTerms}>
-              <SelectedAppContext.Provider value={this.state.selectedApp}>
-                <Doc
-                  key={doc._id}
-                  doc={doc}
-                  oas={this.getOas(doc)}
-                  setLanguage={this.setLanguage}
-                  flags={this.props.flags}
-                  user={this.props.variables.user}
-                  Logs={this.props.Logs}
-                  baseUrl={this.props.baseUrl.replace(/\/$/, '')}
-                  appearance={this.props.appearance}
-                  language={this.state.language}
-                  oauth={this.props.oauth}
-                  suggestedEdits={false}
-                  tryItMetrics={this.props.tryItMetrics}
-                  auth={this.state.auth}
-                  onAuthChange={this.onAuthChange}
-                  fallbackUrl={this.props.fallbackUrl}
-                  stripSlash={this.props.stripSlash}
-                />
-              </SelectedAppContext.Provider>
-            </GlossaryTermsContext.Provider>
-          </OauthContext.Provider>
-        </VariablesContext.Provider>
-      </IntlProvider>)
+      <Doc
+        key={doc._id}
+        doc={doc}
+        oas={this.getOas(doc)}
+        setLanguage={this.setLanguage}
+        flags={this.props.flags}
+        user={this.props.variables.user}
+        Logs={this.props.Logs}
+        baseUrl={this.props.baseUrl.replace(/\/$/, '')}
+        appearance={this.props.appearance}
+        language={this.state.language}
+        oauth={this.props.oauth}
+        suggestedEdits={false}
+        tryItMetrics={this.props.tryItMetrics}
+        auth={this.state.auth}
+        onAuthChange={this.onAuthChange}
+        fallbackUrl={this.props.fallbackUrl}
+        stripSlash={this.props.stripSlash}
+      />
+    )
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -208,33 +194,49 @@ class ApiExplorer extends React.Component {
 
     const defaultOpenDoc = this.props.defaultOpenDoc ? this.props.defaultOpenDoc : '0'
     const defaultOpen = this.props.defaultOpen ? [defaultOpenDoc] : null
+    const localizedMessages = messages[this.props.i18n.locale] || messages[this.props.i18n.defaultLocale]
+    
     return (
-      <div className={`is-lang-${this.state.language}`}>
-        {this.props.showOnlyAPI ? null : this.renderDescription()}
-        <div
-          id="hub-reference"
-          className={`content-body hub-reference-sticky hub-reference-theme-${this.props.appearance.referenceLayout}`}
-          style={{padding: 16}}
-        >
-          <Collapse
-            defaultActiveKey={defaultOpen}
-            style={{background: 'none', border: 'none'}}
-            accordion
-            onChange={this.props.onDocChange}
-          >
-            {this.props.docs.map((doc, index) => (
-              <Panel 
-                header={this.renderHeaderPanel(doc)}
-                style={{...styleByMethod(doc.api.method), ...panelStyle}}
-                key={index}
-                forceRender={this.props.forcePanelRender}
-              >
-                {this.renderDoc(doc)}
-              </Panel>
-            ))}
-          </Collapse>
-        </div>
-      </div>
+      <IntlProvider
+        locale={this.props.i18n.locale}
+        defaultLocale={this.props.i18n.defaultLocale}
+        messages={localizedMessages}
+      >
+        <VariablesContext.Provider value={this.props.variables}>
+          <OauthContext.Provider value={this.props.oauth}>
+            <GlossaryTermsContext.Provider value={this.props.glossaryTerms}>
+              <SelectedAppContext.Provider value={this.state.selectedApp}>
+                <div className={`is-lang-${this.state.language}`}>
+                  {this.props.showOnlyAPI ? null : this.renderDescription()}
+                  <div
+                    id="hub-reference"
+                    className={`content-body hub-reference-sticky hub-reference-theme-${this.props.appearance.referenceLayout}`}
+                    style={{padding: 16}}
+                  >
+                    <Collapse
+                      defaultActiveKey={defaultOpen}
+                      style={{background: 'none', border: 'none'}}
+                      accordion
+                      onChange={this.props.onDocChange}
+                    >
+                      {this.props.docs.map((doc, index) => (
+                        <Panel 
+                          header={this.renderHeaderPanel(doc)}
+                          style={{...styleByMethod(doc.api.method), ...panelStyle}}
+                          key={index}
+                          forceRender={this.props.forcePanelRender}
+                        >
+                          {this.renderDoc(doc)}
+                        </Panel>
+                      ))}
+                    </Collapse>
+                  </div>
+                </div>
+              </SelectedAppContext.Provider>
+            </GlossaryTermsContext.Provider>
+          </OauthContext.Provider>
+        </VariablesContext.Provider>
+      </IntlProvider>
     );
   }
 }
