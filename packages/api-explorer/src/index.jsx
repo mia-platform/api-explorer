@@ -13,13 +13,9 @@ import it from "../i18n/it.json";
 import en from "../i18n/en.json";
 
 import colors from './colors'
+import './code-mirror.css'
 
-require('./code-mirror.css')
-
-addLocaleData([...itLocale, ...enLocale]);
-const messages = {
-  it, en,
-}
+import Doc from './Doc'
 
 const Panel = Collapse.Panel
 
@@ -32,10 +28,13 @@ const GlossaryTermsContext = require('@mia-platform/markdown/contexts/GlossaryTe
 const SelectedAppContext = require('@mia-platform/variable/contexts/SelectedApp');
 const markdown = require('@mia-platform/markdown');
 
-const ErrorBoundary = require('./ErrorBoundary');
-const Doc = require('./Doc');
-
 const getAuth = require('./lib/get-auth');
+const ErrorBoundary = require('./ErrorBoundary');
+
+addLocaleData([...itLocale, ...enLocale]);
+const messages = {
+  it, en,
+}
 
 function getDescription(oasFiles){
   return get(oasFiles, 'api-setting.info.description')
@@ -166,8 +165,7 @@ class ApiExplorer extends React.Component {
             </GlossaryTermsContext.Provider>
           </OauthContext.Provider>
         </VariablesContext.Provider>
-      </IntlProvider>
-    )
+      </IntlProvider>)
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -225,10 +223,15 @@ class ApiExplorer extends React.Component {
             onChange={this.props.onDocChange}
           >
             {this.props.docs.map((doc, index) => (
-              <Panel header={this.renderHeaderPanel(doc)} style={{...styleByMethod(doc.api.method), ...panelStyle}} key={index}>
+              <Panel 
+                header={this.renderHeaderPanel(doc)}
+                style={{...styleByMethod(doc.api.method), ...panelStyle}}
+                key={index}
+                forceRender={this.props.forcePanelRender}
+              >
                 {this.renderDoc(doc)}
               </Panel>
-          ))}
+            ))}
           </Collapse>
         </div>
       </div>
@@ -271,6 +274,7 @@ ApiExplorer.propTypes = {
   onDocChange: PropTypes.func,
   fallbackUrl: PropTypes.string,
   stripSlash: PropTypes.bool,
+  forcePanelRender: PropTypes.bool,
 };
 
 ApiExplorer.defaultProps = {
@@ -291,6 +295,7 @@ ApiExplorer.defaultProps = {
   onDocChange: () => {},
   fallbackUrl: '',
   stripSlash: true,
+  forcePanelRender: false,
 };
 
 module.exports = props => (
