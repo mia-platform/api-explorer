@@ -4,7 +4,6 @@
   "version": "5.4.2",
   "main": "dist/index.js",
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@mia-platform/markdown": "^5.0.4",
     "@mia-platform/oas-extensions": "^5.1.0",
     "@mia-platform/syntax-highlighter": "^5.0.4",
@@ -68,6 +67,7 @@
   },
   "peerDependencies": {
     "antd": "3.16.x",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "react": "^16.8.6"
   }
 }
