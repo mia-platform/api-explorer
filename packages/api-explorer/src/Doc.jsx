@@ -87,6 +87,11 @@ class Doc extends React.Component {
     this.waypointEntered = this.waypointEntered.bind(this);
     this.Params = createParams(this.oas);
     this.onAuthReset = this.onAuthReset.bind(this)
+
+    const list = getContentTypeFromOperation(this.getOperation())
+    if (list && list.length > 0) {
+      this.state.selectedContentType = list[0]
+    }
   }
 
   onChange(formData) {
@@ -99,7 +104,7 @@ class Doc extends React.Component {
   }
 
   onSubmit() {
-    const {auth} = this.state
+    const {auth, selectedContentType} = this.state
     const operation = this.getOperation();
     if (!isAuthReady(operation, auth || this.props.auth)) {
       this.setState({ showAuthBox: true });
@@ -115,8 +120,7 @@ class Doc extends React.Component {
 
     const har = oasToHar(this.oas, operation, this.state.formData, auth || this.props.auth, {
       proxyUrl: true,
-    });
-
+    }, selectedContentType);
     return fetchHar(har).then(async res => {
       this.props.tryItMetrics(har, res);
 

@@ -1250,6 +1250,31 @@ describe('content-type & accept header', () => {
       ).log.entries[0].request.headers,
     ).toEqual([{ name: 'Content-Type', value: 'application/json' }]);
   });
+
+  it('should properly generate multipart body with multipart/form-data content-type header', () => {
+    const har = oasToHar(oas, {
+      path: '/body',
+      method: 'get',
+      requestBody: {
+        content: {
+          'multipart/form-data': {
+            schema: {
+              type: 'object',
+              properties: {
+                a: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+      },
+    }, {formData: {
+      'k': 'v',
+      'some': 'file',
+    }}, {}, {}, 'multipart/form-data')
+    expect(har.text).toEqual('invalid')
+  })
 });
 
 describe('x-headers', () => {
