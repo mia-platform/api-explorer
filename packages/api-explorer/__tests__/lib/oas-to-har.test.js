@@ -1252,6 +1252,10 @@ describe('content-type & accept header', () => {
   });
 
   it('should properly generate multipart body with multipart/form-data content-type header', () => {
+    const now = Date.now()
+    const dateNow = Date.now
+
+    Date.now = jest.fn(() => now)
     const har = oasToHar(oas, {
       path: '/body',
       method: 'get',
@@ -1270,12 +1274,18 @@ describe('content-type & accept header', () => {
         },
       },
     }, {formData: {
-      'k': 'v',
-      'some': 'file',
+      'some': 'data:xx;filename=myfile.jpeg;base64,the-data',
     }}, {}, {}, 'multipart/form-data')
-    expect(har.text).toEqual('invalid')
+    const req = har.log.entries[0]
+    expect(req.request.postData.text)
+      .toEqual(
+        `--${now}\r\nContent-Disposition: form-data; name="some"; filename="myfile.jpeg"\r\n\r\nthe-data\r\n--${now}--\r\n`
+      )
+
+    Date.now = dateNow
   })
-});
+})
+
 
 describe('x-headers', () => {
   it('should append any static headers to the request', () => {

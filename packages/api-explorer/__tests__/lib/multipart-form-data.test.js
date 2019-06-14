@@ -2,8 +2,7 @@
  * Copyright © 2019-present Mia s.r.l.
  * All rights reserved
  */
-import MultipartFormData, { stringifyFormData } from "../../src/lib/multipart-form-data";
-import { b64toBlob } from "../../src/lib/fetch-multipart";
+import MultipartFormData from "../../src/lib/multipart-form-data";
 
 describe('MultipartFormData', () => {
   const now = Date.now()
