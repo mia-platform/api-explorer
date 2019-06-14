@@ -11,6 +11,7 @@ import fetchHar from 'fetch-har'
 import {get} from 'lodash'
 import extensions from '@mia-platform/oas-extensions'
 
+import fetchMultipart from './lib/fetch-multipart'
 import oasToHar from './lib/oas-to-har'
 import isAuthReady from './lib/is-auth-ready'
 
@@ -121,20 +122,28 @@ class Doc extends React.Component {
     const har = oasToHar(this.oas, operation, this.state.formData, auth || this.props.auth, {
       proxyUrl: true,
     }, selectedContentType);
-    return fetchHar(har).then(async res => {
-      this.props.tryItMetrics(har, res);
 
-      this.setState({
-        loading: false,
-        result: await parseResponse(har, res),
-        error: false
+    const switchFetchOnContentType = (contentType) => {
+      if (contentType === 'multipart/form-data') {
+        return fetchMultipart(har, this.state.formData)
+      }
+      return fetchHar(har)
+    }
+    switchFetchOnContentType(selectedContentType)
+      .then(async res => {
+        this.props.tryItMetrics(har, res);
+
+        this.setState({
+          loading: false,
+          result: await parseResponse(har, res),
+          error: false
+        });
+      }).catch(() => {
+        this.setState({
+          loading: false,
+          error: true
+        })
       });
-    }).catch(() => {
-      this.setState({
-        loading: false,
-        error: true
-      })
-    });
   }
 
   onAuthChange(auth) {

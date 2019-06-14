@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2019-present Mia s.r.l.
+ * All rights reserved
+ */
 function MultipartFormData() {
   this.parts = {};
 };
@@ -12,10 +16,6 @@ MultipartFormData.prototype.generate = function generate() {
 
   Object.keys(this.parts).forEach((partKey) => {
     const part = this.parts[partKey]
-    console.log(part.data)
-    
-    // part.data = new Buffer(part.data) // .toString('base64');
-    // const actualData = part.data.split('base64,')[1]
 
     bodyParts.push(
       `--${boundary}`,
@@ -27,7 +27,6 @@ MultipartFormData.prototype.generate = function generate() {
     }
     
     bodyParts.push(
-      // 'Content-Transfer-Encoding: base64',
       '',
       part.data);
   });

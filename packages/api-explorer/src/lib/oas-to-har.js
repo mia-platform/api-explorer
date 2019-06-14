@@ -172,43 +172,34 @@ module.exports = (
   }
 
   if (schema.schema && Object.keys(schema.schema).length) {
-    // If there is formData, then the type can be application/x-www-form-urlencoded or multipart/form-data
+    // If there is formData, then the type can be application/x-www-form-urlencoded or
+    // multipart/form-data. For the latter we're still going to generate the har information
+    // used in the code snippet but the actual request will be generated in another lib file.
     if (Object.keys(formData.formData).length) {
       if (contentType === 'multipart/form-data') {
-        console.log('MULTIPART FORM DATA', formData.formData)
-        // const data = new FormData()
         const data = new MultipartFormData()
-        // const data = []
         Object.keys(formData.formData).forEach((key) => {
-          // Skip undefined
-          if (formData.formData[key] !== undefined) {
-            // data.append(key, formData.formData[key])
-            const dataString = formData.formData[key]
-            
+          const dataString = formData.formData[key]
+          if (dataString !== undefined) {
             // Explode data string
             const actualData = dataString.split('base64,')[1]
             const type = dataString.split(';')[0].split('=')[1]
             const filename = dataString.split(';')[1].split('=')[1]
-
             data.append(key, {
-              data: actualData, // atob(actualData),
-              filename,
+              data: actualData,
               contentType: type,
+              filename,
             })
-            // data.concat({
-            //   "name": key,
-            //   "value": formData.formData[key],
-            // })
           }
         })
+
         const multipartData = data.generate()
-        // console.log(data.toString())
         har.postData.text = multipartData.body
+
         // WARNING! I'm updating the provided contentType argument, this is bad practice
         // but as of now it's the only way to push forward the updated Content-Type value
         // featuring the boundary. 
         contentType = multipartData.headers['Content-Type'] // eslint-disable-line
-        // har.postData.text = data.toString() // .get()
       } else {
         har.postData.text = querystring.stringify(formData.formData);
       }

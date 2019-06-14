@@ -1,4 +1,9 @@
-import MultipartFormData from "../../src/lib/multipart-form-data";
+/*
+ * Copyright © 2019-present Mia s.r.l.
+ * All rights reserved
+ */
+import MultipartFormData, { stringifyFormData } from "../../src/lib/multipart-form-data";
+import { b64toBlob } from "../../src/lib/fetch-multipart";
 
 describe('MultipartFormData', () => {
   const now = Date.now()
@@ -10,7 +15,7 @@ describe('MultipartFormData', () => {
 
   afterAll(() => { Date.now = dateNow })
 
-  it('shold append new pieces', () => {
+  it('should append new pieces', () => {
     const form = new MultipartFormData()
 
     form.append('part1', 'some_text')
@@ -31,28 +36,23 @@ describe('MultipartFormData', () => {
     form.append('part1', part1)
     form.append('part2', part2)
 
-    const data1 = new Buffer(part1.data).toString('base64')
-    const data2 = new Buffer(part2.data).toString('base64')
-
     const out = form.generate()
     expect(Date.now).toHaveBeenCalled()
     expect(out.headers['Content-Type']).toEqual(`multipart/form-data; boundary=${now}`)
 
     const bodyParts = out.body.split('\r\n')
-    expect(bodyParts.length).toEqual(14)
+    expect(bodyParts.length).toEqual(12)
     expect(bodyParts[0]).toEqual(`--${now}`)
     expect(bodyParts[1]).toEqual(`Content-Disposition: form-data; name="part1"; filename="cat.jpeg"`)
     expect(bodyParts[2]).toEqual('Content-Type: binary')
-    expect(bodyParts[3]).toEqual('Content-Transfer-Encoding: base64')
-    expect(bodyParts[4]).toEqual('')
-    expect(bodyParts[5]).toEqual(`${data1}`)
-    expect(bodyParts[6]).toEqual(`--${now}`)
-    expect(bodyParts[7]).toEqual(`Content-Disposition: form-data; name="part2"; filename="mouse.jpeg"`)
-    expect(bodyParts[8]).toEqual('Content-Type: application/json')
-    expect(bodyParts[9]).toEqual('Content-Transfer-Encoding: base64')
-    expect(bodyParts[10]).toEqual('')
-    expect(bodyParts[11]).toEqual(`${data2}`)
-    expect(bodyParts[12]).toEqual(`--${now}--`)
-    expect(bodyParts[13]).toEqual('')
+    expect(bodyParts[3]).toEqual('')
+    expect(bodyParts[4]).toEqual(`${part1.data}`)
+    expect(bodyParts[5]).toEqual(`--${now}`)
+    expect(bodyParts[6]).toEqual(`Content-Disposition: form-data; name="part2"; filename="mouse.jpeg"`)
+    expect(bodyParts[7]).toEqual('Content-Type: application/json')
+    expect(bodyParts[8]).toEqual('')
+    expect(bodyParts[9]).toEqual(`${part2.data}`)
+    expect(bodyParts[10]).toEqual(`--${now}--`)
+    expect(bodyParts[11]).toEqual('')
   })
 })
