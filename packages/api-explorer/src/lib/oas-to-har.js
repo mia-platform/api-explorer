@@ -178,9 +178,10 @@ module.exports = (
     if (Object.keys(formData.formData).length) {
       if (contentType === 'multipart/form-data') {
         const data = new MultipartFormData()
+
         Object.keys(formData.formData).forEach((key) => {
           const dataString = formData.formData[key]
-          if (dataString !== undefined) {
+          if (dataString) {
             // Explode data string
             const actualData = dataString.split('base64,')[1]
             const type = dataString.split(';')[0].split('=')[1]
