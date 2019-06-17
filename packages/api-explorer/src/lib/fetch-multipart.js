@@ -10,7 +10,7 @@ export const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
     const slice = byteCharacters.slice(offset, offset + sliceSize);
 
     const byteNumbers = new Array(slice.length);
-    for (let i = 0; i < slice.length; i++) {
+    for (let i = 0; i < slice.length; i++) { // eslint-disable-line no-plusplus
       byteNumbers[i] = slice.charCodeAt(i);
     }
 
@@ -57,7 +57,7 @@ const fetchMultipart = (har, formData) => {
     options.headers = request.headers
       .map(header => {
         if (header.name === 'Content-Type') {
-          return
+          return undefined
         }
         return { [header.name]: header.value };
       })

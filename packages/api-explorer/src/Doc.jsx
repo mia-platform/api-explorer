@@ -129,7 +129,8 @@ class Doc extends React.Component {
       }
       return fetchHar(har)
     }
-    switchFetchOnContentType(selectedContentType)
+
+    return switchFetchOnContentType(selectedContentType)
       .then(async res => {
         this.props.tryItMetrics(har, res);
 
