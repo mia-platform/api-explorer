@@ -30,6 +30,12 @@ export const createMultipartBody = (formData) => {
       return;
     }
     // Explode data string into component to be appended.
+    // NOTE: The data string is generaged by the FileInputWidget which reads a file using 
+    // FileReader.readAsUrl and prepending the filename information.
+    // The result is always in the form:
+    //    data:<type>;filename=<name>;base64,<data>
+    // e.g.
+    //    data:image/jpeg;filename=cat.jpen;base64,/9j/4AAQS...AD/2w==
     const actualData = dataString.split('base64,')[1];
     const filename = dataString.split(';')[1].split('=')[1];
     data.append(key, b64toBlob(actualData), filename);

@@ -133,10 +133,11 @@ class Doc extends React.Component {
     return switchFetchOnContentType(selectedContentType)
       .then(async res => {
         this.props.tryItMetrics(har, res);
+        const parsedResponse = await parseResponse(har, res)
 
         this.setState({
           loading: false,
-          result: await parseResponse(har, res),
+          result: parsedResponse,
           error: false
         });
       }).catch(() => {
