@@ -65,12 +65,6 @@ function ResponseMetadata({ result, intl }) {
       fontSize: 12,
       wordBreak: 'break-all'
     },
-    headerUnknownValue: {
-      fontWeight: '100',
-      fontSize: 12,
-      wordBreak: 'break-all',
-      color: colors.noValue
-    },
     headerRow: {
       display: 'flex',
       justifyContent: 'space-between',
