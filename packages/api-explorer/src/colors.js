@@ -32,5 +32,6 @@ export default {
   codeAndResponseBackground: 'rgb(51, 55, 58)',
   codeAndResponseBorder: '#0f0f0f',
   notJson: '#fff',
-  white: '#fff'
+  white: '#fff',
+  noValue: 'rgba(255,255,255,.8)'
 }

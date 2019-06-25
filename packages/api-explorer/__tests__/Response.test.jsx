@@ -5,6 +5,7 @@ const { shallow, mount } = require('enzyme');
 const petstore = require('./fixtures/petstore/oas');
 
 const Response = require('../src/components/Response');
+const ResponseMetadata = require('../src/components/Response/ResponseMetadata')
 const Oas = require('../src/lib/Oas');
 
 const { Operation } = Oas;
@@ -83,3 +84,151 @@ test('should show different component tabs based on state', () => {
   expect(doc.html().includes('Request Data')).toBe(true);
   expect(doc.html().includes(JSON.stringify({ b: 2 }))).toBe(true);
 });
+
+describe('renders ResponseMetadata correctly', () => {
+  test('renders 6 Meta if requestBody is set', (done) => {
+    const wrapper = mount(
+      <IntlProvider>
+        <Response
+          {...props}
+          result={{
+            status: 200,
+            responseBody: JSON.stringify({ a: 1 }),
+            requestBody: JSON.stringify({ b: 2 }),
+            requestHeaders: [],
+            method: 'post',
+            responseHeaders: [],
+          }}
+        />
+      </IntlProvider>
+    );
+    const doc = wrapper.find('Response');  
+    doc.instance().setTab('metadata');
+    doc.setState({
+      responseTab: 'metadata'
+    })
+    wrapper.update()
+    setTimeout(() => {
+      const metadata = wrapper.find(ResponseMetadata)
+      expect(metadata.find('Meta')).toHaveLength(6)
+      done()
+    })
+  })
+
+  test('renders 5 Meta if requestBody is not set', (done) => {
+    const wrapper = mount(
+      <IntlProvider>
+        <Response
+          {...props}
+          result={{
+            status: 200,
+            responseBody: JSON.stringify({ a: 1 }),
+            requestBody: null,
+            requestHeaders: [],
+            method: 'post',
+            responseHeaders: [],
+          }}
+        />
+      </IntlProvider>
+    );
+    const doc = wrapper.find('Response');  
+    doc.instance().setTab('metadata');
+    doc.setState({
+      responseTab: 'metadata'
+    })
+    wrapper.update()
+    setTimeout(() => {
+      const metadata = wrapper.find(ResponseMetadata)
+      expect(metadata.find('Meta')).toHaveLength(5)
+      done()
+    })
+  })
+
+  test('renders Response headers correctly', (done) => {
+    const resultResponseHeaders = [
+      {
+        name: 'header-1',
+        value: 'value-header-1'
+      }, {
+        name: 'header-2',
+        value: 'value-header-2'
+      }, {
+        name: 'header-3',
+        value: 'value-header-3'
+      }, {
+        name: 'header-no-value',
+        value: null
+      }
+    ]
+    const wrapper = mount(
+      <IntlProvider>
+        <Response
+          {...props}
+          result={{
+            status: 200,
+            responseBody: JSON.stringify({ a: 1 }),
+            requestBody: null,
+            requestHeaders: [],
+            method: 'post',
+            responseHeaders: resultResponseHeaders,
+          }}
+        />
+      </IntlProvider>
+    );
+    const doc = wrapper.find('Response');  
+    doc.instance().setTab('metadata');
+    doc.setState({
+      responseTab: 'metadata'
+    })
+    wrapper.update()
+    setTimeout(() => {
+      const metadata = wrapper.find(ResponseMetadata)
+      const responseHeaders = metadata.findWhere(node => node.prop('label') === 'Response Headers')
+      expect(responseHeaders).toHaveLength(1)
+      expect(responseHeaders.find('span')).toHaveLength(resultResponseHeaders.length*2)
+      expect(responseHeaders.html()).toMatchSnapshot()
+      done()
+    })
+  })
+
+  test('renders no-value if header field is empty', (done) => {
+    const resultResponseHeaders = [
+      {
+        name: 'header-no-value',
+        value: null
+      }
+    ]
+    const wrapper = mount(
+      <IntlProvider>
+        <Response
+          {...props}
+          result={{
+            status: 200,
+            responseBody: JSON.stringify({ a: 1 }),
+            requestBody: null,
+            requestHeaders: [],
+            method: 'post',
+            responseHeaders: resultResponseHeaders,
+          }}
+        />
+      </IntlProvider>
+    );
+    const doc = wrapper.find('Response');  
+    doc.instance().setTab('metadata');
+    doc.setState({
+      responseTab: 'metadata'
+    })
+    wrapper.update()
+    setTimeout(() => {
+      const metadata = wrapper.find(ResponseMetadata)
+      const responseHeaders = metadata.findWhere(node => node.prop('label') === 'Response Headers')
+      expect(responseHeaders).toHaveLength(1)
+      const spansHeader = responseHeaders.find('span')
+      expect(spansHeader).toHaveLength(2)
+      expect(spansHeader.at(0).text()).toEqual('header-no-value')
+      expect(spansHeader.at(1).text()).toEqual('no-value')
+      expect(responseHeaders.html()).toMatchSnapshot()
+      done()
+    })
+  })
+})
