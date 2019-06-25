@@ -1,4 +1,4 @@
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import colors from '../../colors'
 
@@ -112,17 +112,7 @@ function ResponseMetadata({ result, intl }) {
             return (
               <div style={style.headerRow}>
                 <span style={style.headerName}>{header.name}</span>
-                { 
-                  header.value ? <span style={style.headerValue}>{header.value}</span>
-                  : <FormattedMessage 
-                    id={'header.noValue'} 
-                    defaultMessage={'no-value'}
-                  >
-                    {
-                        noValue => <span style={style.headerUnknownValue}>{noValue}</span>
-                    }
-                  </FormattedMessage>
-                }
+                <span style={style.headerValue}>{header.value}</span>
               </div>
             )
           })}

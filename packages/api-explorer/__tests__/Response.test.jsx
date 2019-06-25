@@ -73,7 +73,7 @@ test('should show different component tabs based on state', () => {
   );
   expect(wrapper.find('ResponseBody').length).toBe(1);
 
-  const doc = wrapper.find('Response');  
+  const doc = wrapper.find(Response);  
   doc.instance().setTab('metadata');
 
   // I want to do the below assertion instead, but it's not working
@@ -102,8 +102,7 @@ describe('renders ResponseMetadata correctly', () => {
         />
       </IntlProvider>
     );
-    const doc = wrapper.find('Response');  
-    doc.instance().setTab('metadata');
+    const doc = wrapper.find(Response);  
     doc.setState({
       responseTab: 'metadata'
     })
@@ -131,8 +130,7 @@ describe('renders ResponseMetadata correctly', () => {
         />
       </IntlProvider>
     );
-    const doc = wrapper.find('Response');  
-    doc.instance().setTab('metadata');
+    const doc = wrapper.find(Response);  
     doc.setState({
       responseTab: 'metadata'
     })
@@ -175,8 +173,7 @@ describe('renders ResponseMetadata correctly', () => {
         />
       </IntlProvider>
     );
-    const doc = wrapper.find('Response');  
-    doc.instance().setTab('metadata');
+    const doc = wrapper.find(Response);  
     doc.setState({
       responseTab: 'metadata'
     })
@@ -186,47 +183,6 @@ describe('renders ResponseMetadata correctly', () => {
       const responseHeaders = metadata.findWhere(node => node.prop('label') === 'Response Headers')
       expect(responseHeaders).toHaveLength(1)
       expect(responseHeaders.find('span')).toHaveLength(resultResponseHeaders.length*2)
-      expect(responseHeaders.html()).toMatchSnapshot()
-      done()
-    })
-  })
-
-  test('renders no-value if header field is empty', (done) => {
-    const resultResponseHeaders = [
-      {
-        name: 'header-no-value',
-        value: null
-      }
-    ]
-    const wrapper = mount(
-      <IntlProvider>
-        <Response
-          {...props}
-          result={{
-            status: 200,
-            responseBody: JSON.stringify({ a: 1 }),
-            requestBody: null,
-            requestHeaders: [],
-            method: 'post',
-            responseHeaders: resultResponseHeaders,
-          }}
-        />
-      </IntlProvider>
-    );
-    const doc = wrapper.find('Response');  
-    doc.instance().setTab('metadata');
-    doc.setState({
-      responseTab: 'metadata'
-    })
-    wrapper.update()
-    setTimeout(() => {
-      const metadata = wrapper.find(ResponseMetadata)
-      const responseHeaders = metadata.findWhere(node => node.prop('label') === 'Response Headers')
-      expect(responseHeaders).toHaveLength(1)
-      const spansHeader = responseHeaders.find('span')
-      expect(spansHeader).toHaveLength(2)
-      expect(spansHeader.at(0).text()).toEqual('header-no-value')
-      expect(spansHeader.at(1).text()).toEqual('no-value')
       expect(responseHeaders.html()).toMatchSnapshot()
       done()
     })
