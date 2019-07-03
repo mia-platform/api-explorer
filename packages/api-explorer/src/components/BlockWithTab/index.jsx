@@ -36,7 +36,7 @@ export default function BlockWithTab({
       <ul style={{ ...style.ul, ...styleList }}>
         {items.map(item => {
           return (
-            <li key={item.value} style={{ ...styleItem, ...(item.value === selected ? styleSelected : {}), display: 'inline-block', }}>
+            <li key={item.value} style={{ ...styleItem, ...(item.value === selected ? styleSelected : {}), display: 'inline-block' }}>
               {
                 // eslint-disable-next-line jsx-a11y/href-no-hash
                 <a
