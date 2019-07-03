@@ -7,7 +7,6 @@ import {FormattedMessage, injectIntl} from 'react-intl'
 import PropTypes from 'prop-types'
 import {Icon} from 'antd'
 import fetchHar from 'fetch-har'
-
 import {get} from 'lodash'
 import extensions from '@mia-platform/oas-extensions'
 

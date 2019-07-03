@@ -3,37 +3,37 @@ import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl';
 
 import BlockWithTab from '../BlockWithTab'
-
-const ResponseSchema = require('../../ResponseSchema');
-const RequestSchema = require('../../RequestSchema');
+import ResponseSchema from '../../ResponseSchema';
+import RequestSchema from '../../RequestSchema';
+import colors from '../../colors'
 
 const styleList = {
   fontSize: '18px',
-  color: '#aeaeae',
+  color: colors.schemaTabSelectedItem,
   textTransform: 'uppercase',
-  borderBottom: `1px solid #ddd`,
+  borderBottom: `1px solid ${colors.schemaTabListBorder}`,
   fontWeight: 'bold',
   background: 'none',
   padding: 0
 }
 const styleSelectedItem = {
-  color: '#aeaeae',
+  color: colors.schemaTabSelectedItem,
   background: 'none',
-  borderBottom: '3px solid #aeaeae'
+  borderBottom: `3px solid ${colors.schemaTabSelectedItem}`
 }
 const styleLink = {
   color: 'inherit'
 }
 const styleItem = {
-  borderBottom: '3px solid rgba(255,255,255,0)',
-  color: '#c4c4c4'
+  borderBottom: `3px solid ${colors.schemaTabItemBorder}`,
+  color: colors.schemaTabItemColor
 }
 
 function renderMissingSchema(nameSchema) {
   return (
     <div style={{
       padding: 10,
-      background: '#ededed'
+      background: colors.schemaTabMissingSchemaBackground
     }}
     >
       <FormattedMessage id={`schemaTabs.missing.${nameSchema}`} />

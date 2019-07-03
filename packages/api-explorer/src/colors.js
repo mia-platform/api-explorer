@@ -33,5 +33,10 @@ export default {
   codeAndResponseBorder: '#0f0f0f',
   notJson: '#fff',
   white: '#fff',
-  jsonViewerBackground: '#ededed'
+  jsonViewerBackground: '#ededed',
+  schemaTabSelectedItem: '#aeaeae',
+  schemaTabItemColor: '#c4c4c4',
+  schemaTabItemBorder: 'rgba(255,255,255,0)',
+  schemaTabListBorder: '#ddd',
+  schemaTabMissingSchemaBackground: '#ededed'
 }

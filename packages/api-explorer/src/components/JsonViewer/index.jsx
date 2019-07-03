@@ -1,10 +1,9 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import PropTypes from 'prop-types'
+import ReactJson from 'react-json-view'
 
 import colors from '../../colors'
-
-const ReactJson = require('react-json-view').default
 
 export default function JsonViewer({ schema, missingMessage }) {
   return (
