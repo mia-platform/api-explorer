@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl';
 
@@ -8,9 +8,9 @@ const ResponseSchema = require('../../ResponseSchema');
 const RequestSchema = require('../../RequestSchema');
 
 const styleList = {
-  fontSize: '18px', 
-  color: '#aeaeae', 
-  textTransform: 'uppercase', 
+  fontSize: '18px',
+  color: '#aeaeae',
+  textTransform: 'uppercase',
   borderBottom: `1px solid #ddd`,
   fontWeight: 'bold',
   background: 'none',
@@ -42,59 +42,59 @@ function renderMissingSchema(nameSchema) {
 }
 export default class SchemaTabs extends Component {
 
-    constructor(props){
-      super(props)
-      this.state = {
-        selected: 'request'
-      }
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: 'request'
     }
+  }
 
-    renderResponseSchema() {
-        const {operation, oas} = this.props
-        return (
-          operation &&
-          operation.responses ? (
-            <ResponseSchema operation={operation} oas={oas} />
-          )
-          : renderMissingSchema('response')
+  renderResponseSchema() {
+    const { operation, oas } = this.props
+    return (
+      operation &&
+        operation.responses ? (
+          <ResponseSchema operation={operation} oas={oas} />
         )
-      }
-    
-    renderRequestSchema(){
-      const {operation, oas} = this.props
-      return (
-        operation &&
+        : renderMissingSchema('response')
+    )
+  }
+
+  renderRequestSchema() {
+    const { operation, oas } = this.props
+    return (
+      operation &&
         operation.requestBody ? (
           <RequestSchema operation={operation} oas={oas} />
         )
         : renderMissingSchema('request')
-      )
-    }
+    )
+  }
 
-    render(){
-      const {selected} = this.state
-        return (
-          <BlockWithTab
-            items={[{value: 'request', label: 'request'}, {value: 'response', label: 'response'}]}
-            selected={selected}
-            styleList={styleList}
-            styleSelectedItem={styleSelectedItem}
-            styleLink={styleLink}
-            styleItem={styleItem}
-            onClick={(item)=>{
-              this.setState({
-                selected: item
-              })
-            }}
-          >
-            {
-              selected === 'request' ? 
-                this.renderRequestSchema() :
-                this.renderResponseSchema()
-            }
-          </BlockWithTab>
-        )
-    }
+  render() {
+    const { selected } = this.state
+    return (
+      <BlockWithTab
+        items={[{ value: 'request', label: 'request' }, { value: 'response', label: 'response' }]}
+        selected={selected}
+        styleList={styleList}
+        styleSelectedItem={styleSelectedItem}
+        styleLink={styleLink}
+        styleItem={styleItem}
+        onClick={(item) => {
+          this.setState({
+            selected: item
+          })
+        }}
+      >
+        {
+          selected === 'request' ?
+            this.renderRequestSchema() :
+            this.renderResponseSchema()
+        }
+      </BlockWithTab>
+    )
+  }
 }
 
 SchemaTabs.propTypes = {

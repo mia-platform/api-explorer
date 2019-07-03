@@ -271,8 +271,6 @@ class Doc extends React.Component {
     );
   }
 
-  
-
   // eslint-disable-next-line class-methods-use-this
   renderContentWithUpperTitle(title, content) {
     return(
