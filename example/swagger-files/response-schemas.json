@@ -10,26 +10,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/anything/array-of-primitives": {
-      "get": {
-        "summary": "Array of primitives",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/anything/object": {
       "get": {
         "summary": "Object",
@@ -40,46 +20,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Object"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/anything/array-of-objects": {
-      "get": {
-        "summary": "Array of objects",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Object"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/anything/recursive": {
-      "get": {
-        "summary": "Recursive $ref lookup",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Node"
-                  }
                 }
               }
             }

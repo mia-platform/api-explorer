@@ -3,7 +3,16 @@ import PropTypes from 'prop-types'
 
 import colors from '../../colors'
 
-export default function BlockWithTab({items, selected, onClick, children}){
+export default function BlockWithTab({
+  items, 
+  selected, 
+  onClick, 
+  children, 
+  styleSelectedItem, 
+  styleList, 
+  styleLink,
+  styleItem
+}){
     const style = {
       selected: {
         background: colors.blockWithTabSelected
@@ -21,17 +30,18 @@ export default function BlockWithTab({items, selected, onClick, children}){
         color: colors.blockWithTabLink
       }
     }
+    const styleSelected = {...style.selected, ...styleSelectedItem}
     return(
       <Fragment>
-        <ul style={style.ul}>
+        <ul style={{...style.ul, ...styleList}}>
           {items.map(item => {
             return(
-              <li key={item.value} style={{...item.value === selected ? style.selected : {}, display: 'inline-block'}}>
+              <li key={item.value} style={{...styleItem, ...item.value === selected ? styleSelected : {}, display: 'inline-block', }}>
                 {
                 // eslint-disable-next-line jsx-a11y/href-no-hash
                   <a
                     href="#"
-                    style={style.a}
+                    style={{...style.a, ...styleLink}}
                     onClick={e => {
                     e.preventDefault();
                     onClick(item.value);
@@ -63,5 +73,15 @@ export default function BlockWithTab({items, selected, onClick, children}){
       ])
     ).isRequired,
     selected: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    styleList: PropTypes.object,
+    styleSelectedItem: PropTypes.object,
+    styleItem: PropTypes.object,
+    styleLink: PropTypes.object
+  }
+  BlockWithTab.defaultProps = {
+    styleSelectedItem: {},
+    styleList: {},
+    styleLink: {},
+    styleItem: {}
   }
