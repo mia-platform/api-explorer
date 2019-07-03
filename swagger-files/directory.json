@@ -1,12 +1,4 @@
 {
-  "aaaaa.json": {
-    "preferred": "8e7461abcf95e3a014f2ffc06c08b422d06460dd",
-    "versions": {
-      "8e7461abcf95e3a014f2ffc06c08b422d06460dd": {
-        "swaggerUrl": "swagger-files/aaaaa.json"
-      }
-    }
-  },
   "additional-properties.json": {
     "preferred": "1.0.0",
     "versions": {
