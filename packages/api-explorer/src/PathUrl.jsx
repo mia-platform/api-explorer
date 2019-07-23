@@ -69,10 +69,10 @@ function renderUrl(oas, operation) {
       <div style={style.container}>
         <span>{oas.url()}</span>
         {splitPath(operation.path).map(part => (
-          <span key={part.value} style={style[part.type]}>
+          <span key={`${part.value}-${part.type}-${Math.random()}`} style={style[part.type]}>
             {part.value}
           </span>
-      ))}
+        ))}
       </div>
     )
   )
