@@ -94,8 +94,9 @@ class Doc extends React.Component {
     }
   }
 
-  onChange(formData) {
+  onChange(change) {
     this.setState(previousState => {
+      const { formData } = change
       return {
         formData: Object.assign({}, previousState.formData, formData),
         dirty: true,
