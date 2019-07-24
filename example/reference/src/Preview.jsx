@@ -1,3 +1,4 @@
+// eslint-disable-file Error/react/prop-types
 const React = require('react');
 const PropTypes = require('prop-types');
 const extensions = require('../../../packages/oas-extensions/');
