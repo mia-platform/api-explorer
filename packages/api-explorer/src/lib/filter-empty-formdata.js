@@ -3,10 +3,10 @@
  * All rights reserved
  */
 
-const isSchemaValid = schema => schema && Object.keys(schema).length > 0
+const isSchemaUsable = schema => schema && Object.keys(schema).length > 0
 
 export function isRequired(key, schema) {
-  if (!isSchemaValid(schema)) {
+  if (!isSchemaUsable(schema)) {
     return false
   }
 
@@ -18,7 +18,7 @@ export function isRequired(key, schema) {
 }
 
 const getSubSchema = (key, schema) => {
-  if (!isSchemaValid(schema)) {
+  if (!isSchemaUsable(schema)) {
     return {}
   }
 
