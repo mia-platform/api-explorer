@@ -60,11 +60,11 @@ describe('filterEmptyFormData', () => {
   })
   
   it('keeps unchanged arrays with null content', () => {
-    const input = { body: { posizione: [null, null], __STATE__: 'DRAFT'}}
+    const input = { body: { someArray: [null, null], __STATE__: 'DRAFT'}}
     const result = filterEmptyFormData(input)
     expect(result).toEqual({
       body: {
-        posizione: [null, null],
+        someArray: [null, null],
         __STATE__: 'DRAFT'
       },
     })
