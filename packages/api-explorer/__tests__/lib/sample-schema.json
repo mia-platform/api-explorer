@@ -1,0 +1,2177 @@
+{
+  "type": "body",
+  "label": "Body Params",
+  "schema": {
+    "definitions": {
+      "components": {
+        "requestBodies": {
+          "Body": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "asField",
+                    "localField",
+                    "foreignField"
+                  ],
+                  "properties": {
+                    "fromQueryFilter": {
+                      "type": "object",
+                      "default": {},
+                      "format": ""
+                    },
+                    "toQueryFilter": {
+                      "type": "object",
+                      "default": {},
+                      "format": ""
+                    },
+                    "asField": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "localField": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "foreignField": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "fromProjectBefore": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "fromProjectAfter": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "toProjectBefore": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "toProjectAfter": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body2": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "total": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "plate": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "isLate": {
+                      "type": "boolean",
+                      "format": "",
+                      "enumNames": [
+                        "true",
+                        "false"
+                      ]
+                    },
+                    "orderDate": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                      "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                      "format": ""
+                    },
+                    "rider": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "user": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "position": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "minItems": 2,
+                      "maxItems": 3,
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body3": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                      "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                      "format": ""
+                    },
+                    "pIva": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "fiscalCode": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "city": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "address": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "minItems": 2,
+                      "maxItems": 3,
+                      "format": ""
+                    },
+                    "ficCode": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body4": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "startTime": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                      "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                      "format": ""
+                    },
+                    "endTime": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                      "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body5": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "image": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      },
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body6": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "nome": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "cognome": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "posizione": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "minItems": 2,
+                      "maxItems": 3,
+                      "format": ""
+                    },
+                    "immagine": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      },
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body7": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "startTime": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                      "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                      "format": ""
+                    },
+                    "capacity": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "duration": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "name": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body8": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "size": {
+                      "type": "number",
+                      "format": "float"
+                    },
+                    "location": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "file": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "PUBLIC",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body9": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "plate": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "format": ""
+                        },
+                        "isLate": {
+                          "type": "boolean",
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "orderDate": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                          "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                          "format": ""
+                        },
+                        "rider": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "user": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "position": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "format": "float"
+                          },
+                          "minItems": 2,
+                          "maxItems": 3,
+                          "format": ""
+                        },
+                        "plate.$.replace": {
+                          "type": "string",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "plate": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "isLate": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "orderDate": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "rider": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "user": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "position": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {
+                        "orderDate": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {
+                        "plate": {
+                          "type": "string",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body10": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body11": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "surname": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "date": {
+                      "type": "string",
+                      "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                      "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                      "format": ""
+                    },
+                    "position": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "minItems": 2,
+                      "maxItems": 3,
+                      "format": ""
+                    },
+                    "image": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      },
+                      "format": ""
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "skypeId": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "chat": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body12": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "startTime": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                          "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                          "format": ""
+                        },
+                        "endTime": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                          "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "startTime": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "endTime": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {
+                        "startTime": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "endTime": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body13": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                          "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                          "format": ""
+                        },
+                        "pIva": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "fiscalCode": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "city": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "address": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "format": "float"
+                          },
+                          "minItems": 2,
+                          "maxItems": 3,
+                          "format": ""
+                        },
+                        "ficCode": {
+                          "type": "string",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "pIva": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "fiscalCode": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "city": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "address": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "ficCode": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body14": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "size": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "location": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "file": {
+                          "type": "string",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "size": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "location": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "file": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {
+                        "size": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {
+                        "size": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body15": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "stateTo"
+                  ],
+                  "properties": {
+                    "stateTo": {
+                      "type": "string",
+                      "enum": [
+                        "PUBLIC",
+                        "TRASH",
+                        "DRAFT",
+                        "DELETED"
+                      ],
+                      "format": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "Body16": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "nome": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "cognome": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "posizione": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "format": "float"
+                          },
+                          "minItems": 2,
+                          "maxItems": 3,
+                          "format": ""
+                        },
+                        "immagine": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true
+                          },
+                          "format": ""
+                        },
+                        "immagine.$.replace": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        },
+                        "immagine.$.merge": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "nome": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "cognome": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "posizione": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "immagine": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {
+                        "immagine": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body17": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body18": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "image": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true
+                          },
+                          "format": ""
+                        },
+                        "image.$.replace": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        },
+                        "image.$.merge": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "image": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body19": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "ingredient": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "image": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      },
+                      "format": ""
+                    },
+                    "calories": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "__STATE__": {
+                      "default": "DRAFT",
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body20": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "ingredient": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "image": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true
+                          },
+                          "format": ""
+                        },
+                        "calories": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "image.$.replace": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        },
+                        "image.$.merge": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "ingredient": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "image": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "calories": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body21": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "startTime": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                          "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                          "format": ""
+                        },
+                        "capacity": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "duration": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "name": {
+                          "type": "string",
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "startTime": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "capacity": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "duration": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "name": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {
+                        "capacity": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "duration": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {
+                        "capacity": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "duration": {
+                          "type": "number",
+                          "format": "float"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {
+                        "startTime": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body22": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "$set": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "surname": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "date": {
+                          "type": "string",
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+                          "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+                          "format": ""
+                        },
+                        "position": {
+                          "type": "array",
+                          "items": {
+                            "type": "number",
+                            "format": "float"
+                          },
+                          "minItems": 2,
+                          "maxItems": 3,
+                          "format": ""
+                        },
+                        "image": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true
+                          },
+                          "format": ""
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "skypeId": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "chat": {
+                          "type": "string",
+                          "format": ""
+                        },
+                        "image.$.replace": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        },
+                        "image.$.merge": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$unset": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "surname": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "date": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "position": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "image": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "email": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "skypeId": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        },
+                        "chat": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$inc": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$mul": {
+                      "type": "object",
+                      "properties": {},
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$currentDate": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "boolean",
+                          "enum": [
+                            true
+                          ],
+                          "format": "",
+                          "enumNames": [
+                            "true",
+                            "false"
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    },
+                    "$push": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "format": ""
+                        }
+                      },
+                      "additionalProperties": false,
+                      "format": ""
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "Body23": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "asField",
+                    "localField",
+                    "foreignField"
+                  ],
+                  "properties": {
+                    "fromQueryFilter": {
+                      "type": "object",
+                      "default": {},
+                      "format": ""
+                    },
+                    "toQueryFilter": {
+                      "type": "object",
+                      "default": {},
+                      "format": ""
+                    },
+                    "asField": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "localField": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "foreignField": {
+                      "type": "string",
+                      "format": ""
+                    },
+                    "fromProjectBefore": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "fromProjectAfter": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "toProjectBefore": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "toProjectAfter": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "format": ""
+                    },
+                    "toMerge": {
+                      "type": "boolean",
+                      "default": false,
+                      "format": "",
+                      "enumNames": [
+                        "true",
+                        "false"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "securitySchemes": {
+          "APISecretHeader": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "secret",
+            "_key": "APISecretHeader"
+          }
+        }
+      }
+    },
+    "type": "object",
+    "properties": {
+      "$set": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "format": ""
+          },
+          "surname": {
+            "type": "string",
+            "format": ""
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,3})?(Z|[+-]\\d{2}:\\d{2}))?$",
+            "description": "\"date-time\" according with https://tools.ietf.org/html/rfc3339#section-5.6",
+            "format": ""
+          },
+          "position": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            },
+            "minItems": 2,
+            "maxItems": 3,
+            "format": ""
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "format": ""
+          },
+          "email": {
+            "type": "string",
+            "format": ""
+          },
+          "skypeId": {
+            "type": "string",
+            "format": ""
+          },
+          "chat": {
+            "type": "string",
+            "format": ""
+          },
+          "image.$.replace": {
+            "type": "object",
+            "additionalProperties": true,
+            "format": ""
+          },
+          "image.$.merge": {
+            "type": "object",
+            "additionalProperties": true,
+            "format": ""
+          }
+        },
+        "additionalProperties": false,
+        "format": ""
+      },
+      "$unset": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "surname": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "date": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "position": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "image": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "email": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "skypeId": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          },
+          "chat": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "format": ""
+      },
+      "$inc": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "format": ""
+      },
+      "$mul": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "format": ""
+      },
+      "$currentDate": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "format": "",
+            "enumNames": [
+              "true",
+              "false"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "format": ""
+      },
+      "$push": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "object",
+            "additionalProperties": true,
+            "format": ""
+          }
+        },
+        "additionalProperties": false,
+        "format": ""
+      }
+    },
+    "additionalProperties": false,
+    "format": ""
+  }
+}
