@@ -168,7 +168,7 @@ class ApiExplorer extends React.Component {
     }
 
     const colorStyle = colors[doc.api.method]
-    const borderColor = colorStyle ? colorStyle.border : colors.pathUrl
+    const borderColor = colorStyle ? colorStyle.border : colors.defaultBorder
     const method = <Tag color={borderColor} style={tagStyle}>{doc.api.method}</Tag>
     return(
       <div>
@@ -184,8 +184,8 @@ class ApiExplorer extends React.Component {
 
   render() {
     const styleByMethod = (method) => ({
-      backgroundColor: colors[method] ? colors[method].bg : colors.defaultTag, 
-      border: `1px solid ${colors[method] ? colors[method].border : colors.pathUrl}`,
+      backgroundColor: colors[method] ? colors[method].bg : colors.defaultBackground,
+      border: `1px solid ${colors[method] ? colors[method].border : colors.defaultBorder}`,
     })
 
     const panelStyle = {

@@ -43,7 +43,7 @@ function renderOperationMethod(operation) {
 
   return (
     <Tag 
-      color={colors[operation.method] ? colors[operation.method].border: colors.pathUrl}
+      color={colors[operation.method] ? colors[operation.method].border: colors.defaultBorder}
       style={tagStyle}
     >
       {operation.method}
