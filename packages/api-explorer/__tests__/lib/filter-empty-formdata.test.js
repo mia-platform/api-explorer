@@ -30,7 +30,7 @@ describe('filterEmptyFormData', () => {
     })
   })
   
-  test('filters objects into arrays', () => {
+  it('filters objects into arrays', () => {
     const input = {
       "body": [{
         "filter": {
