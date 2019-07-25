@@ -210,8 +210,8 @@ describe('x-explorer-enabled', () => {
 
 test('defaults should be applied on first render', done => {
   const defaultValue = 'this is a default value';
-  function onChange(change) {
-    const {formData} = change
+  function onChange(data) {
+    const {formData} = data
     expect(formData.body).toEqual({ a: defaultValue });
     return done();
   }

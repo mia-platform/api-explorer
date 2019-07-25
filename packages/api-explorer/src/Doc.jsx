@@ -97,9 +97,9 @@ class Doc extends React.Component {
     }
   }
 
-  onChange(change) {
+  onChange(data) {
     this.setState(previousState => {
-      const { schema, formData } = change
+      const { schema, formData } = data
       const filtered = filterEmptyFormData(clone(formData), schema ? schema.schema : {})
       return {
         formData: Object.assign({}, previousState.formData, filtered),

@@ -155,7 +155,7 @@ describe('filterEmptyFormData with schema', () => {
             c: {type: 'float'},
             d: {
               type: 'object',
-              properties: {},
+              additionalProperties: true,
             },
           },
           required: ['c', 'd']
@@ -195,7 +195,7 @@ describe('filterEmptyFormData with schema', () => {
             c: {type: 'float'},
             d: {
               type: 'object',
-              properties: {},
+              additionalProperties: true,
             },
           },
         },

@@ -29,7 +29,7 @@ const getSubSchema = (key, schema) => {
   return schema
 }
 
-const allUndefined = o => Object.entries(o).values(v => v !== undefined).length <= 0
+const allUndefined = o => Object.values(o).map(v => v !== undefined).length <= 0
 const shouldRecurse = (v) => v && typeof v === "object" && !Array.isArray(v) && Object.keys(v).length > 0 
 const shouldDelete = (v) => typeof v !== "boolean" && typeof v !== "number" && (v === null || v === undefined || Object.keys(v).length <= 0 || allUndefined(v))
 
