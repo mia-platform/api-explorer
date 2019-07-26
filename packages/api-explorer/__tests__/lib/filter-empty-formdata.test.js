@@ -29,6 +29,35 @@ describe('filterEmptyFormData', () => {
       }
     })
   })
+
+  it('filters objects with all null values', () => {
+    const input = {
+      body: {
+        $set: {
+          position: [123, 456],
+          "image.$.replace": {
+            key: null,
+          },
+          "image.$.merge": {}
+        },
+        $unset: {
+          anotherKey: null
+        },
+        $inc: {},
+        $mul: {},
+        $currentDate: {},
+        $push: {
+          image: {}
+        }
+      }
+    }
+    const result = filterEmptyFormData(input)
+    expect(result).toEqual({
+      body: {
+        $set: { position: [123, 456] },
+      }
+    })
+  })
   
   it('filters objects into arrays', () => {
     const input = {
