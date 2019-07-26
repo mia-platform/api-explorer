@@ -146,6 +146,30 @@ describe('filterEmptyFormData', () => {
     const result = filterEmptyFormData(input)
     expect(result).toEqual(input)
   })
+
+  it('does not filter empty strings', () => {
+    const input = {
+      body: [{
+        filter: {
+          _st: 'PUBLIC',
+          _id:'ff',
+          creatorId: 'a',
+          createdAt: 'b'
+        },
+        update: {
+          $set: {
+            name:'',
+            location:''
+          },
+          $unset: {
+            size: 123
+          }
+        }
+      }]
+    }
+    const result = filterEmptyFormData(input)
+    expect(result).toEqual(input)
+  })
 })
 
 describe('filterEmptyFormData with schema', () => {
