@@ -55,5 +55,9 @@ export default function Result({ result }) {
 }
 
 Result.propTypes = {
-  result: PropTypes.shape({}).isRequired,
+  result: PropTypes.shape({
+    isBinary: PropTypes.bool,
+    type: PropTypes.string,
+    responseBody: PropTypes.any,
+  }).isRequired,
 };
