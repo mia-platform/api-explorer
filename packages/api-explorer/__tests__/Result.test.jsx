@@ -1,8 +1,8 @@
 import React from 'react'
 import {shallowWithIntl as shallow} from 'enzyme-react-intl'
+import ReactJson from 'react-json-view';
 
 import Result from '../src/components/Response/Result';
-import ReactJson from 'react-json-view';
 
 describe('Result component', () => {
   const props = {
