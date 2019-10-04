@@ -11,8 +11,24 @@ const ResponseBody = require('./ResponseBody');
 const showCodeResults = require('../../lib/show-code-results');
 
 const Oas = require('../../lib/Oas');
+const CopyCode = require('../CopyCode');
 
 const { Operation } = Oas;
+const ctaContainerStyle = {
+  borderTop: '2px solid #fff',
+  display: 'flex',
+  flexDirection: 'row-reverse',
+  padding: '5px',
+  paddingRight: '10px',
+  paddingBottom: '0px',
+}
+const placeholderStyle = {
+  textAlign: 'center',
+  padding: '40px 0',
+  color: 'rgba(255,255,255,0.7)',
+  fontStyle: 'italic',
+  fontSize: '14px',
+}
 
 class Response extends React.Component {
   constructor(props) {
@@ -47,30 +63,23 @@ class Response extends React.Component {
         itemsResult.push({label: 'to examples', onClick: hideResults})
       }
     }
-    
-    const placeholderStyle = {
-      textAlign: 'center',
-      padding: '40px 0',
-      color: 'rgba(255,255,255,0.7)',
-      fontStyle: 'italic',
-      fontSize: '14px',
-    }
-   
+
     return (
       <div>
-        {
-          result !== null ? (
-            <BlockWithTab
-              items={itemsResult}
-              selected={responseTab}
-              onClick={this.setTab} 
-            >
-              <div style={{maxHeight: '400px', padding: '10px', overflow: 'hidden scroll'}}>
-                {responseTab === 'result' && <ResponseBody result={result} oauth={oauth} isOauth={!!securities.OAuth2} />}
-                {responseTab === 'metadata' && <ResponseMetadata result={result} />}
-              </div>
-            </BlockWithTab>
-          ) : (
+        {result !== null ? (
+          <BlockWithTab
+            items={itemsResult}
+            selected={responseTab}
+            onClick={this.setTab}
+          >
+            <div style={ctaContainerStyle}>
+              <CopyCode code={result.responseBody} />
+            </div>
+            <div style={{maxHeight: '400px', padding: '10px', overflow: 'hidden scroll'}}>
+              {responseTab === 'result' && <ResponseBody result={result} oauth={oauth} isOauth={!!securities.OAuth2} />}
+              {responseTab === 'metadata' && <ResponseMetadata result={result} />}
+            </div>
+          </BlockWithTab>) : (
             <div style={placeholderStyle}>
               <FormattedMessage id="tryit" defaultMessage="Try the API to see Results" />
             </div>
