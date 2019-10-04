@@ -134,7 +134,7 @@ describe('Response body', () => {
     };
     const responseBody = mount(<IntlProvider><ResponseBody {...binaryResponse} oas={oas} /></IntlProvider>);
 
-    const message = responseBody.find(FormattedMessage);
+    const message = responseBody.find(FormattedMessage).at(1);
     expect(message.prop('id')).toEqual('api.response.binary');
   });
 
@@ -221,7 +221,7 @@ describe('Response body', () => {
     };
     const responseBody = mount(<IntlProvider><ResponseBody {...nonOAuthInvalidResponse} oas={oas} /></IntlProvider>);
 
-    const message = responseBody.find(FormattedMessage);
+    const message = responseBody.find(FormattedMessage).at(1);
     expect(message.prop('id')).toEqual('api.auth.failed');
   });
 });
