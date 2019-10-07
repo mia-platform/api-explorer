@@ -67,6 +67,8 @@ class Response extends React.Component {
     const { result, operation, oauth, hideResults } = this.props;
     const { responseTab, collapse } = this.state;
     const securities = operation.prepareSecurity();
+
+    const isString = result && (typeof result.responseBody === 'string')
     const isJson = result && result.type &&
       contentTypeIsJson(result.type) &&
       typeof result.responseBody === 'object';
@@ -90,11 +92,11 @@ class Response extends React.Component {
             selected={responseTab}
             onClick={this.setTab}
           >
+            <CopyCode code={isString ? result.responseBody : JSON.stringify(result.responseBody)} />
             {!result.isBinary ? (
               <div style={ctaContainerStyle}>
                 {isJson ? (
                   <Fragment>
-                    <CopyCode code={JSON.stringify(result.responseBody)} />
                     <a href={''} className="mia-ctc-button" onClick={(e) => this.onCollapseAll(e)}>
                       <FormattedMessage id="code.collapseAll" defaultMessage="Collapse all" />
                     </a>
@@ -128,7 +130,6 @@ Response.propTypes = {
   oauth: PropTypes.bool.isRequired,
   hideResults: PropTypes.func.isRequired,
 };
-
 Response.defaultProps = {
   result: {},
   exampleResponses: [],
