@@ -44,7 +44,6 @@ class CodeSample extends React.Component {
     const ctaContainerStyle = {
       borderTop: '2px solid #fff',
       display: 'flex',
-      flexDirection: 'row-reverse',
       padding: '5px',
       paddingRight: '10px',
       paddingBottom: '0px',

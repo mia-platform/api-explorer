@@ -1,6 +1,9 @@
 import {FormattedMessage} from 'react-intl'
 import BlockWithTab from '../BlockWithTab'
 import IconStatus from '../../IconStatus'
+import fs from "fs";
+import path from "path";
+import { Fragment } from 'react';
 
 const React = require('react');
 
@@ -9,6 +12,7 @@ const PropTypes = require('prop-types');
 const ResponseMetadata = require('./ResponseMetadata');
 const ResponseBody = require('./ResponseBody');
 const showCodeResults = require('../../lib/show-code-results');
+const contentTypeIsJson = require('../../lib/content-type-is-json');
 
 const Oas = require('../../lib/Oas');
 const CopyCode = require('../CopyCode');
@@ -17,7 +21,7 @@ const { Operation } = Oas;
 const ctaContainerStyle = {
   borderTop: '2px solid #fff',
   display: 'flex',
-  flexDirection: 'row-reverse',
+  justifyContent: 'flex-end',
   padding: '5px',
   paddingRight: '10px',
   paddingBottom: '0px',
@@ -31,14 +35,28 @@ const placeholderStyle = {
 }
 
 class Response extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
       responseTab: 'result',
       exampleTab: 0,
+      collapse: undefined
     };
     this.setTab = this.setTab.bind(this);
     this.setExampleTab = this.setExampleTab.bind(this);
+    this.onCollapseAll = this.onCollapseAll.bind(this);
+    this.onExpandAll = this.onExpandAll.bind(this);
+  }
+
+  onCollapseAll (e) {
+    e.preventDefault()
+    this.setState({ collapse: true })
+  }
+
+  onExpandAll (e) {
+    e.preventDefault()
+    this.setState({ collapse: false })
   }
 
   setTab(selected) {
@@ -51,8 +69,12 @@ class Response extends React.Component {
 
   render() {
     const { result, operation, oauth, hideResults } = this.props;
-    const { responseTab } = this.state;
+    const { responseTab, collapse } = this.state;
     const securities = operation.prepareSecurity();
+    const isJson = result && result.type &&
+      contentTypeIsJson(result.type) &&
+      typeof result.responseBody === 'object';
+
     let itemsResult = []
     if (result) {
       itemsResult = [
@@ -64,6 +86,7 @@ class Response extends React.Component {
       }
     }
 
+    console.log(result)
     return (
       <div>
         {result !== null ? (
@@ -72,11 +95,23 @@ class Response extends React.Component {
             selected={responseTab}
             onClick={this.setTab}
           >
-            <div style={ctaContainerStyle}>
-              <CopyCode code={result.responseBody} />
-            </div>
+            {!result.isBinary ? (
+              <div style={ctaContainerStyle}>
+                <CopyCode code={JSON.stringify(result.responseBody)} />
+                {isJson ? (
+                  <Fragment>
+                    <a href={''} className="mia-ctc-button" onClick={(e) => this.onCollapseAll(e)}>
+                      <FormattedMessage id="code.collapseAll" defaultMessage="Collapse all" />
+                    </a>
+                    <a href={''} className="mia-ctc-button" onClick={(e) => this.onExpandAll(e)}>
+                      <FormattedMessage id="code.expandAll" defaultMessage="Expand all" />
+                    </a>
+                  </Fragment>
+                ) : null}
+              </div>
+            ) : null}
             <div style={{maxHeight: '400px', padding: '10px', overflow: 'hidden scroll'}}>
-              {responseTab === 'result' && <ResponseBody result={result} oauth={oauth} isOauth={!!securities.OAuth2} />}
+              {responseTab === 'result' && <ResponseBody result={result} oauth={oauth} isOauth={!!securities.OAuth2} isCollapse={collapse} />}
               {responseTab === 'metadata' && <ResponseMetadata result={result} />}
             </div>
           </BlockWithTab>) : (
