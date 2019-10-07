@@ -267,7 +267,11 @@ class Doc extends React.Component {
   renderResponse() {
     return (
       <Response
-        result={this.state.result}
+        result={{
+          isBinary: true,
+          responseBody: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/IKB_191.jpg',
+          type: 'image/jpg'
+        }} // this.state.result}
         operation={this.getOperation()}
         oauth={this.props.oauth}
         hideResults={this.hideResults}

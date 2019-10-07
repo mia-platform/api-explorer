@@ -1,11 +1,7 @@
+import React, {Fragment} from 'react'
 import {FormattedMessage} from 'react-intl'
 import BlockWithTab from '../BlockWithTab'
 import IconStatus from '../../IconStatus'
-import fs from "fs";
-import path from "path";
-import { Fragment } from 'react';
-
-const React = require('react');
 
 const PropTypes = require('prop-types');
 
@@ -86,7 +82,6 @@ class Response extends React.Component {
       }
     }
 
-    console.log(result)
     return (
       <div>
         {result !== null ? (

@@ -10,11 +10,6 @@ const syntaxHighlighter = require('@mia-platform/syntax-highlighter');
 const ReactJson = require('react-json-view').default;
 const contentTypeIsJson = require('../../lib/content-type-is-json');
 
-function onDownload (e, file) {
-  e.preventDefault()
-  window.open(file)
-}
-
 export default function Result({ result, isCollapse}) {
   const isJson =
     result.type && contentTypeIsJson(result.type) && typeof result.responseBody === 'object';
@@ -36,7 +31,7 @@ export default function Result({ result, isCollapse}) {
             />
           </span>
           <div style={{padding: 8}}>
-            <Button type={'primary'} onClick={(e) => onDownload(e, result.responseBody)}>
+            <Button type={'primary'} onClick={() => window.open(result.responseBody)}>
               <Icon type="download" />
               <FormattedMessage id="code.download" defaultMessage="Download" />
             </Button>
@@ -65,15 +60,13 @@ export default function Result({ result, isCollapse}) {
           }}
         />)
       }
-      {
-        !result.isBinary && !isJson && (
-          <pre className="tomorrow-night" style={notJsonStyle}>
-            <div className="cm-s-tomorrow-night codemirror-highlight">
-              {syntaxHighlighter(`${result.responseBody}`, result.type)}
-            </div>
-          </pre>
-        )
-      }
+      {!result.isBinary && !isJson && (
+        <pre className="tomorrow-night" style={notJsonStyle}>
+          <div className="cm-s-tomorrow-night codemirror-highlight">
+            {syntaxHighlighter(`${result.responseBody}`, result.type)}
+          </div>
+        </pre>
+      )}
     </div>
   );
 }
