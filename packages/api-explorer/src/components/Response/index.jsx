@@ -92,9 +92,9 @@ class Response extends React.Component {
           >
             {!result.isBinary ? (
               <div style={ctaContainerStyle}>
-                <CopyCode code={JSON.stringify(result.responseBody)} />
                 {isJson ? (
                   <Fragment>
+                    <CopyCode code={JSON.stringify(result.responseBody)} />
                     <a href={''} className="mia-ctc-button" onClick={(e) => this.onCollapseAll(e)}>
                       <FormattedMessage id="code.collapseAll" defaultMessage="Collapse all" />
                     </a>
