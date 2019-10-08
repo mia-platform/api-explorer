@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - 12.9
+  - 12.9.0
   - "node"
   - "lts/*"
   - "lts/dubnium"
