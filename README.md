@@ -70,7 +70,13 @@ npm run deploy
 ### Publish all modules to npm:
 
 ```sh
-npm run publish
+npx lerna publish
+```
+
+if publish fails with error `Current HEAD is already released` use 
+
+```sh
+npx lerna publish from-git
 ```
 
 ## License
