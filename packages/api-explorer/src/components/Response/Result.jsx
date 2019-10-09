@@ -20,7 +20,6 @@ export default function Result({result, isCollapse}) {
   const isJson =
     result.type && contentTypeIsJson(result.type) && typeof result.responseBody === 'object';
 
-    console.log('isCollapse', isCollapse ? 1 : Number.MAX_SAFE_INTEGER)
   return (
     <div>
       {result.isBinary && (
