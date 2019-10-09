@@ -73,13 +73,13 @@ npm run deploy
 npx lerna publish
 ```
 
-if publish fails with error `Current HEAD is already released` it's generally due to a previous failure on publishing the packages; in order to make sure it's published use 
+if publish fails with error `Current HEAD is already released` it's generally due to the fact that a version has already been tagged and there's no new change; in order to make sure it's published use 
 
 ```sh
 npx lerna publish from-git
 ```
 
-so that lerna will ignore the existing tag and publish the current version.
+so that lerna will not try to create a new version tag and publish the current version from the tag in the git repository.
 
 ## License
 
