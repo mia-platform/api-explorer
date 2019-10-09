@@ -48,19 +48,26 @@ To spin up an example server:
 npm start
 ```
 
-To build the packages for production:
+### Tag a new version of the packages use:
+
+```sh
+npx lerna version
+```
+and select the desired version tag (major/minor/patch/etc...)
+
+### Build the packages for production:
 
 ```sh
 npm run build
 ```
 
-To deploy the latest example to gh-pages:
+### Deploy the latest example to gh-pages:
 
 ```sh
 npm run deploy
 ```
 
-To publish all modules to npm:
+### Publish all modules to npm:
 
 ```sh
 npm run publish
