@@ -98,6 +98,7 @@ class Doc extends React.Component {
   }
 
   onChange(data) {
+    console.log('onChange ', data)
     this.setState(previousState => {
       const { schema, formData } = data
       const filtered = filterEmptyFormData(clone(formData), schema ? schema.schema : {})
@@ -109,6 +110,7 @@ class Doc extends React.Component {
   }
 
   onSubmit() {
+    console.log('ON SUBMIT')
     const {auth, selectedContentType} = this.state
     const operation = this.getOperation();
     if (!isAuthReady(operation, auth || this.props.auth)) {
