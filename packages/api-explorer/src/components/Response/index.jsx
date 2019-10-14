@@ -84,7 +84,6 @@ class Response extends React.Component {
       }
     }
 
-    console.log('AAAAAAAAAAAAAAAA')
     return (
       <div>
         {result !== null ? (
