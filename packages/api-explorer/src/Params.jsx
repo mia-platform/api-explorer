@@ -1,20 +1,15 @@
 import React, {Component} from 'react'
-import './params.css'
-import ContentWithTitle from './components/ContentWithTitle'
 import JSONEditor from '@json-editor/json-editor'
 import get from 'lodash.get'
+
+import './params.css'
+import ContentWithTitle from './components/ContentWithTitle'
 import antdTheme from './antd-theme-json-editor'
 import PropTypes from 'prop-types'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
-const createBaseInput = require('./form-components/BaseInput');
-const createSelectWidget = require('./form-components/SelectWidget');
-const createArrayField = require('./form-components/ArrayField');
-const createSchemaField = require('./form-components/SchemaField');
-const createTextareaWidget = require('./form-components/TextareaWidget');
-const createFileWidget = require('./form-components/FileWidget');
 const Oas = require('./lib/Oas');
 
 const { Operation } = Oas;
@@ -88,27 +83,15 @@ class Params extends Component{
   
   renderParam(schema) {
     const {
-      formData,
       onChange,
       onSubmit,
-      BaseInput,
-      SelectWidget,
-      ArrayField,
-      SchemaField,
-      TextareaWidget,
-      FileWidget,
     } = this.props
 
-    console.log("LINKED", schema.schema)
     return(
       <JsonForm 
         schema={schema.schema} 
         onChange={values => onChange({ schema, formData: { [schema.type]: values } })} 
-        onSubmit={() => {
-          
-          console.log('AAAAA')
-          onSubmit()
-        }}
+        onSubmit={() => onSubmit()}
       />
     )
     // return (
@@ -173,33 +156,14 @@ Params.propTypes = {
   operation: PropTypes.instanceOf(Operation).isRequired,
   formData: PropTypes.shape({}).isRequired,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  BaseInput: PropTypes.func.isRequired,
-  SelectWidget: PropTypes.func.isRequired,
-  ArrayField: PropTypes.func.isRequired,
-  SchemaField: PropTypes.func.isRequired,
-  TextareaWidget: PropTypes.func.isRequired,
-  FileWidget: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
-function createParams(oas) {
-  const BaseInput = createBaseInput(oas);
-  const SelectWidget = createSelectWidget(oas);
-  const ArrayField = createArrayField(oas);
-  const SchemaField = createSchemaField();
-  const TextareaWidget = createTextareaWidget(oas);
-  const FileWidget = createFileWidget(oas);
-
+function createParams() {
   return props => {
     return (
       <Params
         {...props}
-        BaseInput={BaseInput}
-        SelectWidget={SelectWidget}
-        ArrayField={ArrayField}
-        SchemaField={SchemaField}
-        TextareaWidget={TextareaWidget}
-        FileWidget={FileWidget}
       />
     );
   };
