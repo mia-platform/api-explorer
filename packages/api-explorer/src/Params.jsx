@@ -3,7 +3,7 @@ import './params.css'
 import ContentWithTitle from './components/ContentWithTitle'
 import JSONEditor from '@json-editor/json-editor'
 import get from 'lodash.get'
-
+import antdTheme from './antd-theme-json-editor'
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
@@ -56,13 +56,13 @@ class JsonForm extends Component {
     const {onChange, schema} = this.props
     if (this.editor === null) {
       const schemaToRender = getSchemaToRender(schema)
-      console.log(schema, 'converted to ', schemaToRender)
+      JSONEditor.defaults.themes.antdTheme = antdTheme
       this.editor = new JSONEditor(element, {
         schema: schemaToRender,
         show_opt_in: true,
         prompt_before_delete: false,
         form_name_root:"",
-        theme: "bootstrap4"
+        theme: "antdTheme"
       });
       this.editor.on('change', () => onChange(this.editor.getValue()))
     }
