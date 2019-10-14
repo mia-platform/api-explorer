@@ -69,6 +69,11 @@ const antdTheme = JSONEditor.AbstractTheme.extend({
       group.appendChild(input)
     }
 
+    // Input Text.
+    if (!input.type || input.type === 'text') { 
+      input.classList.add('input-field', 'ant-input') 
+    }
+
     if (description && labelText !== descriptionText) group.appendChild(description)
 
     return group

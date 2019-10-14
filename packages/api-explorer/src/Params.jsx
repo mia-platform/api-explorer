@@ -4,17 +4,11 @@ import ContentWithTitle from './components/ContentWithTitle'
 import JSONEditor from '@json-editor/json-editor'
 import get from 'lodash.get'
 import antdTheme from './antd-theme-json-editor'
+import PropTypes from 'prop-types'
+
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
-const PropTypes = require('prop-types');
-const Form = require('react-jsonschema-form').default;
-const UpDownWidget = require('react-jsonschema-form/lib/components/widgets/UpDownWidget').default;
-const TextWidget = require('react-jsonschema-form/lib/components/widgets/TextWidget').default;
-const DateTimeWidget = require('react-jsonschema-form/lib/components/widgets/DateTimeWidget')
-  .default;
-
-const DescriptionField = require('./form-components/DescriptionField');
 const createBaseInput = require('./form-components/BaseInput');
 const createSelectWidget = require('./form-components/SelectWidget');
 const createArrayField = require('./form-components/ArrayField');
@@ -51,7 +45,6 @@ class JsonForm extends Component {
     this.ref = null;
   }
 
-  
   createEditor(element) {
     const {onChange, schema} = this.props
     if (this.editor === null) {
@@ -69,14 +62,26 @@ class JsonForm extends Component {
   }
 
   render() {
+    const {onSubmit} = this.props
     return (
-      <div
+      <form
         ref={r => {
           this.createEditor(r);
         }}
-      />
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSubmit()
+        }}
+      >
+        <button type="submit" style={{ display: "none" }} />
+      </form>
     );
   }
+}
+JsonForm.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  schema: PropTypes.object.isRequired
 }
 // eslint-disable-next-line react/no-multi-comp
 class Params extends Component{
@@ -96,7 +101,15 @@ class Params extends Component{
 
     console.log("LINKED", schema.schema)
     return(
-      <JsonForm schema={schema.schema} onChange={values => onChange({ schema, formData: { [schema.type]: values } })} />
+      <JsonForm 
+        schema={schema.schema} 
+        onChange={values => onChange({ schema, formData: { [schema.type]: values } })} 
+        onSubmit={() => {
+          
+          console.log('AAAAA')
+          onSubmit()
+        }}
+      />
     )
     // return (
     //   <Form
