@@ -12,7 +12,6 @@ const antdTheme = JSONEditor.defaults.themes.bootstrap4.extend({
       group.classList.add('form-check')
       label.classList.add('form-check-label')
       input.classList.add('form-check-input')
-      // label.appendChild(input);
       label.insertBefore(input, label.firstChild)
       group.appendChild(label)
     } else {
