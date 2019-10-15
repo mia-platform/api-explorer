@@ -10,7 +10,7 @@ module.exports = merge(common, {
   devServer: {
     contentBase: './example',
     compress: true,
-    port: 9967,
+    port: 9966,
     hot: true,
     watchContentBase: true,
     before: (app) => {
