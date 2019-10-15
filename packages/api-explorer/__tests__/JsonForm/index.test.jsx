@@ -67,15 +67,15 @@ describe('JSONForm ', () => {
         expect(props.onSubmit).toHaveBeenCalledTimes(1)
         expect(mockEvent.preventDefault).toHaveBeenCalledTimes(1)
     })
-    it('extend all json-editor editors with setContainer', () => {
+    it('extend all json-editor editors with setContainer and build', () => {
       mount(<JsonForm {...props} />)
       expect(extendMock).toHaveBeenCalledTimes(3)
       expect(
         extendMock.mock.calls.map(call => Object.keys(call[0]))
       ).toEqual([
-        ['setContainer'], 
-        ['setContainer'], 
-        ['setContainer']
+        ['setContainer', 'build'], 
+        ['setContainer', 'build'], 
+        ['setContainer', 'build']
       ])
     })
 })

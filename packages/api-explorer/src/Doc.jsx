@@ -24,7 +24,6 @@ import colors from './colors';
 import Params from './Params'
 
 const PathUrl = require('./PathUrl');
-// const createParams = require('./Params');
 const CodeSample = require('./CodeSample');
 const Response = require('./components/Response');
 const ErrorBoundary = require('./ErrorBoundary');

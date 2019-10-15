@@ -5,11 +5,15 @@ const getCustomEditor = key =>{
     setContainer(container) {
       this.container = container;
       this.container.style.paddingTop = "5px";
-      if (this.schema.id)
-        this.container.setAttribute("data-schemaid", this.schema.id);
-      if (this.schema.type && typeof this.schema.type === "string")
-        this.container.setAttribute("data-schematype", this.schema.type);
-      this.container.setAttribute("data-schemapath", this.path);
+      // eslint-disable-next-line no-underscore-dangle
+      this._super(this.container)
+    },
+    build() {
+      const buildResponse = this._super()
+      if(this.addproperty_add) {
+        this.addproperty_add.style.marginLeft = '10px'
+      }
+      return buildResponse
     }
   });
 

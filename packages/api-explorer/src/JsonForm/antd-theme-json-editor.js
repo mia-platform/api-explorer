@@ -39,9 +39,11 @@ const antdTheme = JSONEditor.defaults.themes.bootstrap4.extend({
     return el
   },
   getModal () {
-    const el = document.createElement('div')
+    const el = this._super()
     el.style.background = "#fff"
     el.style.borderRadius = '4px'
+    el.style.border = "none"
+    el.style.marginTop = "5px"
     el.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)'
     el.style.padding = '5px'
     el.style.position = 'absolute'
