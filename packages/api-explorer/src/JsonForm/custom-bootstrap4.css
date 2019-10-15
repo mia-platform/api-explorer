@@ -3,3 +3,8 @@
     font-size: 0.89em;
     opacity: 0.8;
 }
+
+.btt-holder-div > button {
+    margin-right: 10px;
+}
+
