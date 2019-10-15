@@ -80,7 +80,6 @@ module.exports = (
   opts = { proxyUrl: false },
   contentType
 ) => {
-  console.log('VALUES ', values)
   const formData = Object.assign({}, defaultValues, values);
   const har = {
     headers: [],

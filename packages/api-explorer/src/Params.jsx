@@ -25,41 +25,6 @@ export default class Params extends Component{
         onSubmit={() => onSubmit()}
       />
     )
-    // return (
-    //   <Form
-    //     key={`${schema.type}-form`}
-    //     id={"form-params"}
-    //     idPrefix={'form-id'}
-    //     schema={schema.schema}
-    //     style={{margin: 0}}
-    //     widgets={{
-    //       int64: UpDownWidget,
-    //       int32: UpDownWidget,
-    //       double: UpDownWidget,
-    //       float: UpDownWidget,
-    //       binary: FileWidget,
-    //       byte: TextWidget,
-    //       string: TextWidget,
-    //       uuid: TextWidget,
-    //       duration: TextWidget,
-    //       dateTime: DateTimeWidget,
-    //       integer: UpDownWidget,
-    //       json: TextareaWidget,
-    //       BaseInput,
-    //       SelectWidget,
-    //     }}
-    //     onSubmit={onSubmit}
-    //     formData={formData[schema.type]}
-    //     onChange={form => onChange({ schema, formData: { [schema.type]: form.formData } })}
-    //     fields={{
-    //       DescriptionField,
-    //       ArrayField,
-    //       SchemaField,
-    //     }}
-    //   >
-    //     <button type="submit" style={{ display: 'none' }} />
-    //   </Form>
-    // )
   }
 
   render() {
@@ -89,13 +54,3 @@ Params.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 };
-
-function createParams() {
-  return props => {
-    return (
-      <Params
-        {...props}
-      />
-    );
-  };
-}

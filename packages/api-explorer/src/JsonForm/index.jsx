@@ -4,12 +4,17 @@ import JSONEditor from '@json-editor/json-editor'
 
 import getSchemaToRender from './getSchemaToRender'
 import antdTheme from './antd-theme-json-editor'
+import getCustomEditor from './get-custom-editor'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
-
-
+function setAllEditors () {
+  const editorsKeys = Object.keys(JSONEditor.defaults.editors)
+  editorsKeys.forEach(key => {
+    JSONEditor.defaults.editors[key] = getCustomEditor(key);
+  });
+}
 export default class JsonForm extends Component {
     constructor(props) {
       super(props);
@@ -25,7 +30,6 @@ export default class JsonForm extends Component {
 
         // eslint-disable-next-line consistent-return
         JSONEditor.defaults.resolvers.unshift((scheme) => {
-          console.log(scheme);
           // If the schema can be of any type
           if (
             (scheme.type === "string" &&
@@ -36,6 +40,7 @@ export default class JsonForm extends Component {
             return "base64";
           }
         });
+        setAllEditors()
         this.editor = new JSONEditor(element, {
           schema: schemaToRender,
           show_opt_in: true,
