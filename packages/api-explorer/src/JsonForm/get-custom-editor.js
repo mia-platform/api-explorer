@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import JSONEditor from "@json-editor/json-editor";
 
 const getCustomEditor = key =>{
@@ -5,7 +6,6 @@ const getCustomEditor = key =>{
     setContainer(container) {
       this.container = container;
       this.container.style.paddingTop = "5px";
-      // eslint-disable-next-line no-underscore-dangle
       this._super(this.container)
     },
     build() {

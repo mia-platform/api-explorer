@@ -5,10 +5,17 @@ import renderer from 'react-test-renderer'
 
 import JsonForm from '../../src/JsonForm'
 
-jest.mock('@json-editor/json-editor')
-
 
 const extendMock = jest.fn()
+extendMock.mockReturnValue({extend: extendMock})
+
+const editorsMock = {
+  foo: {extend: extendMock},
+  array: {extend: extendMock},
+  object: {extend: extendMock}
+}
+
+jest.mock('@json-editor/json-editor')
 
 function createNodeMock(element) {
     if (element.type === 'form') {
@@ -35,11 +42,7 @@ describe('JSONForm ', () => {
         onSubmit: jest.fn()
     }
     beforeEach(() => {
-      const editorsMock = {
-        foo: {extend: extendMock},
-        bar: {extend: extendMock},
-        lorem: {extend: extendMock},
-      }
+      
       extendMock.mockClear()
       JSONEditor.defaults.editors = editorsMock
     })
@@ -67,15 +70,16 @@ describe('JSONForm ', () => {
         expect(props.onSubmit).toHaveBeenCalledTimes(1)
         expect(mockEvent.preventDefault).toHaveBeenCalledTimes(1)
     })
-    it('extend all json-editor editors with setContainer and build', () => {
+    it('extend all json-editor editors', () => {
       mount(<JsonForm {...props} />)
-      expect(extendMock).toHaveBeenCalledTimes(3)
       expect(
         extendMock.mock.calls.map(call => Object.keys(call[0]))
       ).toEqual([
-        ['setContainer', 'build'], 
-        ['setContainer', 'build'], 
-        ['setContainer', 'build']
+        ['setContainer', 'build'], // foo
+        ['setContainer', 'build'], // array - get-custom-editor
+        ['addControls', 'refreshValue'], // array-custom-editor  
+        ['setContainer', 'build'], // object - get-custom-editor
+        ['build'] // object-custom-editor
       ])
     })
 })

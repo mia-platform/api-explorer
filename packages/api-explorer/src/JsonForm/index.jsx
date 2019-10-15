@@ -5,15 +5,21 @@ import JSONEditor from '@json-editor/json-editor'
 import getSchemaToRender from './getSchemaToRender'
 import antdTheme from './antd-theme-json-editor'
 import getCustomEditor from './get-custom-editor'
+import arrayCustomEditor from './array-custom-editors'
+import objectCustomEditor from './object-custom-editors'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
 function setAllEditors () {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
-  editorsKeys.forEach(key => {
+  editorsKeys
+    .filter(key => key !== 'array' && key !== 'object').forEach(key => {
     JSONEditor.defaults.editors[key] = getCustomEditor(key);
   });
+  JSONEditor.defaults.editors.array = arrayCustomEditor()
+  JSONEditor.defaults.editors.object = objectCustomEditor()
+  
 }
 export default class JsonForm extends Component {
     constructor(props) {
