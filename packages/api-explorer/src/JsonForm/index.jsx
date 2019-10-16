@@ -19,7 +19,6 @@ function setAllEditors () {
   });
   JSONEditor.defaults.editors.array = arrayCustomEditor()
   JSONEditor.defaults.editors.object = objectCustomEditor()
-  
 }
 export default class JsonForm extends Component {
     constructor(props) {
