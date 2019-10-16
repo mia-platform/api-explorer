@@ -3,7 +3,6 @@ const baseArrayCustomEditor = require('./get-custom-editor')
 
 function setControlsStyle(controls) {
   if(controls) {
-      
     controls.style.display = 'grid'
     controls.style.gridTemplateColumns = 'repeat(3, min-content)'
     controls.style.gridGap = '10px'
