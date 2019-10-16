@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer'
 
 import JsonForm from '../../src/JsonForm'
 
-
 const extendMock = jest.fn()
 extendMock.mockReturnValue({extend: extendMock})
 
