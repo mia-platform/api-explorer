@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const baseObjectCustomEditor = require('./get-custom-editor')
 
-
 module.exports = () => baseObjectCustomEditor('object').extend({
   build() {
     const response = this._super()
