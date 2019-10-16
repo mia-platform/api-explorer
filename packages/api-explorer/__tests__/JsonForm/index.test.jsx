@@ -23,7 +23,7 @@ function createNodeMock(element) {
       };
     }
     return null;
-  }
+}
 describe('JSONForm ', () => {
     const props = {
         schema: {
