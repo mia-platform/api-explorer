@@ -66,7 +66,7 @@ const antdTheme = JSONEditor.defaults.themes.bootstrap4.extend({
   },
   getButtonHolder () {
     const el = document.createElement('div')
-    el.classList.add('btt-holder-div')
+    el.classList.add('btn-holder-div')
     el.style.display = 'inline-flex'
     return el
   },
