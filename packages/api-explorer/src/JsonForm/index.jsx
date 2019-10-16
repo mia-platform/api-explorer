@@ -11,14 +11,29 @@ import objectCustomEditor from './object-custom-editors'
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
-function setAllEditors () {
+function configureJSONEditor() {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
   editorsKeys
     .filter(key => key !== 'array' && key !== 'object').forEach(key => {
-    JSONEditor.defaults.editors[key] = getCustomEditor(key);
-  });
+      JSONEditor.defaults.editors[key] = getCustomEditor(key);
+    });
   JSONEditor.defaults.editors.array = arrayCustomEditor()
   JSONEditor.defaults.editors.object = objectCustomEditor()
+
+  JSONEditor.defaults.themes.antdTheme = antdTheme
+
+  // eslint-disable-next-line consistent-return
+  JSONEditor.defaults.resolvers.unshift((scheme) => {
+    // If the schema can be of any type
+    if (
+      (scheme.type === "string" &&
+        scheme.media &&
+        scheme.media.binaryEncoding === "base64") ||
+      scheme.format === "binary"
+    ) {
+      return "base64";
+    }
+  });
 }
 
 export default class JsonForm extends Component {
@@ -32,21 +47,8 @@ export default class JsonForm extends Component {
       const {onChange, schema} = this.props
       if (this.editor === null) {
         const schemaToRender = getSchemaToRender(schema)
-        JSONEditor.defaults.themes.antdTheme = antdTheme
-
-        // eslint-disable-next-line consistent-return
-        JSONEditor.defaults.resolvers.unshift((scheme) => {
-          // If the schema can be of any type
-          if (
-            (scheme.type === "string" &&
-            scheme.media &&
-            scheme.media.binaryEncoding === "base64") ||
-            scheme.format === "binary"
-          ) {
-            return "base64";
-          }
-        });
-        setAllEditors()
+        
+        configureJSONEditor()
         this.editor = new JSONEditor(element, {
           schema: schemaToRender,
           show_opt_in: true,

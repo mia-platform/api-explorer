@@ -3,6 +3,8 @@
 const JSONEditor = require('@json-editor/json-editor')
 
 const antdTheme = JSONEditor.defaults.themes.bootstrap4.extend({
+
+  // ref: https://github.com/json-editor/json-editor/blob/master/src/themes/bootstrap4.js#L49
   getFormControl (label, input, description) {
     const labelText = label ? label.textContent : "";
     const descriptionText = description ? description.textContent : "";
