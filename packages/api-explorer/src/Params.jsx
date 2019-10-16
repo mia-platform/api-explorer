@@ -10,7 +10,6 @@ const Oas = require('./lib/Oas');
 const { Operation } = Oas;
 const parametersToJsonSchema = require('./lib/parameters-to-json-schema');
 
-
 export default class Params extends Component{
   
   renderParam(schema) {
