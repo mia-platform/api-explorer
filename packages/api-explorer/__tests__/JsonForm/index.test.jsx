@@ -41,7 +41,6 @@ describe('JSONForm ', () => {
         onSubmit: jest.fn()
     }
     beforeEach(() => {
-      
       extendMock.mockClear()
       JSONEditor.defaults.editors = editorsMock
     })
