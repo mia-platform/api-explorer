@@ -490,5 +490,5 @@ Doc.defaultProps = {
   user: undefined,
   baseUrl: '/',
   fallbackUrl: '',
-  stripSlash: true,
+  stripSlash: false,
 };
