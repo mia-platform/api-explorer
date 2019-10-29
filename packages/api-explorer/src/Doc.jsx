@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-prop-types */
 import React, {Fragment} from 'react'
-import {FormattedMessage, injectIntl} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {Icon} from 'antd'
 import fetchHar from 'fetch-har'
@@ -293,29 +293,32 @@ class Doc extends React.Component {
   renderEndpoint() {
     const { doc, suggestedEdits, baseUrl, intl } = this.props
     return (
-      doc.type === 'endpoint' ? [
-        <div style={{display: 'grid', gridTemplateColumns: '1fr', gridTemplateRows: 'min-content', gridGap: '16px', paddingRight: '16px'}}>
-          {this.renderPathUrl()}
-          <Description
-            doc={doc}
-            suggestedEdits={suggestedEdits}
-            baseUrl={baseUrl}
-          />
-          {this.renderLogs()}
-          {this.renderParams()}
-          {this.renderContentTypeSelect(true)}
-          {this.renderSchemaTab()}
-        </div>,
-        <div
-          style={{
-            padding: 8,
-            border: `1px solid ${colors.codeAndResponseBorder}`,
-            background: colors.codeAndResponseBackground
-          }}
-        >
-          {this.renderCodeAndResponse()}
-        </div>
-      ] : []
+        doc.type === 'endpoint' ? (
+          <Fragment>
+            <div style={{display: 'grid', gridTemplateColumns: '1fr', gridTemplateRows: 'min-content', gridGap: '16px', paddingRight: '16px'}}>
+              {this.renderPathUrl()}
+              <Description
+                doc={doc}
+                suggestedEdits={suggestedEdits}
+                baseUrl={baseUrl}
+                intl={intl}
+              />
+              {this.renderLogs()}
+              {this.renderParams()}
+              {this.renderContentTypeSelect(true)}
+              {this.renderSchemaTab()}
+            </div>
+            <div
+              style={{
+                padding: 8,
+                border: `1px solid ${colors.codeAndResponseBorder}`,
+                background: colors.codeAndResponseBackground
+              }}
+            >
+              {this.renderCodeAndResponse()}
+            </div>
+          </Fragment>
+        ) : null
     );
   }
 
@@ -382,18 +385,12 @@ class Doc extends React.Component {
 
   render() {
     const { doc } = this.props;
-    const oas = this.oas;
-
     return (
       <ErrorBoundary>
         <div id={`page-${doc.slug}`}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px'}}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto'}}>
             {this.renderEndpoint()}
           </div>
-          {
-            // TODO maybe we dont need to do this with a hidden input now
-            // cos we can just pass it around?
-          }
           <input
             type="hidden"
             id={`swagger-${extensions.SEND_DEFAULTS}`}
