@@ -197,11 +197,7 @@ describe('oas', () => {
         {...props}
         defaultOpen
         defaultOpenDoc={'1'}
-        docs={[
-          Object.assign({}, baseDoc, {
-            swagger: { path: '/pet' }
-          }),
-        ]}
+        docs={[Object.assign({}, baseDoc)]}
       />,
     );
     explorer.setState({showEndpoint: {'1': true}})

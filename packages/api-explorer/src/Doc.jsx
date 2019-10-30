@@ -34,7 +34,7 @@ const getContentTypeFromOperation = require('./lib/get-content-type')
 
 function Description({doc, suggestedEdits, baseUrl}) {
   const description = <FormattedMessage id={'doc.description'} defaultMessage={'Description'} />
-  const decriptionNa = <FormattedMessage id={'doc.description.na'} defaultMessage={'Description not available'} />
+  const descriptionNa = <FormattedMessage id={'doc.description.na'} defaultMessage={'Description not available'} />
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
       {suggestedEdits && (
@@ -51,7 +51,7 @@ function Description({doc, suggestedEdits, baseUrl}) {
       )}
       <ContentWithTitle
         title={description}
-        content={doc.excerpt ? <div>{markdown(doc.excerpt)}</div> : decriptionNa}
+        content={doc.excerpt ? <div>{markdown(doc.excerpt)}</div> : descriptionNa}
         showDivider={false}
         theme={'dark'}
         showBorder={false}
@@ -211,6 +211,7 @@ class Doc extends React.Component {
       fontFamily: 'monospace',
     }
 
+    const getOperation = this.getOperation()
     return(
       <div style={{display: 'grid', gridGap: '8px', gridTemplateColumns: '100%'}}>
         <ContentWithTitle
@@ -219,7 +220,7 @@ class Doc extends React.Component {
           content={
             this.oas.servers && (
               <span style={definitionStyle}>
-                {this.oas.servers[0].url}{this.getOperation() ? this.getOperation().path : ''}
+                {this.oas.servers[0].url}{getOperation ? getOperation.path : ''}
               </span>
             )
           }

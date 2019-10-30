@@ -217,10 +217,10 @@ class ApiExplorer extends React.Component {
                       accordion
                       onChange={this.props.onDocChange}
                     >
-                      {this.props.docs.map(doc => (
+                      {this.props.docs.map((doc, index) => (
                         <Panel
                           header={this.renderHeaderPanel(doc)}
-                          key={doc._id}
+                          key={doc._id || index}
                           style={{...styleByMethod(doc.api.method), ...panelStyle}}
                           forceRender={this.props.forcePanelRender}
                         >
