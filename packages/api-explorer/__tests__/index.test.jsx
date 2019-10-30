@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import Cookie from 'js-cookie'
 import extensions from '@mia-platform/oas-extensions'
-import {Collapse} from 'antd'
 
 import Doc from '../src/Doc'
 import WrappedApiExplorer from '../src'
@@ -41,7 +40,7 @@ const baseDoc = {
 };
 
 test('ApiExplorer renders a single doc', () => {
-  const explorer = shallow(<ApiExplorer {...props} docs={[baseDoc]}/>);
+  const explorer = shallow(<ApiExplorer {...props} docs={[baseDoc]} />);
   explorer.setState({showEndpoint: {'1': true}})
   expect(explorer.find('Doc').length).toBe(1);
 });
@@ -121,7 +120,7 @@ describe('oas', () => {
     const explorer = mount(
       <ApiExplorer
         {...props}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
         oasFiles={{
           'api-setting': oas,
@@ -145,7 +144,7 @@ describe('oas', () => {
     const explorer = mount(
       <ApiExplorer
         {...props}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
         oasFiles={{
           'api-setting': oas,
@@ -170,7 +169,7 @@ describe('oas', () => {
     const explorer = mount(
       <ApiExplorer
         {...props}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
         oasFiles={{
           'api-setting': oas,
@@ -196,7 +195,7 @@ describe('oas', () => {
     const explorer = mount(
       <ApiExplorer
         {...props}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
         docs={[
           Object.assign({}, baseDoc, {
@@ -214,7 +213,7 @@ describe('oas', () => {
       <ApiExplorer
         {...props}
         docs={[baseDoc]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />
     );
@@ -237,7 +236,7 @@ describe('auth', () => {
             swagger: { path: '/pet' }
           }),
         ]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />
     );
@@ -253,7 +252,7 @@ describe('auth', () => {
         {...props}
         variables={{ user: { keys: [{ name: 'a', apiKey }] } }}
         docs={[baseDoc]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />,
     );
@@ -269,7 +268,7 @@ describe('auth', () => {
         {...props}
         variables={{ user: { keys: [{ name: 'project1', api_key: apiKey }] } }}
         docs={[baseDoc]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />,
     );
@@ -283,7 +282,7 @@ describe('auth', () => {
       <ApiExplorer
         {...props}
         docs={[baseDoc]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />);
     explorer.setState({showEndpoint: {'1': true}})
@@ -377,15 +376,6 @@ describe('fallbackUrl', () => {
   })
 
   it('should be provided to Doc children', () => {
-    const baseDoc = {
-      _id: 1,
-      title: 'title',
-      slug: 'slug',
-      type: 'endpoint',
-      category: {},
-      api: { method: 'get' },
-    };
-
     const explorer = mount(
       <ApiExplorer
         {...props}
@@ -394,7 +384,7 @@ describe('fallbackUrl', () => {
           swagger: { path: '/pet' },
           category: { apiSetting: 'api-setting' }
         })]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />
     );
@@ -432,15 +422,6 @@ describe('stripSlash', () => {
   })
 
   it('should be provided to Doc children', () => {
-    const baseDoc = {
-      _id: 1,
-      title: 'title',
-      slug: 'slug',
-      type: 'endpoint',
-      category: {},
-      api: { method: 'get' },
-    };
-
     const explorer = mount(
       <ApiExplorer
         {...props}
@@ -449,7 +430,7 @@ describe('stripSlash', () => {
           swagger: { path: '/pet' },
           category: { apiSetting: 'api-setting' }
         })]}
-        defaultOpen={true}
+        defaultOpen
         defaultOpenDoc={'1'}
       />
     );
@@ -465,15 +446,6 @@ describe('forcePanelRender', () => {
   })
 
   it('should provide false to Ant.d Collapse.Panel components', () => {
-    const baseDoc = {
-      _id: 1,
-      title: 'title',
-      slug: 'slug',
-      type: 'endpoint',
-      category: {},
-      api: { method: 'get' },
-    };
-
     const explorer = mount(
       <ApiExplorer
         {...props}
@@ -489,15 +461,6 @@ describe('forcePanelRender', () => {
   })
 
   it('should provide true to Ant.d Collapse.Panel components', () => {
-    const baseDoc = {
-      _id: 1,
-      title: 'title',
-      slug: 'slug',
-      type: 'endpoint',
-      category: {},
-      api: { method: 'get' },
-    };
-
     const explorer = mount(
       <ApiExplorer
         {...props}

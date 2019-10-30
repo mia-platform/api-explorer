@@ -102,6 +102,10 @@ class ApiExplorer extends React.Component {
     this.setState({ selectedApp: { selected, changeSelected: this.changeSelected } });
   }
 
+  waypointEntered(id) {
+    this.setState(prevState => ({ showEndpoint: {...prevState.showEndpoint, [id]: true }}));
+  }
+
   renderDescription(){
     const style = {
       maxHeight: 300,
@@ -122,9 +126,6 @@ class ApiExplorer extends React.Component {
     )
   }
 
-  waypointEntered(id) {
-    this.setState(prevState => ({ showEndpoint: {...prevState.showEndpoint, [id]: true }}));
-  }
   renderDoc(doc) {
     const auth = getAuth(this.props.variables.user, this.props.oasFiles)
     return this.state.showEndpoint[doc._id] && (

@@ -32,7 +32,7 @@ const Oas = require('./lib/Oas');
 const parseResponse = require('./lib/parse-response');
 const getContentTypeFromOperation = require('./lib/get-content-type')
 
-function Description({doc, suggestedEdits, baseUrl, intl}) {
+function Description({doc, suggestedEdits, baseUrl}) {
   const description = <FormattedMessage id={'doc.description'} defaultMessage={'Description'} />
   const decriptionNa = <FormattedMessage id={'doc.description.na'} defaultMessage={'Description not available'} />
   return (
