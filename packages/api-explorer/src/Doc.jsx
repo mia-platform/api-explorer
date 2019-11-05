@@ -430,10 +430,10 @@ Doc.propTypes = {
           PropTypes.shape({}), // TODO: Jsinspect threw an error because this was too similar to L330
         ),
       }),
-    }),
+    }).isRequired,
     swagger: PropTypes.shape({
       path: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
   }).isRequired,
   user: PropTypes.shape({}),
   auth: PropTypes.shape({}).isRequired,

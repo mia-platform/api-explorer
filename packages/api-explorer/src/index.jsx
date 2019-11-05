@@ -220,7 +220,7 @@ class ApiExplorer extends React.Component {
                       {this.props.docs.map((doc, index) => (
                         <Panel
                           header={this.renderHeaderPanel(doc)}
-                          key={doc._id || index}
+                          key={`${doc.api.method}-${doc.swagger.path}`}
                           style={{...styleByMethod(doc.api.method), ...panelStyle}}
                           forceRender={this.props.forcePanelRender}
                         >
