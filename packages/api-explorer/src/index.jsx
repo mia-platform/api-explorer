@@ -2,9 +2,9 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react'
-import { Collapse, Tag, Divider } from 'antd';
+import { Card, Tag, Divider, Typography } from 'antd';
 import get from 'lodash.get'
-import Waypoint from 'react-waypoint'
+import debounce from 'lodash.debounce'
 import extensions from '@mia-platform/oas-extensions'
 
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -17,8 +17,7 @@ import colors from './colors'
 import './code-mirror.css'
 
 import Doc from './Doc'
-
-const Panel = Collapse.Panel
+import {List, AutoSizer, CellMeasurerCache, CellMeasurer} from 'react-virtualized';
 
 const Cookie = require('js-cookie');
 const PropTypes = require('prop-types');
@@ -33,12 +32,29 @@ const getAuth = require('./lib/get-auth');
 const ErrorBoundary = require('./ErrorBoundary');
 
 addLocaleData([...itLocale, ...enLocale]);
-const messages = {
-  it, en,
-}
+const messages = {it, en}
 
 function getDescription(oasFiles){
   return get(oasFiles, 'api-setting.info.description')
+}
+
+const {Title, Paragraph} = Typography
+const styles = {
+  panelStyle: {
+    cursor: 'pointer',
+    borderRadius: 4,
+    height: '100%',
+    overflow: 'hidden',
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr',
+    gridTemplateColumns: '1fr'
+  },
+  title: {
+    color: '#1890ff',
+    lineHeight: 'inherit',
+    marginBottom: 0,
+    textTransform: 'capitalize'
+  }
 }
 
 class ApiExplorer extends React.Component {
@@ -49,6 +65,15 @@ class ApiExplorer extends React.Component {
     this.getDefaultLanguage = this.getDefaultLanguage.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
     this.waypointEntered = this.waypointEntered.bind(this);
+    this.styleByMethod = this.styleByMethod.bind(this);
+    this.onClickRowListDebounced = debounce(this.onClickRowList.bind(this), 300);
+
+    this.list // ref of list
+    this.cache = new CellMeasurerCache({
+      // fixedWidth: true,
+      minHeight: 68, // height + paddingBottom
+      // keyMapper: () => 1
+    });
     this.state = {
       language: Cookie.get('readme_language') || this.getDefaultLanguage(),
       selectedApp: {
@@ -56,15 +81,22 @@ class ApiExplorer extends React.Component {
         changeSelected: this.changeSelected,
       },
       description: getDescription(this.props.oasFiles),
-      showEndpoint: {}
+      list: {}
     };
+  }
+
+  componentDidUpdate() {
+    // re-calculate cache & rowHeight
+    if (this.list) {
+      this.cache.clearAll();
+      this.list.forceUpdateGrid();
+    }
   }
 
   setLanguage(language) {
     this.setState({ language });
     Cookie.set('readme_language', language);
   }
-
   getDefaultLanguage() {
     try {
       const firstOas = Object.keys(this.props.oasFiles)[0];
@@ -73,7 +105,6 @@ class ApiExplorer extends React.Component {
       return 'curl';
     }
   }
-
   getOas(doc) {
     // Get the apiSetting id from the following places:
     // - category.apiSetting if set and populated
@@ -98,6 +129,14 @@ class ApiExplorer extends React.Component {
     return oas;
   }
 
+  onClickRowList(index) {
+    const {onDocChange} = this.props
+    const {list} = this.state
+
+    this.setState({
+      list: {[`${index}`]: !list[`${index}`]}
+    }, onDocChange())
+  }
   changeSelected(selected) {
     this.setState({ selectedApp: { selected, changeSelected: this.changeSelected } });
   }
@@ -125,12 +164,11 @@ class ApiExplorer extends React.Component {
         null
     )
   }
-
   renderDoc(doc) {
     const auth = getAuth(this.props.variables.user, this.props.oasFiles)
-    return this.state.showEndpoint[doc._id] && (
+    return (
       <Doc
-        key={doc._id}
+        key={`${doc.swagger.path}-${doc.api.method}`}
         doc={doc}
         oas={this.getOas(doc)}
         setLanguage={this.setLanguage}
@@ -149,7 +187,6 @@ class ApiExplorer extends React.Component {
       />
     )
   }
-
   // eslint-disable-next-line class-methods-use-this
   renderHeaderPanel(doc) {
     const swagger = doc.swagger
@@ -178,21 +215,71 @@ class ApiExplorer extends React.Component {
     )
   }
 
-  render() {
-    const styleByMethod = (method) => ({
+  styleByMethod (method) {
+    return {
       backgroundColor: colors[method] ? colors[method].bg : colors.defaultBackground,
       border: `1px solid ${colors[method] ? colors[method].border : colors.defaultBorder}`,
-    })
-
-    const panelStyle = {
-      margin: '5px 0px',
-      borderRadius: 5,
-      overflow: 'hidden',
     }
+  }
 
+  renderCardRowList(index, title, description) {
+    const {docs} = this.props
+    const {lastGroupTitle} = this.state
+    const doc = docs[index]
+
+    return (
+      <div key={`${doc.api.method}-${doc.swagger.path}`}>
+        <Title style={styles.title}>{title}</Title>
+        <Paragraph>{description}</Paragraph>
+        <Card
+          title={this.renderHeaderPanel(doc)}
+          // forceRender={this.props.forcePanelRender}
+          bodyStyle={{padding: 0}}
+          onClick={() => this.onClickRowListDebounced(index)}
+          style={{...this.styleByMethod(doc.api.method), ...styles.panelStyle}}
+        >
+          {this.state.list[index] ? this.renderDoc(doc) : null}
+        </Card>
+      </div>
+    )
+  }
+
+  renderRowList ({
+    key,         // Unique key within array of rows
+    index,       // Index of row within collection
+    isScrolling, // The List is currently being scrolled
+    isVisible,   // This row is visible within the List (eg it is not an overscanned row)
+    parent,
+    style     // Style object to be applied to row (to position it)
+  }) {
+    const {docs, title, description} = this.props
+    const doc = docs[index]
+    const content = ({measure}) => this.renderCardRowList(index, title, description)
+
+    return (
+      <div key={key} style={style}>
+        <div style={{padding: '0 0 8px', height: '100%'}}>
+          <CellMeasurer
+            cache={this.cache}
+            columnIndex={0}
+            key={key}
+            rowIndex={index}
+            parent={parent}
+          >
+            {content}
+          </CellMeasurer>
+        </div>
+      </div>
+      )
+  }
+
+  render() {
     const defaultOpenDoc = this.props.defaultOpenDoc ? this.props.defaultOpenDoc : '0'
     const defaultOpen = this.props.defaultOpen ? [defaultOpenDoc] : null
     const localizedMessages = messages[this.props.i18n.locale] || messages[this.props.i18n.defaultLocale]
+
+    const {showEndpoint} = this.state
+    const {docs} = this.props
 
     return (
       <IntlProvider
@@ -204,31 +291,35 @@ class ApiExplorer extends React.Component {
           <OauthContext.Provider value={this.props.oauth}>
             <GlossaryTermsContext.Provider value={this.props.glossaryTerms}>
               <SelectedAppContext.Provider value={this.state.selectedApp}>
-                <div className={`is-lang-${this.state.language}`}>
+                <div className={`is-lang-${this.state.language}`} style={{display: 'grid', gridTemplateRows: `${this.props.showOnlyAPI ? '' : 'auto'} 1fr`}}>
                   {this.props.showOnlyAPI ? null : this.renderDescription()}
                   <div
                     id="hub-reference"
                     className={`content-body hub-reference-sticky hub-reference-theme-${this.props.appearance.referenceLayout}`}
-                    style={{padding: 16}}
+                    style={{padding: 16, height: '100%'}}
                   >
-                    <Collapse
+                    {/*<Collapse
                       defaultActiveKey={defaultOpen}
-                      style={{background: 'none', border: 'none'}}
-                      accordion
                       onChange={this.props.onDocChange}
-                    >
-                      {this.props.docs.map((doc, index) => (
-                        <Panel
-                          header={this.renderHeaderPanel(doc)}
-                          key={`${doc.api.method}-${doc.swagger.path}`}
-                          style={{...styleByMethod(doc.api.method), ...panelStyle}}
-                          forceRender={this.props.forcePanelRender}
-                        >
-                          <Waypoint onEnter={() => this.waypointEntered(doc._id)} fireOnRapidScroll={false} />
-                          {this.renderDoc(doc)}
-                        </Panel>
-                      ))}
-                    </Collapse>
+                    >*/}
+                    <AutoSizer>
+                      {({width, height}) => {
+                        this.listWidth = width
+                        return (
+                          <List
+                            ref={ref => this.list = ref}
+                            estimatedRowSize={60}
+                            height={height}
+                            overscanRowCount={4}
+                            rowCount={docs.length}
+                            rowHeight={this.cache.rowHeight}
+                            rowRenderer={renderProps => this.renderRowList(renderProps)}
+                            style={{outline: 'none'}}
+                            width={width}
+                          />
+                        )
+                      }}
+                    </AutoSizer>
                   </div>
                 </div>
               </SelectedAppContext.Provider>

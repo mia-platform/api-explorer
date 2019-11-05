@@ -385,10 +385,9 @@ class Doc extends React.Component {
   render() {
     const { doc } = this.props;
     const oas = this.oas;
-
     return (
       <ErrorBoundary>
-        <div id={`page-${doc.slug}`}>
+        <div id={`page-${doc.slug}`} style={{padding: 16}}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto'}}>
             {this.renderEndpoint()}
           </div>

@@ -18,56 +18,56 @@ function Demo({ fetchSwagger, status, docs, oas, oauth }) {
   const lang = navigator.language.substring(0, 2) || 'en';
 
   return (
-    <div>
+    <div style={{display: 'grid', gridTemplateRows: 'auto 1fr', gridTemplateColumns: '1fr', minHeight: 0, height: '100%'}}>
       <div className="api-list-header">
         <ApiList fetchSwagger={fetchSwagger} doFetch />
         <pre>{status.join('\n')}</pre>
       </div>
-      {
-        status.length === 0 && (
-          <ApiExplorer
-            i18n={{
-              locale: lang,
-            }}
-            // // To test the top level error boundary, uncomment this
-            // docs={[null, null]}
-            docs={docs}
-            oasFiles={{
-              'api-setting': { ...extensions.defaults, ...oas },
-            }}
-            baseUrl={'/'}
-            // Uncomment this if you want to test enterprise-structured URLs
-            // baseUrl={'/child/v1.0'}
-            Logs={Logs}
-            flags={{ correctnewlines: false }}
-            // Uncomment this in for column layout
-            // appearance={{ referenceLayout: 'column' }}
-            appearance={{ referenceLayout: 'row' }}
-            suggestedEdits
-            oauth={oauth}
-            variables={{
-              // Uncomment this to test without logs
-              // user: {}
-              // Uncomment this to test with logs
-              // user: {
-              //   keys: [
-              //     { id: 'someid', name: 'project1', apiKey: '123' },
-              //     { id: 'anotherid', name: 'project2', apiKey: '456' },
-              //   ],
-              // },
-              // Uncomment this to test without keys array
-              // user: { user: '123456', pass: 'abc', apiKey: '123456' },
-              user: { keys: [{ name: 'project1', apiKey: '123', user: 'user1', pass: 'pass1' }, { name: 'project2', apiKey: '456', user: 'user2', pass: 'pass2' }] },
-              defaults: [],
-            }}
-            fallbackUrl={window.origin}
-            glossaryTerms={[{ term: 'apiKey', definition: 'This is a definition' }]}
-            stripSlash={false}
-            defaultOpen={false}
-            forcePanelRender
-          />
-        )
-      }
+      {status.length === 0 && (
+        <ApiExplorer
+          i18n={{
+            locale: lang,
+          }}
+          // // To test the top level error boundary, uncomment this
+          // docs={[null, null]}
+          docs={docs}
+          oasFiles={{
+            'api-setting': { ...extensions.defaults, ...oas },
+          }}
+          baseUrl={'/'}
+          // Uncomment this if you want to test enterprise-structured URLs
+          // baseUrl={'/child/v1.0'}
+          Logs={Logs}
+          flags={{ correctnewlines: false }}
+          // Uncomment this in for column layout
+          // appearance={{ referenceLayout: 'column' }}
+          appearance={{ referenceLayout: 'row' }}
+          suggestedEdits
+          oauth={oauth}
+          variables={{
+            // Uncomment this to test without logs
+            // user: {}
+            // Uncomment this to test with logs
+            // user: {
+            //   keys: [
+            //     { id: 'someid', name: 'project1', apiKey: '123' },
+            //     { id: 'anotherid', name: 'project2', apiKey: '456' },
+            //   ],
+            // },
+            // Uncomment this to test without keys array
+            // user: { user: '123456', pass: 'abc', apiKey: '123456' },
+            user: { keys: [{ name: 'project1', apiKey: '123', user: 'user1', pass: 'pass1' }, { name: 'project2', apiKey: '456', user: 'user2', pass: 'pass2' }] },
+            defaults: [],
+          }}
+          fallbackUrl={window.origin}
+          glossaryTerms={[{ term: 'apiKey', definition: 'This is a definition' }]}
+          stripSlash={false}
+          defaultOpen={false}
+          forcePanelRender={false}
+          title={'title test'}
+          description={'description test'}
+        />
+      )}
     </div>
   );
 }
