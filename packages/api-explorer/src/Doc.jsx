@@ -211,7 +211,7 @@ class Doc extends React.Component {
       fontFamily: 'monospace',
     }
 
-    const getOperation = this.getOperation()
+    const operation = this.getOperation()
     return(
       <div style={{display: 'grid', gridGap: '8px', gridTemplateColumns: '100%'}}>
         <ContentWithTitle
@@ -220,7 +220,7 @@ class Doc extends React.Component {
           content={
             this.oas.servers && (
               <span style={definitionStyle}>
-                {this.oas.servers[0].url}{getOperation ? getOperation.path : ''}
+                {this.oas.servers[0].url}{operation ? operation.path : ''}
               </span>
             )
           }
