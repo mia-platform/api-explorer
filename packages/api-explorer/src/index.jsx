@@ -128,9 +128,8 @@ class ApiExplorer extends React.Component {
 
   renderDoc(doc) {
     const auth = getAuth(this.props.variables.user, this.props.oasFiles)
-    return this.state.showEndpoint[doc._id] && (
+    return this.state.showEndpoint[`${doc.api.method}-${doc.swagger.path}`] && (
       <Doc
-        key={doc._id}
         doc={doc}
         oas={this.getOas(doc)}
         setLanguage={this.setLanguage}
@@ -217,14 +216,14 @@ class ApiExplorer extends React.Component {
                       accordion
                       onChange={this.props.onDocChange}
                     >
-                      {this.props.docs.map((doc, index) => (
+                      {this.props.docs.map((doc) => (
                         <Panel
                           header={this.renderHeaderPanel(doc)}
                           key={`${doc.api.method}-${doc.swagger.path}`}
                           style={{...styleByMethod(doc.api.method), ...panelStyle}}
                           forceRender={this.props.forcePanelRender}
                         >
-                          <Waypoint onEnter={() => this.waypointEntered(doc._id)} fireOnRapidScroll={false} />
+                          <Waypoint onEnter={() => this.waypointEntered(`${doc.api.method}-${doc.swagger.path}`)} fireOnRapidScroll={false} />
                           {this.renderDoc(doc)}
                         </Panel>
                       ))}
