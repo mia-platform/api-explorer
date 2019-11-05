@@ -36,12 +36,12 @@ const baseDoc = {
   slug: 'slug',
   type: 'endpoint',
   category: {},
-  api: { method: 'get' },
+  swagger: {path: '/my-path'},
+  api: { method: 'get' }
 };
 
 test('ApiExplorer renders a single doc', () => {
-  const explorer = shallow(<ApiExplorer {...props} docs={[baseDoc]} />);
-  explorer.setState({showEndpoint: {'1': true}})
+  const explorer = shallow(<ApiExplorer {...props} docs={[Object.assign({}, baseDoc)]} />);
   expect(explorer.find('Doc').length).toBe(1);
 });
 
@@ -121,7 +121,7 @@ describe('oas', () => {
       <ApiExplorer
         {...props}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/pet'}
         oasFiles={{
           'api-setting': oas,
         }}
@@ -135,7 +135,6 @@ describe('oas', () => {
       ...oas,
       ...expectedSampleLanguages
     }
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('oas')).toEqual(expectedOas);
   });
 
@@ -145,7 +144,7 @@ describe('oas', () => {
       <ApiExplorer
         {...props}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/pet'}
         oasFiles={{
           'api-setting': oas,
         }}
@@ -161,7 +160,6 @@ describe('oas', () => {
       ...oas,
       ...expectedSampleLanguages
     }
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('oas')).toEqual(expectedOas);
   });
 
@@ -170,7 +168,7 @@ describe('oas', () => {
       <ApiExplorer
         {...props}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/pet'}
         oasFiles={{
           'api-setting': oas,
         }}
@@ -186,7 +184,6 @@ describe('oas', () => {
       ...oas,
       ...expectedSampleLanguages
     }
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('oas')).toEqual(expectedOas);
   });
 
@@ -196,11 +193,10 @@ describe('oas', () => {
       <ApiExplorer
         {...props}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/my-path'}
         docs={[Object.assign({}, baseDoc)]}
       />,
     );
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('oas')).toEqual({});
   });
 
@@ -208,13 +204,12 @@ describe('oas', () => {
     const explorer = mount(
       <ApiExplorer
         {...props}
-        docs={[baseDoc]}
+        docs={[Object.assign({}, baseDoc)]}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/my-path'}
       />
     );
 
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('oas')).toEqual({});
   });
 });
@@ -232,11 +227,8 @@ describe('auth', () => {
             swagger: { path: '/pet' }
           }),
         ]}
-        defaultOpen
-        defaultOpenDoc={'1'}
       />
     );
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('auth')).toEqual({ api_key: '123456', petstore_auth: '123456' });
   });
 
@@ -247,12 +239,9 @@ describe('auth', () => {
       <ApiExplorer
         {...props}
         variables={{ user: { keys: [{ name: 'a', apiKey }] } }}
-        docs={[baseDoc]}
-        defaultOpen
-        defaultOpenDoc={'1'}
+        docs={[Object.assign({}, baseDoc)]}
       />,
     );
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('auth')).toEqual({ api_key: '123456', petstore_auth: '123456' });
   });
 
@@ -263,13 +252,10 @@ describe('auth', () => {
       <ApiExplorer
         {...props}
         variables={{ user: { keys: [{ name: 'project1', api_key: apiKey }] } }}
-        docs={[baseDoc]}
-        defaultOpen
-        defaultOpenDoc={'1'}
+        docs={[Object.assign({}, baseDoc)]}
       />,
     );
 
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('auth')).toEqual({ api_key: '123456', petstore_auth: '' });
   });
 
@@ -277,11 +263,8 @@ describe('auth', () => {
     const explorer = shallow(
       <ApiExplorer
         {...props}
-        docs={[baseDoc]}
-        defaultOpen
-        defaultOpenDoc={'1'}
+        docs={[Object.assign({}, baseDoc)]}
       />);
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('auth')).toEqual({ api_key: '', petstore_auth: '' });
   });
 });
@@ -381,10 +364,9 @@ describe('fallbackUrl', () => {
           category: { apiSetting: 'api-setting' }
         })]}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/pet'}
       />
     );
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find('Doc').prop('fallbackUrl')).toEqual(fallback)
   })
 })
@@ -427,10 +409,9 @@ describe('stripSlash', () => {
           category: { apiSetting: 'api-setting' }
         })]}
         defaultOpen
-        defaultOpenDoc={'1'}
+        defaultOpenDoc={'get-/pet'}
       />
     );
-    explorer.setState({showEndpoint: {'1': true}})
     expect(explorer.find(Doc).prop('stripSlash')).toEqual(true)
   })
 })

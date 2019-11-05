@@ -48,7 +48,6 @@ class ApiExplorer extends React.Component {
     this.setLanguage = this.setLanguage.bind(this);
     this.getDefaultLanguage = this.getDefaultLanguage.bind(this);
     this.changeSelected = this.changeSelected.bind(this);
-    this.waypointEntered = this.waypointEntered.bind(this);
     this.state = {
       language: Cookie.get('readme_language') || this.getDefaultLanguage(),
       selectedApp: {
@@ -56,7 +55,6 @@ class ApiExplorer extends React.Component {
         changeSelected: this.changeSelected,
       },
       description: getDescription(this.props.oasFiles),
-      showEndpoint: {}
     };
   }
 
@@ -102,10 +100,6 @@ class ApiExplorer extends React.Component {
     this.setState({ selectedApp: { selected, changeSelected: this.changeSelected } });
   }
 
-  waypointEntered(id) {
-    this.setState(prevState => ({ showEndpoint: {...prevState.showEndpoint, [id]: true }}));
-  }
-
   renderDescription(){
     const style = {
       maxHeight: 300,
@@ -128,7 +122,7 @@ class ApiExplorer extends React.Component {
 
   renderDoc(doc) {
     const auth = getAuth(this.props.variables.user, this.props.oasFiles)
-    return this.state.showEndpoint[`${doc.api.method}-${doc.swagger.path}`] && (
+    return (
       <Doc
         doc={doc}
         oas={this.getOas(doc)}
@@ -223,7 +217,6 @@ class ApiExplorer extends React.Component {
                           style={{...styleByMethod(doc.api.method), ...panelStyle}}
                           forceRender={this.props.forcePanelRender}
                         >
-                          <Waypoint onEnter={() => this.waypointEntered(`${doc.api.method}-${doc.swagger.path}`)} fireOnRapidScroll={false} />
                           {this.renderDoc(doc)}
                         </Panel>
                       ))}
