@@ -4,7 +4,6 @@
 import React from 'react'
 import { Collapse, Tag, Divider } from 'antd';
 import get from 'lodash.get'
-import Waypoint from 'react-waypoint'
 import extensions from '@mia-platform/oas-extensions'
 
 import { IntlProvider, addLocaleData } from 'react-intl';
