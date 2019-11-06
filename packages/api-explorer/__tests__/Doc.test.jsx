@@ -45,8 +45,6 @@ test('should output correct components', () => {
       <Doc {...props} />
     </IntlProvider>
   );
-  const doc = wrapper.find('Doc')
-  doc.setState({ showEndpoint: true });
 
   assertDocElements(wrapper, props.doc);
   expect(wrapper.find(`div#page-${props.doc.slug}`).length).toBe(1);
@@ -309,8 +307,6 @@ describe('state.loading', () => {
 describe('suggest edits', () => {
   test('should not show if suggestedEdits is false', () => {
     const wrapper = mountWithIntl(<IntlProvider><Doc {...props} suggestedEdits={false} /></IntlProvider>)
-    const doc = wrapper.find('Doc')
-
     expect(wrapper.find(`a[href="//reference-edit/${props.doc.slug}"]`).length).toBe(0);
   });
 
