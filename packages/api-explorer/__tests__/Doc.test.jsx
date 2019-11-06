@@ -320,9 +320,6 @@ describe('suggest edits', () => {
         <Doc {...props} suggestedEdits />
       </IntlProvider>
     );
-    const doc = wrapper.find('Doc')
-    doc.setState({ showEndpoint: true });
-
     expect(wrapper.find(`a[href="//reference-edit/${props.doc.slug}"]`).length).toBe(1);
   });
 
@@ -367,9 +364,6 @@ test('should output with an error message if the endpoint fails to load', () => 
     </IntlProvider>
   );
   const doc = wrapper.find('Doc')
-
-  doc.setState({ showEndpoint: true });
-
   expect(doc.find('ErrorBoundary').length).toBe(1);
 });
 
