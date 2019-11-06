@@ -279,14 +279,12 @@ describe('toggleAuth', () => {
 describe('PathUrl', () => {
   it('should be passed auth from props if the one in state is undefined', () => {
     const wrapper = mountWithIntl(<IntlProvider><Doc {...props} auth={{api_key: '123' }} /></IntlProvider>);
-    const doc = wrapper.find('Doc')
     wrapper.mount()
     const pathUrl = wrapper.find(PathUrl)
     expect(pathUrl.prop('auth')).toEqual({api_key: '123' })
   })
   it('should be passed auth from state if the one in state is not undefined', () => {
     const wrapper = mountWithIntl(<IntlProvider><Doc {...props} auth={{api_key: '123' }} /></IntlProvider>);
-    const doc = wrapper.find('Doc')
     wrapper.mount()
     const pathUrl = wrapper.find(PathUrl)
     pathUrl.prop('onChange')({api_key: '456'})
@@ -325,8 +323,6 @@ describe('suggest edits', () => {
         <Doc {...Object.assign({}, { baseUrl: '/child' }, props)} suggestedEdits />
       </IntlProvider>
     );
-    const doc = wrapper.find('Doc')
-    // const description = mountWithIntl(<div>{doc.find('Description')}</div>)
     expect(wrapper.find(`a[href="/child/reference-edit/${props.doc.slug}"]`).length).toBe(1);
   });
 });
