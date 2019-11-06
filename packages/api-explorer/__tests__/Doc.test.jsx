@@ -282,7 +282,6 @@ describe('PathUrl', () => {
   it('should be passed auth from props if the one in state is undefined', () => {
     const wrapper = mountWithIntl(<IntlProvider><Doc {...props} auth={{api_key: '123' }} /></IntlProvider>);
     const doc = wrapper.find('Doc')
-    doc.setState({showEndpoint: true})
     wrapper.mount()
     const pathUrl = wrapper.find(PathUrl)
     expect(pathUrl.prop('auth')).toEqual({api_key: '123' })
@@ -290,7 +289,6 @@ describe('PathUrl', () => {
   it('should be passed auth from state if the one in state is not undefined', () => {
     const wrapper = mountWithIntl(<IntlProvider><Doc {...props} auth={{api_key: '123' }} /></IntlProvider>);
     const doc = wrapper.find('Doc')
-    doc.setState({showEndpoint: true})
     wrapper.mount()
     const pathUrl = wrapper.find(PathUrl)
     pathUrl.prop('onChange')({api_key: '456'})
@@ -312,7 +310,6 @@ describe('suggest edits', () => {
   test('should not show if suggestedEdits is false', () => {
     const wrapper = mountWithIntl(<IntlProvider><Doc {...props} suggestedEdits={false} /></IntlProvider>)
     const doc = wrapper.find('Doc')
-    doc.setState({showEndpoint: true})
 
     expect(wrapper.find(`a[href="//reference-edit/${props.doc.slug}"]`).length).toBe(0);
   });
@@ -336,8 +333,6 @@ describe('suggest edits', () => {
       </IntlProvider>
     );
     const doc = wrapper.find('Doc')
-    doc.setState({showEndpoint: true})
-
     // const description = mountWithIntl(<div>{doc.find('Description')}</div>)
     expect(wrapper.find(`a[href="/child/reference-edit/${props.doc.slug}"]`).length).toBe(1);
   });
