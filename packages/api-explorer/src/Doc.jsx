@@ -389,7 +389,7 @@ class Doc extends React.Component {
     return (
       <ErrorBoundary>
         <div id={`page-${doc.slug}`}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto'}}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px'}}>
             {this.renderEndpoint()}
           </div>
           {
