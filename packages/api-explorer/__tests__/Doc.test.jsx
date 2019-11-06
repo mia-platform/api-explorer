@@ -92,7 +92,6 @@ test('should work without a doc.swagger/doc.path/oas', () => {
       />
     </IntlProvider>
   );
-  docComponent.setState({ showEndpoint: true });
 
   assertDocElements(docComponent, doc);
   expect(docComponent.find(`div#page-${props.doc.slug}`).length).toBe(1);
@@ -116,7 +115,6 @@ test('should still display `Content` with column-style layout', () => {
       />
     </IntlProvider>
   );
-  docComponent.setState({ showEndpoint: true });
 
   assertDocElements(docComponent, doc);
   expect(docComponent.find('ContentWithTitle').length).toBe(0);
