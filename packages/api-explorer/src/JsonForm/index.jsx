@@ -7,6 +7,7 @@ import antdTheme from './antd-theme-json-editor'
 import getCustomEditor from './get-custom-editor'
 import arrayCustomEditor from './array-custom-editors'
 import objectCustomEditor from './object-custom-editors'
+import notCustomEditor from './not-custom-editor'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
@@ -19,6 +20,7 @@ function configureJSONEditor() {
     });
   JSONEditor.defaults.editors.array = arrayCustomEditor()
   JSONEditor.defaults.editors.object = objectCustomEditor()
+  JSONEditor.defaults.editors.not = notCustomEditor()
 
   JSONEditor.defaults.themes.antdTheme = antdTheme
 
@@ -34,6 +36,13 @@ function configureJSONEditor() {
       return "base64";
     }
   });
+
+  // eslint-disable-next-line consistent-return
+  JSONEditor.defaults.resolvers.unshift((scheme) => {
+    if (scheme.not && scheme.not.type) {
+      return "not"
+    }
+  })
 }
 
 export default class JsonForm extends Component {
