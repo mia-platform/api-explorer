@@ -11,7 +11,8 @@ extendMock.mockReturnValue({extend: extendMock})
 const editorsMock = {
   foo: {extend: extendMock},
   array: {extend: extendMock},
-  object: {extend: extendMock}
+  object: {extend: extendMock},
+  multiple: {extend: extendMock},
 }
 
 jest.mock('@json-editor/json-editor')
@@ -74,10 +75,14 @@ describe('JSONForm ', () => {
         extendMock.mock.calls.map(call => Object.keys(call[0]))
       ).toEqual([
         ['setContainer', 'build'], // foo
+        ['setContainer', 'build'], // foo (to understand why)
+        ['setContainer', 'build'], // foo (to understand why)
         ['setContainer', 'build'], // array - get-custom-editor
         ['addControls', 'refreshValue'], // array-custom-editor  
         ['setContainer', 'build'], // object - get-custom-editor
-        ['build'] // object-custom-editor
+        ['build'], // object-custom-editor
+        ['setContainer', 'build'], // not - get-custom-editor
+        ['preBuild'] // not-custom-editor
       ])
     })
 })
