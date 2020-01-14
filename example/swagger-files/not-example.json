@@ -80,7 +80,18 @@
             "type": "array",
             "items": {
               "not": {
-                "type": "string"
+                "type": "object",
+                "properties": {}
+              }
+            }
+          },
+          "pet_home": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "not": {
+                  "type": "array"
+                }
               }
             }
           }

@@ -75,8 +75,7 @@ describe('JSONForm ', () => {
         extendMock.mock.calls.map(call => Object.keys(call[0]))
       ).toEqual([
         ['setContainer', 'build'], // foo
-        ['setContainer', 'build'], // foo (to understand why)
-        ['setContainer', 'build'], // foo (to understand why)
+        ['setContainer', 'build'], // multiple
         ['setContainer', 'build'], // array - get-custom-editor
         ['addControls', 'refreshValue'], // array-custom-editor  
         ['setContainer', 'build'], // object - get-custom-editor

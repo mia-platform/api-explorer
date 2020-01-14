@@ -15,7 +15,7 @@ import './custom-bootstrap4.css'
 function configureJSONEditor() {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
   editorsKeys
-    .filter(key => key !== 'array' && key !== 'object').forEach(key => {
+    .filter(key => key !== 'array' && key !== 'object' && key !== 'not').forEach(key => {
       JSONEditor.defaults.editors[key] = getCustomEditor(key);
     });
   JSONEditor.defaults.editors.array = arrayCustomEditor()

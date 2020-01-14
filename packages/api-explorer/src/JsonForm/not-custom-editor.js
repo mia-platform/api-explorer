@@ -1,10 +1,18 @@
+/* eslint-disable no-underscore-dangle */
 const baseCustomEditor = require('./get-custom-editor')
+
+const isArrayWithItems = schema => schema.type === 'array' && schema.items
+const isObjectWithProps = schema => schema.type === 'object' && schema.properties
 
 module.exports = () => baseCustomEditor('multiple').extend({
   preBuild() {
+    const { not: notSchema } = this.schema
+    if (isArrayWithItems(notSchema) || isObjectWithProps(notSchema)) {
+      delete this.schema.not
+      return this._super()
+    }
     this.schema.disallow = [this.schema.not.type]
     delete this.schema.not
-    // eslint-disable-next-line no-underscore-dangle
     return this._super()
   }
 })
