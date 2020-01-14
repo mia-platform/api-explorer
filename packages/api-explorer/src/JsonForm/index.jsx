@@ -8,19 +8,23 @@ import getCustomEditor from './get-custom-editor'
 import arrayCustomEditor from './array-custom-editors'
 import objectCustomEditor from './object-custom-editors'
 import notCustomEditor from './not-custom-editor'
+// import anyOfEditor from './anyOf-custom-editor'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
 function configureJSONEditor() {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
+  const keysToExclude = ['array', 'object', 'not', 'anyOf']
   editorsKeys
-    .filter(key => key !== 'array' && key !== 'object' && key !== 'not').forEach(key => {
+    .filter(key => !keysToExclude.includes(key)).forEach(key => {
       JSONEditor.defaults.editors[key] = getCustomEditor(key);
     });
+    
   JSONEditor.defaults.editors.array = arrayCustomEditor()
   JSONEditor.defaults.editors.object = objectCustomEditor()
   JSONEditor.defaults.editors.not = notCustomEditor()
+  // JSONEditor.defaults.editors.anyOf = anyOfEditor()
 
   JSONEditor.defaults.themes.antdTheme = antdTheme
 
@@ -40,9 +44,16 @@ function configureJSONEditor() {
   // eslint-disable-next-line consistent-return
   JSONEditor.defaults.resolvers.unshift((scheme) => {
     if (scheme.not && scheme.not.type) {
-      return "not"
+      return 'not'
     }
   })
+
+  // eslint-disable-next-line consistent-return
+  /* JSONEditor.defaults.resolvers.unshift((scheme) => {
+    if (scheme.anyOf) {
+      return 'anyOf'
+    }
+  }) */
 }
 
 export default class JsonForm extends Component {
