@@ -75,6 +75,14 @@
             "not": {
               "type": "string"
             }
+          },
+          "pet_children": {
+            "type": "array",
+            "items": {
+              "not": {
+                "type": "string"
+              }
+            }
           }
         },
         "required": [
