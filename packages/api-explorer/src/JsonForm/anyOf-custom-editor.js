@@ -4,40 +4,70 @@ const baseCustomEditor = require('./get-custom-editor')
 
 module.exports = () => baseCustomEditor('multiple').extend({
   build() {
-    const self = this
-
-    const switcher = buildSwitcher(self)
-
+    const switcher = this.buildSwitcher()
     const response = this._super()
-    self.switcher.replaceWith(switcher)
-
+    this.switcher.replaceWith(switcher)
+    this.addErrorMessageHtmlNode()
+    return response
+  },
+  buildSwitcher() {
+    const self = this
+    const switcher = this.theme.getSwitcher(this.display_text)
+    switcher.multiple = true
+    switcher.addEventListener('change', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
+      if (selectedValues.length === 1) {
+        this.hideErrorMessage()
+        self.switchEditor(self.display_text.indexOf(selectedValues[0]));
+      } else {
+        self.updateEditor(selectedValues)
+      }
+      self.onChange(true);
+    });
+    return switcher
+  },
+  updateEditor(selectedValues) {
+    const joinedValues = selectedValues.join('_')
+    const mergedEditorIndex = editorIndexesMap.get(joinedValues)
+    if (mergedEditorIndex) {
+      this.hideErrorMessage()
+      this.switchEditor(mergedEditorIndex);
+      return
+    }
+    const schemasIndexes = selectedValues.map(value => this.display_text.indexOf(value))
+    const schemas = this.types.filter((_, index) => schemasIndexes.includes(index))
+    const mergedSchemas = mergeSchemas(schemas, self)
+    if (!mergedSchemas) {
+      this.showErrorMessage()
+      return
+    }
+    this.hideErrorMessage()
+    const index = this.types.length
+    this.insertNewEditor(index, joinedValues, mergedSchemas)
+    this.switchEditor(index)
+  },
+  addErrorMessageHtmlNode() {
     this.errorMessageHtmlNode = document.createElement('p')
     this.errorMessageHtmlNode.innerText = 'The selected schemas are not compatible!'
     this.errorMessageHtmlNode.style.color = 'red'
     this.errorMessageHtmlNode.style['font-weight'] = 'bold'
     this.errorMessageHtmlNode.style.display = 'none'
     this.container.appendChild(this.errorMessageHtmlNode)
-
-    return response
   },
-  updateEditor(selectedValues) {
-    const joinedValues = selectedValues.join('_')
-    const mergedEditorIndex = editorIndexesMap.get(joinedValues)
-    if (mergedEditorIndex) {
-      this.switchEditor(mergedEditorIndex);
-      return
-    }
-    const schemasIndexes = selectedValues.map(value => this.display_text.indexOf(value))
-    const schemas = this.types.filter((_, index) => schemasIndexes.includes(index))
-    const mergedSchemas = mergeSchemas(schemas)
-    if (!mergedSchemas) {
-      return
-    }
-    const index = this.types.length
+  showErrorMessage() {
+    this.editor_holder.style.display = 'none'
+    this.errorMessageHtmlNode.style.display = 'block'
+  },
+  hideErrorMessage() {
+    this.editor_holder.style.display = 'block'
+    this.errorMessageHtmlNode.style.display = 'none'
+  },
+  insertNewEditor(index, joinedValues, mergedSchemas) {
     editorIndexesMap.set(joinedValues, index)
     this.types.push(mergedSchemas)
     this.editors.push(false)
-    this.switchEditor(index)
   }
 })
 
@@ -53,8 +83,6 @@ const mergeSchemas = (schemas) => {
       : undefined
   }, 'any')
   if (!schemasType) {
-    self.editor_holder.style.display = 'none'
-    self.errorMessageHtmlNode.style.display = 'block'
     return undefined
   }
   const merger = mergersMap[schemasType]
@@ -87,23 +115,4 @@ const mergersMap = {
   array: mergeArrays,
   object: mergeObjects,
   default: (_, schemasType) => { return { type: schemasType } }
-}
-
-const buildSwitcher = self => {
-  const switcher = self.theme.getSwitcher(self.display_text)
-  switcher.multiple = true
-  switcher.addEventListener('change', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
-    if (selectedValues.length === 1) {
-      self.errorMessageHtmlNode.style.display = 'none'
-      self.editor_holder.style.display = 'block'
-      self.switchEditor(self.display_text.indexOf(selectedValues[0]));
-    } else {
-      self.updateEditor(selectedValues)
-    }
-    self.onChange(true);
-  });
-  return switcher
 }
