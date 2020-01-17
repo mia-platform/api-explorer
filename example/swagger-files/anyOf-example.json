@@ -10,43 +10,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/results": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "response": {
-                    "value": {
-                      "user": {
-                        "email": "test@example.com",
-                        "name": "Test user name"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Validation failed",
-            "content": {
-              "application/xml": {
-                "examples": {
-                  "response": {
-                    "value": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "Update Password"
-      }
-    },
     "/pets": {
       "patch": {
         "requestBody": {
@@ -67,25 +30,16 @@
                           "type": "string"
                         }
                       }
-                    },
-                    "required": [
-                      "pet_type"
-                    ]
+                    }
                   },
                   {
-                    "title": "Pet by Age",
+                    "title": "Pet by Name",
                     "type": "object",
                     "properties": {
                       "pet_name": {
                         "type": "string"
-                      },
-                      "pet_age": {
-                        "type": "number"
                       }
-                    },
-                    "required": [
-                      "pet_type"
-                    ]
+                    }                    
                   }
                 ]
               }

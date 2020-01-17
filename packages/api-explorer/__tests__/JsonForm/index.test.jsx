@@ -81,7 +81,9 @@ describe('JSONForm ', () => {
         ['setContainer', 'build'], // object - get-custom-editor
         ['build'], // object-custom-editor
         ['setContainer', 'build'], // not - get-custom-editor
-        ['preBuild'] // not-custom-editor
+        ['preBuild'], // not-custom-editor
+        ['setContainer', 'build'], // anyOf - get-custom-editor
+        ['build', 'updateEditor'] // anyOf-custom-editor
       ])
     })
 })

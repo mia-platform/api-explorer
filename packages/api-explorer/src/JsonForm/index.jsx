@@ -8,7 +8,7 @@ import getCustomEditor from './get-custom-editor'
 import arrayCustomEditor from './array-custom-editors'
 import objectCustomEditor from './object-custom-editors'
 import notCustomEditor from './not-custom-editor'
-// import anyOfEditor from './anyOf-custom-editor'
+import anyOfEditor from './anyOf-custom-editor'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
@@ -24,7 +24,7 @@ function configureJSONEditor() {
   JSONEditor.defaults.editors.array = arrayCustomEditor()
   JSONEditor.defaults.editors.object = objectCustomEditor()
   JSONEditor.defaults.editors.not = notCustomEditor()
-  // JSONEditor.defaults.editors.anyOf = anyOfEditor()
+  JSONEditor.defaults.editors.anyOf = anyOfEditor()
 
   JSONEditor.defaults.themes.antdTheme = antdTheme
 
@@ -49,11 +49,11 @@ function configureJSONEditor() {
   })
 
   // eslint-disable-next-line consistent-return
-  /* JSONEditor.defaults.resolvers.unshift((scheme) => {
+  JSONEditor.defaults.resolvers.unshift((scheme) => {
     if (scheme.anyOf) {
       return 'anyOf'
     }
-  }) */
+  })
 }
 
 export default class JsonForm extends Component {
