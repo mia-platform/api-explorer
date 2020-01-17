@@ -31,7 +31,9 @@ module.exports = () => baseCustomEditor('multiple').extend({
     this.container.appendChild(this.editor_holder)
 
     this.errorMessageHtmlNode = document.createElement('p')
-    this.errorMessageHtmlNode.innerText = 'The selected schemas are not compatible with each other!'
+    this.errorMessageHtmlNode.innerText = 'The selected schemas are not compatible!'
+    this.errorMessageHtmlNode.style.color = 'red'
+    this.errorMessageHtmlNode.style['font-weight'] = 'bold'
     this.errorMessageHtmlNode.style.display = 'none'
     this.container.appendChild(this.errorMessageHtmlNode)
 
