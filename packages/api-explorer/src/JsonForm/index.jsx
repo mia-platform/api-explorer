@@ -9,13 +9,14 @@ import arrayCustomEditor from './array-custom-editors'
 import objectCustomEditor from './object-custom-editors'
 import notCustomEditor from './not-custom-editor'
 import anyOfEditor from './anyOf-custom-editor'
+import oneOfEditor from './oneOf-custom-editor'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
 function configureJSONEditor() {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
-  const keysToExclude = ['array', 'object', 'not', 'anyOf']
+  const keysToExclude = ['array', 'object', 'not', 'anyOf', 'oneOf']
   editorsKeys
     .filter(key => !keysToExclude.includes(key)).forEach(key => {
       JSONEditor.defaults.editors[key] = getCustomEditor(key);
@@ -25,6 +26,7 @@ function configureJSONEditor() {
   JSONEditor.defaults.editors.object = objectCustomEditor()
   JSONEditor.defaults.editors.not = notCustomEditor()
   JSONEditor.defaults.editors.anyOf = anyOfEditor()
+  JSONEditor.defaults.editors.oneOf = oneOfEditor()
 
   JSONEditor.defaults.themes.antdTheme = antdTheme
 
@@ -52,6 +54,13 @@ function configureJSONEditor() {
   JSONEditor.defaults.resolvers.unshift((scheme) => {
     if (scheme.anyOf) {
       return 'anyOf'
+    }
+  })
+
+  // eslint-disable-next-line consistent-return
+  JSONEditor.defaults.resolvers.unshift((scheme) => {
+    if (scheme.oneOf) {
+      return 'oneOf'
     }
   })
 }

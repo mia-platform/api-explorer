@@ -5,6 +5,7 @@ const baseCustomEditor = require('./get-custom-editor')
 module.exports = () => baseCustomEditor('multiple').extend({
   build() {
     const switcher = this.buildSwitcher()
+    this.keep_values = false
     const response = this._super()
     this.switcher.replaceWith(switcher)
     this.addErrorMessageHtmlNode()
@@ -19,7 +20,7 @@ module.exports = () => baseCustomEditor('multiple').extend({
       e.stopPropagation();
       const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
       if (selectedValues.length === 1) {
-        this.hideErrorMessage()
+        self.hideErrorMessage()
         self.switchEditor(self.display_text.indexOf(selectedValues[0]));
       } else {
         self.updateEditor(selectedValues)
