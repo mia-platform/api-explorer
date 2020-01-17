@@ -5,7 +5,6 @@ const baseCustomEditor = require('./get-custom-editor')
 module.exports = () => baseCustomEditor('multiple').extend({
   build() {
     const switcher = this.buildSwitcher()
-    this.keep_values = false
     const response = this._super()
     this.switcher.replaceWith(switcher)
     this.addErrorMessageHtmlNode()

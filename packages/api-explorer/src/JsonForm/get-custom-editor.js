@@ -9,6 +9,9 @@ const getCustomEditor = key =>{
       this._super(this.container)
     },
     build() {
+      if (key === 'multiple') {
+        this.keep_values = false
+      }
       const buildResponse = this._super()
       if(this.addproperty_add) {
         this.addproperty_add.style.marginLeft = '10px'

@@ -16,7 +16,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
+                "anyOf": [
                   {
                     "title": "Pet by Type",
                     "type": "object",
