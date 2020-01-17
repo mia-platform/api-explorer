@@ -39,7 +39,66 @@
                       "pet_name": {
                         "type": "string"
                       }
-                    }                    
+                    }
+                  },
+                  {
+                    "title": "Pet by Address",
+                    "type": "object",
+                    "properties": {
+                      "pet_type": {
+                        "type": "number"
+                      },
+                      "pet_country": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "title": "Pet by Type",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "pet_type": {
+                          "type": "string"
+                        },
+                        "pet_children": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "title": "Pet by Name",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "pet_name": {
+                          "type": "string"
+                        }
+                      }
+                    }
                   }
                 ]
               }

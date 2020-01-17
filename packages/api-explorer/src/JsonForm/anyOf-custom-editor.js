@@ -38,7 +38,8 @@ module.exports = () => baseCustomEditor('multiple').extend({
     return response
   },
   updateEditor(selectedValues) {
-    const mergedEditorIndex = editorIndexesMap.get(selectedValues)
+    const joinedValues = selectedValues.join('_')
+    const mergedEditorIndex = editorIndexesMap.get(joinedValues)
     if(mergedEditorIndex) {
       this.switchEditor(mergedEditorIndex);
       return
@@ -50,7 +51,7 @@ module.exports = () => baseCustomEditor('multiple').extend({
       return
     }
     const index = this.types.length
-    editorIndexesMap.set(selectedValues, index)
+    editorIndexesMap.set(joinedValues, index)
     this.types.push(mergedSchemas)
     this.editors.push(false)
     this.switchEditor(index)
@@ -80,7 +81,14 @@ const mergeSchemas = (schemas) => {
   return mergedSchemas
 }
 
-const mergeArrays = () => {}
+const mergeArrays = schemas => {
+  const schemasItems = schemas.map(schema => schema.items)
+  const mergedItems = mergeSchemas(schemasItems)
+  if (!mergedItems) {
+    return undefined
+  }
+  return { type: 'array', items: mergedItems }
+}
 const mergeObjects = schemas => {
   const mergedProperties = schemas.reduce((propsAccumulator, currentSchema) => {
     return { ...propsAccumulator, ...currentSchema.properties }
