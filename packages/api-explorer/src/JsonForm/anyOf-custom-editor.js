@@ -6,29 +6,10 @@ module.exports = () => baseCustomEditor('multiple').extend({
   build() {
     const self = this
 
-    const switcher = this.theme.getSwitcher(self.display_text)
-    switcher.multiple = true
-    // const editors = self.display_text.map((text, i) => self.buildChildEditor(i))
-    switcher.addEventListener('change', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
-      if (selectedValues.length === 1) {
-        self.errorMessageHtmlNode.style.display = 'none'
-        self.editor_holder.style.display = 'block'
-        self.switchEditor(self.display_text.indexOf(selectedValues[0]));
-      } else {
-        self.updateEditor(selectedValues)
-      }
-      self.onChange(true);
-    });
+    const switcher = buildSwitcher(self)
 
     const response = this._super()
-    this.container.removeChild(this.switcher)
-    this.container.removeChild(this.editor_holder)
-    this.switcher = switcher
-    this.container.appendChild(switcher)
-    this.container.appendChild(this.editor_holder)
+    self.switcher.replaceWith(switcher)
 
     this.errorMessageHtmlNode = document.createElement('p')
     this.errorMessageHtmlNode.innerText = 'The selected schemas are not compatible!'
@@ -42,7 +23,7 @@ module.exports = () => baseCustomEditor('multiple').extend({
   updateEditor(selectedValues) {
     const joinedValues = selectedValues.join('_')
     const mergedEditorIndex = editorIndexesMap.get(joinedValues)
-    if(mergedEditorIndex) {
+    if (mergedEditorIndex) {
       this.switchEditor(mergedEditorIndex);
       return
     }
@@ -72,8 +53,8 @@ const mergeSchemas = (schemas) => {
       : undefined
   }, 'any')
   if (!schemasType) {
-    this.editor_holder.style.display = 'none'
-    this.errorMessageHtmlNode.style.display = 'block'
+    self.editor_holder.style.display = 'none'
+    self.errorMessageHtmlNode.style.display = 'block'
     return undefined
   }
   const merger = mergersMap[schemasType]
@@ -106,4 +87,23 @@ const mergersMap = {
   array: mergeArrays,
   object: mergeObjects,
   default: (_, schemasType) => { return { type: schemasType } }
+}
+
+const buildSwitcher = self => {
+  const switcher = self.theme.getSwitcher(self.display_text)
+  switcher.multiple = true
+  switcher.addEventListener('change', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
+    if (selectedValues.length === 1) {
+      self.errorMessageHtmlNode.style.display = 'none'
+      self.editor_holder.style.display = 'block'
+      self.switchEditor(self.display_text.indexOf(selectedValues[0]));
+    } else {
+      self.updateEditor(selectedValues)
+    }
+    self.onChange(true);
+  });
+  return switcher
 }
