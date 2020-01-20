@@ -84,7 +84,7 @@ describe('JSONForm ', () => {
       ['preBuild'], // not-custom-editor
       ['setContainer', 'build'], // anyOf - get-custom-editor
       ['build', 'buildSwitcher', 'updateEditor', 'addErrorMessageHtmlNode',
-        'showErrorMessage', 'hideErrorMessage', 'insertNewEditor', 'setSwitcherStyle'] // anyOf-custom-editor
+        'showErrorMessage', 'hideErrorMessage', 'insertNewEditor'] // anyOf-custom-editor
     ])
   })
 })

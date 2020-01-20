@@ -25,7 +25,6 @@ module.exports = () => baseCustomEditor('multiple').extend({
     switcherLabel.innerText = 'Select the schemas:'
     switcherDiv.appendChild(switcherLabel)
     switcherDiv.appendChild(switcher)
-    this.setSwitcherStyle()
     const choices = new Choices(switcher, {
       placeholder: true,
       placeholderValue: 'Select the schema',
@@ -101,24 +100,6 @@ module.exports = () => baseCustomEditor('multiple').extend({
     editorIndexesMap.set(joinedValues, index)
     this.types.push(mergedSchemas)
     this.editors.push(false)
-  },
-  setSwitcherStyle() {
-    const switcherStyleId = 'multiple-select-options-style'
-    if (document.getElementById(switcherStyleId)) {
-      return
-    }
-    const switcherStyle = document.createElement('style')
-    switcherStyle.type = 'text/css'
-    switcherStyle.innerHTML = `.multiple-select-choices-list .multiple-select-item {
-      background-color: #1890ff;
-      border: 1px solid #1890ff;
-    }
-    .choices__list--multiple .choices__item.is-highlighted {
-      background-color: #1890ff;
-      border: 1px solid #1890ff;
-    }`
-    switcherStyle.id = switcherStyleId
-    document.head.appendChild(switcherStyle)
   }
 })
 
