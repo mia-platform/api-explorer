@@ -1,12 +1,14 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 const baseCustomEditor = require('./get-custom-editor')
+const Choices = require('choices.js')
+require('choices.js/public/assets/styles/choices.min.css')
 
 module.exports = () => baseCustomEditor('multiple').extend({
   build() {
-    const switcher = this.buildSwitcher()
     const response = this._super()
-    this.switcher.replaceWith(switcher)
+    const switcherDiv = this.buildSwitcher()
+    this.switcher.replaceWith(switcherDiv)
     this.addErrorMessageHtmlNode()
     return response
   },
@@ -26,7 +28,19 @@ module.exports = () => baseCustomEditor('multiple').extend({
       }
       self.onChange(true);
     });
-    return switcher
+    const switcherDiv = document.createElement('div')
+    const switcherLabel = document.createElement('label')
+    switcherLabel.style.fontWeight = 'bold'
+    switcherLabel.innerText = 'Select the schemas:'
+    switcherDiv.appendChild(switcherLabel)
+    switcherDiv.appendChild(switcher)
+    this.setSwitcherStyle()
+    // eslint-disable-next-line no-unused-vars
+    const choices = new Choices(switcher, {
+      removeItemButton: true,
+      duplicateItemsAllowed: false,
+    })
+    return switcherDiv
   },
   updateEditor(selectedValues) {
     const joinedValues = selectedValues.join('_')
@@ -52,7 +66,7 @@ module.exports = () => baseCustomEditor('multiple').extend({
     this.errorMessageHtmlNode = document.createElement('p')
     this.errorMessageHtmlNode.innerText = 'The selected schemas are not compatible!'
     this.errorMessageHtmlNode.style.color = 'red'
-    this.errorMessageHtmlNode.style['font-weight'] = 'bold'
+    this.errorMessageHtmlNode.style.fontWeight = 'bold'
     this.errorMessageHtmlNode.style.display = 'none'
     this.container.appendChild(this.errorMessageHtmlNode)
   },
@@ -68,6 +82,20 @@ module.exports = () => baseCustomEditor('multiple').extend({
     editorIndexesMap.set(joinedValues, index)
     this.types.push(mergedSchemas)
     this.editors.push(false)
+  },
+  setSwitcherStyle() {
+    const switcherStyleId = 'multiple-select-options-style'
+    if (document.getElementById(switcherStyleId)) {
+      return
+    }
+    const switcherStyle = document.createElement('style')
+    switcherStyle.type = 'text/css'
+    switcherStyle.innerHTML = `.choices__list--multiple .choices__item {
+      background-color: #1890ff;
+      border: 1px solid #1890ff;
+    }`
+    switcherStyle.id = switcherStyleId
+    document.head.appendChild(switcherStyle)
   }
 })
 
