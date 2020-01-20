@@ -7,20 +7,24 @@ require('choices.js/public/assets/styles/choices.min.css')
 module.exports = () => baseCustomEditor('multiple').extend({
   build() {
     const response = this._super()
-    const switcherDiv = this.buildSwitcher()
+    const { switcher, switcherDiv }= this.buildSwitcher()
     this.switcher.replaceWith(switcherDiv)
     this.addErrorMessageHtmlNode()
+    switcher.dispatchEvent(new Event('change'))
     return response
   },
   buildSwitcher() {
     const self = this
     const switcher = this.theme.getSwitcher(this.display_text)
     switcher.multiple = true
+    switcher.selectedIndex = '-1'
     switcher.addEventListener('change', e => {
       e.preventDefault();
       e.stopPropagation();
       const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
-      if (selectedValues.length === 1) {
+      if (selectedValues.length === 0) {
+        self.showErrorMessage('empty-selection')
+      } else if (selectedValues.length === 1) {
         self.hideErrorMessage()
         self.switchEditor(self.display_text.indexOf(selectedValues[0]));
       } else {
@@ -37,10 +41,15 @@ module.exports = () => baseCustomEditor('multiple').extend({
     this.setSwitcherStyle()
     // eslint-disable-next-line no-unused-vars
     const choices = new Choices(switcher, {
+      placeholder: true,
+      placeholderValue: 'Select the schema',
       removeItemButton: true,
       duplicateItemsAllowed: false,
+      classNames: {
+        highlightedState: 'classeFake'
+      }
     })
-    return switcherDiv
+    return { switcher, switcherDiv }
   },
   updateEditor(selectedValues) {
     const joinedValues = selectedValues.join('_')
@@ -54,7 +63,7 @@ module.exports = () => baseCustomEditor('multiple').extend({
     const schemas = this.types.filter((_, index) => schemasIndexes.includes(index))
     const mergedSchemas = mergeSchemas(schemas, self)
     if (!mergedSchemas) {
-      this.showErrorMessage()
+      this.showErrorMessage('not-compatible')
       return
     }
     this.hideErrorMessage()
@@ -64,13 +73,19 @@ module.exports = () => baseCustomEditor('multiple').extend({
   },
   addErrorMessageHtmlNode() {
     this.errorMessageHtmlNode = document.createElement('p')
-    this.errorMessageHtmlNode.innerText = 'The selected schemas are not compatible!'
     this.errorMessageHtmlNode.style.color = 'red'
     this.errorMessageHtmlNode.style.fontWeight = 'bold'
     this.errorMessageHtmlNode.style.display = 'none'
+    this.errorMessageHtmlNode.style.marginTop = '10px'
     this.container.appendChild(this.errorMessageHtmlNode)
   },
-  showErrorMessage() {
+  showErrorMessage(type) {
+    let text = 'unkown error'
+    if(type === 'not-compatible')
+      text = 'The selected schemas are not compatible!'
+    if (type === 'empty-selection')
+      text = 'Select at least 1 schema'
+    this.errorMessageHtmlNode.innerText = text
     this.editor_holder.style.display = 'none'
     this.errorMessageHtmlNode.style.display = 'block'
   },
