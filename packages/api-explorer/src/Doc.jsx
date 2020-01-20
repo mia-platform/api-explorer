@@ -85,7 +85,8 @@ class Doc extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.toggleAuth = this.toggleAuth.bind(this);
     this.hideResults = this.hideResults.bind(this);
-    this.onAuthReset = this.onAuthReset.bind(this)
+    this.onAuthReset = this.onAuthReset.bind(this);
+    this.setSwitcher = this.setSwitcher.bind(this);
 
     const list = getContentTypeFromOperation(this.getOperation())
     if (list && list.length > 0) {
@@ -105,6 +106,9 @@ class Doc extends React.Component {
   }
 
   onSubmit() {
+    if(this.anyOfSwitcher) {
+      this.anyOfSwitcher.dispatchEvent(new Event('change'))
+    }
     const {auth, selectedContentType} = this.state
     const operation = this.getOperation();
     if (!isAuthReady(operation, auth || this.props.auth)) {
@@ -158,6 +162,10 @@ class Doc extends React.Component {
 
   onAuthReset(){
     this.setState({auth: null})
+  }
+
+  setSwitcher(anyOfSwitcher) {
+    this.anyOfSwitcher = anyOfSwitcher
   }
 
   getOperation() {
@@ -348,6 +356,7 @@ class Doc extends React.Component {
         formData={this.state.formData}
         onChange={this.onChange}
         onSubmit={this.onSubmit}
+        setSwitcher={this.setSwitcher}
       />
     );
   }

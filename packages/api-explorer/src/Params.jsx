@@ -16,12 +16,14 @@ export default class Params extends Component{
     const {
       onChange,
       onSubmit,
+      setSwitcher,
     } = this.props
     return(
       <JsonForm 
         schema={schema.schema} 
         onChange={values => onChange({ schema, formData: { [schema.type]: values } })} 
         onSubmit={() => onSubmit()}
+        setSwitcher={setSwitcher}
       />
     )
   }
@@ -51,5 +53,6 @@ Params.propTypes = {
   operation: PropTypes.instanceOf(Operation).isRequired,
   formData: PropTypes.shape({}).isRequired,
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  setSwitcher: PropTypes.func.isRequired,
 };

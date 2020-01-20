@@ -4,13 +4,15 @@ const baseCustomEditor = require('./get-custom-editor')
 const Choices = require('choices.js')
 require('choices.js/public/assets/styles/choices.min.css')
 
-module.exports = () => baseCustomEditor('multiple').extend({
+module.exports = (setSwitcher) => baseCustomEditor('multiple').extend({
   build() {
     const response = this._super()
     const { switcher, switcherDiv }= this.buildSwitcher()
     this.switcher.replaceWith(switcherDiv)
     this.addErrorMessageHtmlNode()
     switcher.dispatchEvent(new Event('change'))
+    this.showErrorMessage('start-config')
+    setSwitcher(switcher)
     return response
   },
   buildSwitcher() {
@@ -83,12 +85,12 @@ module.exports = () => baseCustomEditor('multiple').extend({
     this.container.appendChild(this.errorMessageHtmlNode)
   },
   showErrorMessage(type) {
-    let text = 'unkown error'
-    if(type === 'not-compatible')
-      text = 'The selected schemas are not compatible!'
-    if (type === 'empty-selection')
-      text = 'Select at least 1 schema'
-    this.errorMessageHtmlNode.innerText = text
+    const  errorsByType = {
+      'not-compatible': 'The selected schemas are not compatible!',
+      'empty-selection': 'Select at least 1 schema',
+      'start-config': ' '
+    }
+    this.errorMessageHtmlNode.innerText = errorsByType[type] || 'Unknown error!'
     this.editor_holder.style.display = 'none'
     this.errorMessageHtmlNode.style.display = 'block'
   },
