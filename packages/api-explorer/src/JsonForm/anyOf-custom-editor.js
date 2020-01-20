@@ -18,6 +18,25 @@ module.exports = () => baseCustomEditor('multiple').extend({
     const switcher = this.theme.getSwitcher(this.display_text)
     switcher.multiple = true
     switcher.selectedIndex = '-1'
+    
+    const switcherDiv = document.createElement('div')
+    const switcherLabel = document.createElement('label')
+    switcherLabel.style.fontWeight = 'bold'
+    switcherLabel.innerText = 'Select the schemas:'
+    switcherDiv.appendChild(switcherLabel)
+    switcherDiv.appendChild(switcher)
+    this.setSwitcherStyle()
+    const choices = new Choices(switcher, {
+      placeholder: true,
+      placeholderValue: 'Select the schema',
+      removeItemButton: true,
+      duplicateItemsAllowed: false,
+      classNames: {
+        listItems: 'multiple-select-choices-list choices__list--multiple',
+        item: 'multiple-select-item choices__item'
+      }
+    })
+
     switcher.addEventListener('change', e => {
       e.preventDefault();
       e.stopPropagation();
@@ -26,29 +45,14 @@ module.exports = () => baseCustomEditor('multiple').extend({
         self.showErrorMessage('empty-selection')
       } else if (selectedValues.length === 1) {
         self.hideErrorMessage()
-        self.switchEditor(self.display_text.indexOf(selectedValues[0]));
+        self.switchEditor(self.display_text.indexOf(selectedValues[0]))
       } else {
         self.updateEditor(selectedValues)
       }
-      self.onChange(true);
+      self.onChange(true)
+      choices.hideDropdown()
     });
-    const switcherDiv = document.createElement('div')
-    const switcherLabel = document.createElement('label')
-    switcherLabel.style.fontWeight = 'bold'
-    switcherLabel.innerText = 'Select the schemas:'
-    switcherDiv.appendChild(switcherLabel)
-    switcherDiv.appendChild(switcher)
-    this.setSwitcherStyle()
-    // eslint-disable-next-line no-unused-vars
-    const choices = new Choices(switcher, {
-      placeholder: true,
-      placeholderValue: 'Select the schema',
-      removeItemButton: true,
-      duplicateItemsAllowed: false,
-      classNames: {
-        highlightedState: 'classeFake'
-      }
-    })
+
     return { switcher, switcherDiv }
   },
   updateEditor(selectedValues) {
@@ -105,7 +109,7 @@ module.exports = () => baseCustomEditor('multiple').extend({
     }
     const switcherStyle = document.createElement('style')
     switcherStyle.type = 'text/css'
-    switcherStyle.innerHTML = `.choices__list--multiple .choices__item {
+    switcherStyle.innerHTML = `.multiple-select-choices-list .multiple-select-item {
       background-color: #1890ff;
       border: 1px solid #1890ff;
     }`
