@@ -103,6 +103,10 @@
                   {
                     "title": "PetName",
                     "type": "string"
+                  },
+                  {
+                    "title": "PetAge",
+                    "type": "number"
                   }
                 ]
               }

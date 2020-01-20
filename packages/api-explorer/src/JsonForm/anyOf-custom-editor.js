@@ -112,6 +112,10 @@ module.exports = () => baseCustomEditor('multiple').extend({
     switcherStyle.innerHTML = `.multiple-select-choices-list .multiple-select-item {
       background-color: #1890ff;
       border: 1px solid #1890ff;
+    }
+    .choices__list--multiple .choices__item.is-highlighted {
+      background-color: #1890ff;
+      border: 1px solid #1890ff;
     }`
     switcherStyle.id = switcherStyleId
     document.head.appendChild(switcherStyle)
