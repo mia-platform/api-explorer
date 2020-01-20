@@ -118,9 +118,14 @@ const mergeSchemas = (schemas) => {
     return undefined
   }
   const merger = mergersMap[schemasType]
-  const mergedSchemas = merger
+  let mergedSchemas
+  try {
+    mergedSchemas = merger
     ? merger(schemas, schemasType)
     : mergersMap.default(schemas, schemasType)
+  } catch(error) {
+    mergedSchemas = undefined
+  }
   return mergedSchemas
 }
 
@@ -134,7 +139,18 @@ const mergeArrays = schemas => {
 }
 const mergeObjects = schemas => {
   const mergedProperties = schemas.reduce((propsAccumulator, currentSchema) => {
-    return { ...propsAccumulator, ...currentSchema.properties }
+    const { properties } = currentSchema
+    Object.keys(properties).forEach(currentProperty => {
+      if (!propsAccumulator[currentProperty]) {
+        propsAccumulator[currentProperty] = properties[currentProperty]
+        return
+      }
+      propsAccumulator[currentProperty] = mergeSchemas([propsAccumulator[currentProperty], properties[currentProperty]])
+      if (!propsAccumulator[currentProperty]) {
+        throw Error('errore')
+      }
+    })
+    return propsAccumulator
   }, {})
 
   return {
