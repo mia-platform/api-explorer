@@ -71,5 +71,6 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "antd": "3.16.x",
     "react": "^16.8.6"
-  }
+  },
+  "gitHead": "b2d96fd4acee10f1e1cc5302ff5a5583703f13da"
 }
