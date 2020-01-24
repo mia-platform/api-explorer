@@ -117,7 +117,7 @@ const mergeSchemas = (schemas) => {
       : undefined
   }, 'any')
   if (!schemasType) {
-    return undefined
+    return
   }
   const merger = mergersMap[schemasType]
   let mergedSchemas
