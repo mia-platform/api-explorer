@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 const baseCustomEditor = require('./get-custom-editor')
