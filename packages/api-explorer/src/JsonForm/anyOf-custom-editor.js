@@ -150,7 +150,7 @@ const mergeObjects = schemas => {
       }
       propsAccumulator[currentProperty] = mergeSchemas([propsAccumulator[currentProperty], properties[currentProperty]])
       if (!propsAccumulator[currentProperty]) {
-        throw Error('errore')
+        throw Error(`Failed to merge schemas of property ${currentProperty}`)
       }
     })
     return propsAccumulator
