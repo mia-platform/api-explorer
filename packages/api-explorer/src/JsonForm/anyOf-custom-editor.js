@@ -109,6 +109,16 @@ module.exports = (setSwitcher) => baseCustomEditor('multiple').extend({
 const editorIndexesMap = new Map()
 
 const mergeSchemas = (schemas) => {
+  const schemasType = extractSchemasTypeIfCompatible(schemas)
+  if (!schemasType) {
+    return
+  }
+  const merger = getMergerByType(schemasType)
+  const mergedSchemas = merger(schemas, schemasType)
+  return mergedSchemas
+}
+
+const extractSchemasTypeIfCompatible = (schemas) => {
   const schemasType = schemas.reduce((type, currentSchema) => {
     if (type === 'any') {
       return currentSchema.type
@@ -117,53 +127,51 @@ const mergeSchemas = (schemas) => {
       ? type
       : undefined
   }, 'any')
-  if (!schemasType) {
-    return
-  }
-  const merger = mergersMap[schemasType]
-  let mergedSchemas
-  try {
-    mergedSchemas = merger
-    ? merger(schemas, schemasType)
-    : mergersMap.default(schemas, schemasType)
-  } catch(error) {
-    mergedSchemas = undefined
-  }
-  return mergedSchemas
+  return schemasType
 }
+
+const getMergerByType = (type) => {
+  switch (type) {
+    case 'array':
+      return mergeArrays
+    case 'object':
+      return mergeObjects
+    default:
+      return (_, schemasType) =>  ({ type: schemasType })
+  }
+} 
 
 const mergeArrays = schemas => {
   const schemasItems = schemas.map(schema => schema.items)
   const mergedItems = mergeSchemas(schemasItems)
   if (!mergedItems) {
-    return undefined
+    return
   }
   return { type: 'array', items: mergedItems }
 }
 const mergeObjects = schemas => {
-  const mergedProperties = schemas.reduce((propsAccumulator, currentSchema) => {
-    const { properties } = currentSchema
-    Object.keys(properties).forEach(currentProperty => {
-      if (!propsAccumulator[currentProperty]) {
-        propsAccumulator[currentProperty] = properties[currentProperty]
-        return
-      }
-      propsAccumulator[currentProperty] = mergeSchemas([propsAccumulator[currentProperty], properties[currentProperty]])
-      if (!propsAccumulator[currentProperty]) {
-        throw Error(`Failed to merge schemas of property ${currentProperty}`)
-      }
-    })
-    return propsAccumulator
-  }, {})
+  try {
+    const mergedProperties = schemas.reduce((propsAccumulator, currentSchema) => {
+      const { properties } = currentSchema
+      Object.keys(properties).forEach(currentProperty => {
+        if (!propsAccumulator[currentProperty]) {
+          propsAccumulator[currentProperty] = properties[currentProperty]
+          return propsAccumulator
+        }
+        propsAccumulator[currentProperty] = mergeSchemas([propsAccumulator[currentProperty], properties[currentProperty]])
+        if (!propsAccumulator[currentProperty]) {
+          throw Error(`Failed to merge schemas of property ${currentProperty}`)
+        }
+      })
+      return propsAccumulator
+    }, {})
 
-  return {
-    type: 'object',
-    properties: mergedProperties,
+    return {
+      type: 'object',
+      properties: mergedProperties,
+    }
+    
+  } catch (error) {
+    return undefined
   }
-}
-
-const mergersMap = {
-  array: mergeArrays,
-  object: mergeObjects,
-  default: (_, schemasType) => { return { type: schemasType } }
 }
