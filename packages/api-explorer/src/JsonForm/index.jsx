@@ -13,7 +13,7 @@ import anyOfEditor from './anyOf-custom-editor'
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
-function configureJSONEditor(setSwitcher) {
+function configureJSONEditor(setFormSubmissionListener) {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
   const keysToExclude = ['array', 'object', 'not', 'anyOf']
   editorsKeys
@@ -24,7 +24,7 @@ function configureJSONEditor(setSwitcher) {
   JSONEditor.defaults.editors.array = arrayCustomEditor()
   JSONEditor.defaults.editors.object = objectCustomEditor()
   JSONEditor.defaults.editors.not = notCustomEditor()
-  JSONEditor.defaults.editors.anyOf = anyOfEditor(setSwitcher)
+  JSONEditor.defaults.editors.anyOf = anyOfEditor(setFormSubmissionListener)
 
   JSONEditor.defaults.themes.antdTheme = antdTheme
 
@@ -64,11 +64,11 @@ export default class JsonForm extends Component {
     }
 
     createEditor(element) {
-      const {onChange, schema, setSwitcher} = this.props
+      const {onChange, schema, setFormSubmissionListener} = this.props
       if (this.editor === null) {
         const schemaToRender = getSchemaToRender(schema)
         
-        configureJSONEditor(setSwitcher)
+        configureJSONEditor(setFormSubmissionListener)
         this.editor = new JSONEditor(element, {
           schema: schemaToRender,
           show_opt_in: true,
@@ -101,5 +101,5 @@ export default class JsonForm extends Component {
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     schema: PropTypes.object.isRequired,
-    setSwitcher: PropTypes.func.isRequired,
+    setFormSubmissionListener: PropTypes.func.isRequired,
   }

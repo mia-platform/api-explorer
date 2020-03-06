@@ -5,7 +5,7 @@ const baseCustomEditor = require('./get-custom-editor')
 const Choices = require('choices.js')
 require('choices.js/public/assets/styles/choices.min.css')
 
-module.exports = (setSwitcher) => baseCustomEditor('multiple').extend({
+module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').extend({
   build() {
     const response = this._super()
     const { switcher, switcherDiv }= this.buildSwitcher()
@@ -13,7 +13,7 @@ module.exports = (setSwitcher) => baseCustomEditor('multiple').extend({
     this.addErrorMessageHtmlNode()
     switcher.dispatchEvent(new Event('change'))
     this.showErrorMessage('start-config')
-    setSwitcher(switcher)
+    setFormSubmissionListener(switcher)
     return response
   },
   buildSwitcher() {
@@ -21,7 +21,7 @@ module.exports = (setSwitcher) => baseCustomEditor('multiple').extend({
     const switcher = this.theme.getSwitcher(this.display_text)
     switcher.multiple = true
     switcher.selectedIndex = '-1'
-    
+
     const switcherDiv = document.createElement('div')
     const switcherLabel = document.createElement('label')
     switcherLabel.style.fontWeight = 'bold'
