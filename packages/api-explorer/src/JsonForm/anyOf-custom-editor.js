@@ -108,16 +108,6 @@ module.exports = (setSwitcher) => baseCustomEditor('multiple').extend({
 
 const editorIndexesMap = new Map()
 
-const mergeSchemas = (schemas) => {
-  const schemasType = extractSchemasTypeIfCompatible(schemas)
-  if (!schemasType) {
-    return
-  }
-  const merger = getMergerByType(schemasType)
-  const mergedSchemas = merger(schemas, schemasType)
-  return mergedSchemas
-}
-
 const extractSchemasTypeIfCompatible = (schemas) => {
   const schemasType = schemas.reduce((type, currentSchema) => {
     if (type === 'any') {
@@ -128,6 +118,16 @@ const extractSchemasTypeIfCompatible = (schemas) => {
       : undefined
   }, 'any')
   return schemasType
+}
+
+const mergeSchemas = (schemas) => {
+  const schemasType = extractSchemasTypeIfCompatible(schemas)
+  if (!schemasType) {
+    return
+  }
+  const merger = getMergerByType(schemasType)
+  const mergedSchemas = merger(schemas, schemasType)
+  return mergedSchemas
 }
 
 const getMergerByType = (type) => {
@@ -149,6 +149,7 @@ const mergeArrays = schemas => {
   }
   return { type: 'array', items: mergedItems }
 }
+
 const mergeObjects = schemas => {
   try {
     const mergedProperties = schemas.reduce((propsAccumulator, currentSchema) => {
@@ -170,7 +171,6 @@ const mergeObjects = schemas => {
       type: 'object',
       properties: mergedProperties,
     }
-    
   } catch (error) {
     return undefined
   }
