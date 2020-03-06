@@ -7,11 +7,11 @@ const isObjectWithProps = schema => schema.type === 'object' && schema.propertie
 module.exports = () => baseCustomEditor('multiple').extend({
   preBuild() {
     const { not: notSchema } = this.schema
-    if (isArrayWithItems(notSchema) || isObjectWithProps(notSchema)) {
-      delete this.schema.not
-      return this._super()
+
+    if (!isArrayWithItems(notSchema) && !isObjectWithProps(notSchema)) {
+      this.schema.disallow = [this.schema.not.type]    
     }
-    this.schema.disallow = [this.schema.not.type]
+    
     delete this.schema.not
     return this._super()
   }
