@@ -120,16 +120,6 @@ const extractSchemasTypeIfCompatible = (schemas) => {
   return schemasType
 }
 
-const mergeSchemas = (schemas) => {
-  const schemasType = extractSchemasTypeIfCompatible(schemas)
-  if (!schemasType) {
-    return
-  }
-  const merger = getMergerByType(schemasType)
-  const mergedSchemas = merger(schemas, schemasType)
-  return mergedSchemas
-}
-
 const getMergerByType = (type) => {
   switch (type) {
     case 'array':
@@ -140,6 +130,16 @@ const getMergerByType = (type) => {
       return (_, schemasType) =>  ({ type: schemasType })
   }
 } 
+
+const mergeSchemas = (schemas) => {
+  const schemasType = extractSchemasTypeIfCompatible(schemas)
+  if (!schemasType) {
+    return
+  }
+  const merger = getMergerByType(schemasType)
+  const mergedSchemas = merger(schemas, schemasType)
+  return mergedSchemas
+}
 
 const mergeArrays = schemas => {
   const schemasItems = schemas.map(schema => schema.items)

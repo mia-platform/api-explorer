@@ -9,6 +9,10 @@ const getCustomEditor = key =>{
       this._super(this.container)
     },
     build() {
+      // key (the schema typology) is set to multiple when it's
+      // anyOf or similar, jsoneditor uses multiple for some of
+      // these kind of schemas, in case the current key is multiple
+      // during schema change we want the editor to be cleared out.
       if (key === 'multiple') {
         this.keep_values = false
       }
