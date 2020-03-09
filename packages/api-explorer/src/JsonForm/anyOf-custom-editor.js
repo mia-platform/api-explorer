@@ -5,6 +5,15 @@ const baseCustomEditor = require('./get-custom-editor')
 const Choices = require('choices.js')
 require('choices.js/public/assets/styles/choices.min.css')
 
+/**
+ * This module allows custom control on JSONEditor for schemas marked as 'multiple'
+ * (which comprehends schemas such as anyOf).
+ * For this kind of schemas we create a custom multiselect input (using Choices lib)
+ * for selecting the desired request schema and change the input form accordingly.
+ *
+ * We listen for change events on the form submission in order to update selection or
+ * to show errors when trying to use an API without previously selecting a schema.
+ */
 module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').extend({
   build() {
     const response = this._super()
