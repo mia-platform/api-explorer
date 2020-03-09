@@ -7,6 +7,12 @@ require('choices.js/public/assets/styles/choices.min.css')
 
 const baseCustomEditor = require('./get-custom-editor')
 
+const errorsByType = {
+  'not-compatible': 'jsonform.anyof.notCompatibleSchemas',
+  'empty-selection': 'jsonform.anyof.emptySelection',
+}
+const unknownError = 'jsonform.anyof.unknownError'
+
 /**
  * This module allows custom control on JSONEditor for schemas marked as 'multiple'
  * (which comprehends schemas such as anyOf).
@@ -16,7 +22,7 @@ const baseCustomEditor = require('./get-custom-editor')
  * We listen for change events on the form submission in order to update selection or
  * to show errors when trying to use an API without previously selecting a schema.
  */
-module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').extend({
+module.exports = (intl, setFormSubmissionListener) => baseCustomEditor('multiple').extend({
   build() {
     const response = this._super()
     const { switcher, switcherDiv }= this.buildSwitcher()
@@ -114,11 +120,9 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
   },
   showErrorMessage(type) {
     this.hideEditor()
-    const errorsByType = {
-      'not-compatible': 'The selected schemas are not compatible!',
-      'empty-selection': 'Select at least 1 schema',
-    }
-    this.errorMessageHtmlNode.innerText = errorsByType[type] || 'Unknown error!'
+    this.errorMessageHtmlNode.innerText = intl.formatMessage({
+      id: errorsByType[type] || unknownError
+    })
     this.errorMessageHtmlNode.style.display = 'block'
   },
   hideErrorMessage() {
