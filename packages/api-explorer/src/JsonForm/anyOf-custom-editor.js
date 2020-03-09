@@ -1,9 +1,10 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
-const baseCustomEditor = require('./get-custom-editor')
 const Choices = require('choices.js')
 require('choices.js/public/assets/styles/choices.min.css')
+
+const baseCustomEditor = require('./get-custom-editor')
 
 /**
  * This module allows custom control on JSONEditor for schemas marked as 'multiple'
@@ -19,8 +20,8 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
     const response = this._super()
     const { switcher, switcherDiv }= this.buildSwitcher()
     this.switcher.replaceWith(switcherDiv)
+    this.hideEditor()
     this.addErrorMessageHtmlNode()
-    this.showErrorMessage('start-config')
     setFormSubmissionListener(switcher)
     return response
   },
@@ -111,13 +112,12 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
     this.container.appendChild(this.errorMessageHtmlNode)
   },
   showErrorMessage(type) {
-    const  errorsByType = {
+    this.hideEditor()
+    const errorsByType = {
       'not-compatible': 'The selected schemas are not compatible!',
       'empty-selection': 'Select at least 1 schema',
-      'start-config': ' '
     }
     this.errorMessageHtmlNode.innerText = errorsByType[type] || 'Unknown error!'
-    this.editor_holder.style.display = 'none'
     this.errorMessageHtmlNode.style.display = 'block'
   },
   hideErrorMessage() {
@@ -128,6 +128,9 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
     editorIndexesMap.set(joinedValues, index)
     this.types.push(mergedSchemas)
     this.editors.push(false)
+  },
+  hideEditor() {
+    this.editor_holder.style.display = 'none'
   }
 })
 
