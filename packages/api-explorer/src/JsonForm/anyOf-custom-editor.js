@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
@@ -137,15 +138,15 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
 const editorIndexesMap = new Map()
 
 const extractSchemasTypeIfCompatible = (schemas) => {
-  const schemasType = schemas.reduce((type, currentSchema) => {
-    if (type === 'any') {
-      return currentSchema.type
+  let firstValidType = ''
+  for (let i = 0; i < schemas.length; i++) {
+    const {type} = schemas[i]
+    if (type !== 'any' && (firstValidType && type !== firstValidType)) {
+      return undefined
     }
-    return currentSchema.type === type
-      ? type
-      : undefined
-  }, 'any')
-  return schemasType
+    firstValidType = type
+  }
+  return firstValidType
 }
 
 const getMergerByType = (type) => {
