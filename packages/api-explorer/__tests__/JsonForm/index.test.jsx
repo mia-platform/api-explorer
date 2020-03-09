@@ -1,7 +1,8 @@
 import React from 'react'
-import { mount } from 'enzyme'
-import JSONEditor from '@json-editor/json-editor'
+import { IntlProvider } from 'react-intl'
+import { mountWithIntl } from 'enzyme-react-intl'
 import renderer from 'react-test-renderer'
+import JSONEditor from '@json-editor/json-editor'
 
 import JsonForm from '../../src/JsonForm'
 
@@ -25,6 +26,11 @@ function createNodeMock(element) {
   }
   return null;
 }
+
+const createComponentWithIntl = (children, props = {locale: 'en'}, options) => {
+  return renderer.create(<IntlProvider {...props}>{children}</IntlProvider>, options);
+};
+
 describe('JSONForm ', () => {
   const props = {
     schema: {
@@ -39,38 +45,47 @@ describe('JSONForm ', () => {
       required: ['petId']
     },
     onChange: jest.fn(),
-    onSubmit: jest.fn()
+    onSubmit: jest.fn(),
+    setFormSubmissionListener: jest.fn()
   }
+
   beforeEach(() => {
     extendMock.mockClear()
     JSONEditor.defaults.editors = editorsMock
   })
-  it('renders json-editor', () => {
-    renderer.create(
-      <JsonForm {...props} />, { createNodeMock })
 
-    expect(JSONEditor).toHaveBeenCalledWith({
-      thisIs: 'my-form'
-    }, {
-      schema: {
-        ...props.schema,
-        title: " "
-      },
-      show_opt_in: true,
-      prompt_before_delete: false,
-      form_name_root: "",
-      theme: "antdTheme"
-    })
+  it('renders json-editor', () => {
+    const element = createComponentWithIntl(
+      <JsonForm {...props} />, {locale: 'en'}, { createNodeMock }
+    )
+
+    expect(element).toMatchSnapshot()
+    expect(JSONEditor).toHaveBeenCalledWith(
+      {
+        thisIs: 'my-form'
+      }, {
+        schema: {
+          ...props.schema,
+          title: " "
+        },
+        show_opt_in: true,
+        prompt_before_delete: false,
+        form_name_root: "",
+        theme: "antdTheme"
+      }
+    )
   })
+
   it('when form submits, calls onSubmit prop', () => {
-    const element = mount(<JsonForm {...props} />)
+    const element = mountWithIntl(<JsonForm {...props} />)
     const mockEvent = { preventDefault: jest.fn() }
     element.find('form').prop('onSubmit')(mockEvent)
     expect(props.onSubmit).toHaveBeenCalledTimes(1)
     expect(mockEvent.preventDefault).toHaveBeenCalledTimes(1)
   })
+
   it('extend all json-editor editors', () => {
-    mount(<JsonForm {...props} />)
+    mountWithIntl(<JsonForm {...props} />)
     expect(
       extendMock.mock.calls.map(call => Object.keys(call[0]))
     ).toEqual([
@@ -84,7 +99,7 @@ describe('JSONForm ', () => {
       ['preBuild'], // not-custom-editor
       ['setContainer', 'build'], // anyOf - get-custom-editor
       ['build', 'buildSwitcher', 'updateEditor', 'addErrorMessageHtmlNode',
-        'showErrorMessage', 'hideErrorMessage', 'insertNewEditor'] // anyOf-custom-editor
+        'showErrorMessage', 'hideErrorMessage', 'insertNewEditor', 'hideEditor'] // anyOf-custom-editor
     ])
   })
 })
