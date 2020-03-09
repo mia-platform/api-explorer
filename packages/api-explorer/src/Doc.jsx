@@ -108,8 +108,14 @@ class Doc extends React.Component {
 
   onSubmit() {
     if (this.formSubmitSubscribers && this.formSubmitSubscribers.length > 0) {
-      this.formSubmitSubscribers.forEach(subscriber => subscriber.dispatchEvent(new Event('change')))
+      try {
+        this.formSubmitSubscribers.forEach(subscriber => subscriber.onFormSubmission())
+      } catch(e) {
+        console.error('Form submission interrupted:', e.message)
+        return false
+      }
     }
+
     const {auth, selectedContentType} = this.state
     const operation = this.getOperation();
     if (!isAuthReady(operation, auth || this.props.auth)) {

@@ -20,7 +20,6 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
     const { switcher, switcherDiv }= this.buildSwitcher()
     this.switcher.replaceWith(switcherDiv)
     this.addErrorMessageHtmlNode()
-    switcher.dispatchEvent(new Event('change'))
     this.showErrorMessage('start-config')
     setFormSubmissionListener(switcher)
     return response
@@ -48,9 +47,14 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
       }
     })
 
+    /**
+     * Change event is dispatched by JSONEditor on selection change, we use it to update
+     * the schema used by the editor accordingly.
+     */
     switcher.addEventListener('change', e => {
       e.preventDefault();
       e.stopPropagation();
+
       const selectedValues = Array.from(e.currentTarget.selectedOptions).map(selectedValue => selectedValue.value)
       if (selectedValues.length === 0) {
         self.showErrorMessage('empty-selection')
@@ -63,6 +67,18 @@ module.exports = (setFormSubmissionListener) => baseCustomEditor('multiple').ext
       self.onChange(true)
       choices.hideDropdown()
     });
+
+    /**
+     * FormSubmission event is dispatched by APIExplorer Doc component on formsubmission for
+     * listener to apply custom logics on the event.
+     */
+    switcher.onFormSubmission = () => {
+      const {selectedOptions} = switcher
+      if (!selectedOptions || selectedOptions.length === 0) {
+        self.showErrorMessage('empty-selection')
+        throw new Error('invalid form, user must select a schema')
+      }
+    }
 
     return { switcher, switcherDiv }
   },
