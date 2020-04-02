@@ -69,7 +69,7 @@ describe('Params', () => {
     const contentWithTitle = params.find(ContentWithTitle)
     const title = contentWithTitle.prop('title')
     const expectedTitle = {
-      id: 'doc.params.Path Params',
+      id: 'doc.params.pathparams',
       defaultMessage: 'Path Params'
     }
     expect(title.props.id).toEqual(expectedTitle.id)

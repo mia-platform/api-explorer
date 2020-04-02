@@ -36,7 +36,7 @@ function renderMissingSchema(nameSchema) {
       background: colors.schemaTabMissingSchemaBackground
     }}
     >
-      <FormattedMessage id={`schemaTabs.missing.${nameSchema}`} defaultMessage={`${nameSchema} schema not set`} />
+      <FormattedMessage id={`schemaTabs.missing.${nameSchema.toLowerCase()}`} defaultMessage={`${nameSchema} schema not set`} />
     </div>
   )
 }

@@ -99,7 +99,7 @@ describe('SchemaTabs', () => {
       element.update()
       const formattedMessage = element.find(FormattedMessage)
       expect(formattedMessage).toHaveLength(1)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.Request')
+      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.request')
     })
   })
 
@@ -133,7 +133,7 @@ describe('SchemaTabs', () => {
       element.update()
       const formattedMessage = element.find(FormattedMessage)
       expect(formattedMessage).toHaveLength(1)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.Response')
+      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.response')
     })
   })
 })

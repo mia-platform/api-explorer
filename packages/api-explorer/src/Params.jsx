@@ -37,7 +37,7 @@ export default class Params extends Component{
       jsonSchema.map((schema) => {
         return (<ContentWithTitle
           key={schema.label+schema.schema.ref}
-          title={<FormattedMessage id={`doc.params.${schema.label}`} defaultMessage={schema.label} />}
+          title={<FormattedMessage id={`doc.params.${schema.label.toLowerCase().replace(/\s/g,'')}`} defaultMessage={schema.label} />}
           content={this.renderParam(schema)}
           showDivider={false}
           theme={'dark'}
