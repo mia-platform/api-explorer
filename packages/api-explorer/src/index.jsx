@@ -184,7 +184,7 @@ class ApiExplorer extends React.Component {
 
     const defaultOpenDoc = this.props.defaultOpenDoc ? this.props.defaultOpenDoc : '0'
     const defaultOpen = this.props.defaultOpen ? [defaultOpenDoc] : null
-    const localizedMessages = messages[this.props.i18n.locale] || messages[this.props.i18n.defaultLocale]
+    const localizedMessages = messages[this.props.i18n.locale] || messages[this.props.i18n.defaultLocale] || messages.en
 
     return (
       <IntlProvider
