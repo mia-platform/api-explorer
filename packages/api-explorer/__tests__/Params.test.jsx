@@ -3,6 +3,7 @@ import {mountWithIntl as mount} from 'enzyme-react-intl'
 
 import JsonForm from '../src/JsonForm'
 import Params from '../src/Params'
+import ContentWithTitle from '../src/components/ContentWithTitle';
 
 const Oas = require('../src/lib/Oas');
 const petstore = require('./fixtures/petstore/oas.json');
@@ -62,6 +63,17 @@ describe('Params', () => {
         path: {foo: 'bar'}
       }
     })
+  });
+  test('renders with correct title', () => {
+    const params = mount(<div><Params {...props} /></div>);
+    const contentWithTitle = params.find(ContentWithTitle)
+    const title = contentWithTitle.prop('title')
+    const expectedTitle = {
+      id: 'doc.params.Path Params',
+      defaultMessage: 'Path Params'
+    }
+    expect(title.props.id).toEqual(expectedTitle.id)
+    expect(title.props.defaultMessage).toEqual(expectedTitle.defaultMessage)
   });
   
 })

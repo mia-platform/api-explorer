@@ -57,7 +57,9 @@ describe('SchemaTabs', () => {
   test('renders a tab with 2 items', () => {
     expect(block).toHaveLength(1)
     const { items } = block.props()
-    expect(items).toEqual([{ value: 'request', label: 'request' }, { value: 'response', label: 'response' }])
+    const requestLabel = <FormattedMessage defaultMessage="Request" id="schemaTabs.label.request" />
+    const responseLabel = <FormattedMessage defaultMessage="Response" id="schemaTabs.label.response" />
+    expect(items).toEqual([{ value: 'request', label: requestLabel }, { value: 'response', label: responseLabel }])
   })
 
   test('set correct tab when one is clicked', () => {
@@ -97,7 +99,7 @@ describe('SchemaTabs', () => {
       element.update()
       const formattedMessage = element.find(FormattedMessage)
       expect(formattedMessage).toHaveLength(1)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.request')
+      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.Request')
     })
   })
 
@@ -131,7 +133,7 @@ describe('SchemaTabs', () => {
       element.update()
       const formattedMessage = element.find(FormattedMessage)
       expect(formattedMessage).toHaveLength(1)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.response')
+      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.Response')
     })
   })
 })
