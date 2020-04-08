@@ -1,13 +1,16 @@
 import React, {Component, Fragment} from 'react'
 import {Icon, Popover, Alert, Tabs, Button} from 'antd'
 import { injectIntl, FormattedMessage, intlShape} from 'react-intl';
+import {flatten, uniq} from 'lodash'
+import AuthForm from './components/AuthForm';
 
 const PropTypes = require('prop-types');
 const SecurityInput = require('./SecurityInput')
 
 const TabPane = Tabs.TabPane
 
-function getSecurityTabs(securityTypes, config, onChange,onSubmit) {
+function getSecurityTabs(securityTypes, config, onChange, onSubmit) {
+  console.log('securityTypes', securityTypes)
   const {authInputRef, oauth, auth} = config
   return Object.keys(securityTypes).map((type, index) => {
     const securities = securityTypes[type];
@@ -30,6 +33,18 @@ function getSecurityTabs(securityTypes, config, onChange,onSubmit) {
       </TabPane>
     );
   });
+}
+
+function filterSecurityScheme(security, securitySchemes) {
+  const securities = uniq(flatten(security.map(elem => Object.keys(elem))))
+  const newSecurityScheme = {}
+  for (const securtyType of Object.keys(securitySchemes)) {
+    const scheme = securitySchemes[securtyType][0]._key
+    if(securities.includes(scheme)){
+      newSecurityScheme[securtyType] = [securitySchemes[securtyType][0]]
+    }
+  }
+  return newSecurityScheme
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -62,6 +77,7 @@ class AuthBox extends Component {
   renderSecurityBox() {
     const {
       securityTypes,
+      security,
       onSubmit,
       onChange,
       oauth,
@@ -71,9 +87,17 @@ class AuthBox extends Component {
       onReset
     } = this.props
 
-    return(
+    return( 
       <Fragment>
-        <Tabs defaultActiveKey={'security-0'}>
+        <AuthForm 
+          onChange={onChange}
+          onSubmit={onSubmit} 
+          authInputRef={authInputRef}
+          auth={auth}
+          oauth={oauth}
+          securitySchemes={filterSecurityScheme(security,securityTypes)} 
+        />
+        {/* <Tabs defaultActiveKey={'security-0'}>
           {
             getSecurityTabs(
               securityTypes,
@@ -85,7 +109,7 @@ class AuthBox extends Component {
               }
             )
           }
-        </Tabs>
+        </Tabs> */}
 
         {
           showReset ?
@@ -171,6 +195,7 @@ AuthBox.propTypes = {
   showReset: PropTypes.bool,
   intl: intlShape.isRequired,
   onVisibleChange: PropTypes.func,
+  security: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 AuthBox.defaultProps = {

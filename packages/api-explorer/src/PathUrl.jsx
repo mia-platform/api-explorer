@@ -121,8 +121,9 @@ function PathUrl({
         {oas[extensions.EXPLORER_ENABLED] && (
           <div style={{display: 'flex', alignItems: 'center'}}>
             <div style={{marginRight: 10}}>
+              
               <AuthBox
-                securityTypes={operation.prepareSecurity()}
+                securityTypes={operation.prepareSecurity()} // oas.components.securitySchemes
                 onChange={onChange}
                 onSubmit={onSubmit}
                 open={showAuthBox}
@@ -134,6 +135,7 @@ function PathUrl({
                 auth={auth}
                 onReset={onReset}
                 showReset={showReset}
+                security={operation.security || oas.security}
               />
             </div>
 
