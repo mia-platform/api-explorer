@@ -10,7 +10,6 @@ const SecurityInput = require('./SecurityInput')
 const TabPane = Tabs.TabPane
 
 function getSecurityTabs(securityTypes, config, onChange, onSubmit) {
-  console.log('securityTypes', securityTypes)
   const {authInputRef, oauth, auth} = config
   return Object.keys(securityTypes).map((type, index) => {
     const securities = securityTypes[type];
@@ -38,10 +37,16 @@ function getSecurityTabs(securityTypes, config, onChange, onSubmit) {
 function filterSecurityScheme(security, securitySchemes) {
   const securities = uniq(flatten(security.map(elem => Object.keys(elem))))
   const newSecurityScheme = {}
-  for (const securtyType of Object.keys(securitySchemes)) {
-    const scheme = securitySchemes[securtyType][0]._key
-    if(securities.includes(scheme)){
-      newSecurityScheme[securtyType] = [securitySchemes[securtyType][0]]
+  for (const securityType of Object.keys(securitySchemes)) {
+    for (const elem of uniq(securitySchemes[securityType])){
+      const scheme = elem._key
+      if(securities.includes(scheme)){
+        if(newSecurityScheme[securityType]){
+          newSecurityScheme[securityType].push(elem)
+        }else{
+          newSecurityScheme[securityType] = [elem]
+        }
+      }
     }
   }
   return newSecurityScheme

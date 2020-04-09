@@ -45,6 +45,41 @@ function Oauth2({ apiKey, authInputRef, oauth, change, Input }) {
         <div style={{color: colors.authType}}>
           <FormattedMessage id="auth.oauth2.bearer" defaultMessage="Bearer" />
         </div>
+        {/* <Fragment>
+          <div>
+            <FormattedMessage
+              id={'authForm.input.placeholder'}
+              values={{name: 'username'}}
+            >
+              {text => (
+                <Input
+                  inputRef={authInputRef}
+                  disabled={oauth}
+                  addonBefore={'username:'}
+                  onChange={e => change(e.target.value)}
+                  placeholder={text}
+                />
+                )}
+            </FormattedMessage>
+          </div>
+          <div
+            style={{paddingTop: 10}}
+          >
+            <FormattedMessage
+              id={'authForm.input.placeholder'}
+              values={{name: 'password'}}
+            >
+              {text => (
+                <Input.Password
+                  addonBefore={'password:'}
+                  disabled={oauth}
+                  onChange={e => change(e.target.value)}
+                  placeholder={text}
+                />
+                )}
+            </FormattedMessage>
+          </div>
+        </Fragment> */}
         <div>
           <Input
             inputRef={authInputRef}

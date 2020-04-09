@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {Input, Divider} from 'antd'
 import debounce from 'lodash.debounce'
+import {pick} from 'lodash'
 import {omit} from 'ramda'
 import {FormattedMessage, injectIntl} from 'react-intl'
 
@@ -42,7 +43,6 @@ function getSecurityTabs(securityTypes, config, onChange, onSubmit, schemeName) 
       <div>
         {Object.keys(securityTypes).map((type, index) => {
         const securities = securityTypes[type];
-        console.log('Securities', securities)
         return(
         /* eslint-disable-next-line react/no-array-index-key  */
           <div key={`security-${index}`} >
@@ -162,7 +162,7 @@ class AuthForm extends Component {
                   <div style={styles.inputsContainer}>
                     {/* {this.renderFieldByType(securitySchemes[schemeName].type, schemeName)} */}
                     {getSecurityTabs(
-                      securitySchemes,
+                      pick(securitySchemes, schemeName),
                       { authInputRef, oauth, auth },
                       onChange, 
                       e => {
