@@ -29,11 +29,11 @@ class Operation {
         return keys.map(key => {
           let security;
           try {
-            security = this.oas.components.securitySchemes[key];
+            // maybe old version of swagger has this.securitySchemeS instead of this.securityDefinitions
+            security = this.securityDefinitions ? this.securityDefinitions[key] : this.oas.components.securitySchemes[key];
           } catch (e) {
             return false;
           }
-
           if (!security) return false;
           let type = security.type;
           if (security.type === 'http') {
