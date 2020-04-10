@@ -91,63 +91,7 @@ class AuthForm extends Component {
     this.onChangeDebounced(Object.keys(dataMerged).length > 0 ? dataMerged : null, schemeName)
   }
 
-  renderFieldByType (type, schemeName) {
-    const {authInputRef} = this.props
-    switch (type) {
-      case 'http':
-        return (
-          <Fragment>
-            <div>
-              <FormattedMessage
-                id={'authForm.input.placeholder'}
-                values={{name: 'username'}}
-              >
-                {text => (
-                  <Input
-                    inputRef={authInputRef}
-                    addonBefore={'username:'}
-                    onChange={e => this.onChangeWithMerge(e.target.value, schemeName, USER)}
-                    placeholder={text}
-                  />
-                )}
-              </FormattedMessage>
-            </div>
-            <div
-              style={{paddingTop: 10}}
-            >
-              <FormattedMessage
-                id={'authForm.input.placeholder'}
-                values={{name: 'password'}}
-              >
-                {text => (
-                  <Input.Password
-                    addonBefore={'password:'}
-                    onChange={e => this.onChangeWithMerge(e.target.value, schemeName, PASSWORD)}
-                    placeholder={text}
-                  />
-                )}
-              </FormattedMessage>
-            </div>
-          </Fragment>
-        )
-      default:
-        return (
-          <FormattedMessage
-            id={'authForm.input.placeholder'}
-            values={{name: schemeName}}
-          >
-            {text => (
-              <Input
-                inputRef={authInputRef}
-                onChange={e => this.onChangeDebounced(e.target.value, schemeName)}
-                placeholder={text}
-              />
-            )}
-          </FormattedMessage>
 
-        )
-    }
-  }
   render () {
     const {securitySchemes, onSubmit, onChange, auth, oauth, authInputRef} = this.props
     const schemeKeys = Object.keys(securitySchemes)

@@ -61,6 +61,7 @@ const supportedLanguages = {
 };
 
 module.exports = (oas, operation, values, auth, lang, contentType) => {
+  console.log('AUTH BEFORE HAR', auth)
   const har = generateHar(oas, operation, values, auth, undefined, contentType);
   // har Reference: http://www.softwareishard.com/blog/har-12-spec/
   const snippet = new HTTPSnippet(har);

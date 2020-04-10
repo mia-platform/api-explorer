@@ -12,7 +12,7 @@ function ApiKey({ apiKey, scheme, authInputRef, change, Input }) {
           inputRef={authInputRef}
           type="text"
           onChange={e => change(e.target.value)}
-          value={apiKey}
+          value={apiKey || ''}
         />
       </div>
     </div>

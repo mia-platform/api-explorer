@@ -184,6 +184,7 @@ class Doc extends React.Component {
   }
 
   getCurrentAuth() {
+    console.log('AUTH', this.state.auth, this.props.auth)
     return this.state.auth || this.props.auth
   }
 
@@ -256,7 +257,7 @@ class Doc extends React.Component {
   renderCodeSample() {
     const {selectedContentType} = this.state
     const examples = get(this.props, 'doc.api.examples.codes', [])
-
+    console.log('current auth',this.getCurrentAuth())
     return (
       <CodeSample
         oas={this.oas}
