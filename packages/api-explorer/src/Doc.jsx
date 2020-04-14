@@ -31,6 +31,7 @@ const markdown = require('@mia-platform/markdown');
 const Oas = require('./lib/Oas');
 const parseResponse = require('./lib/parse-response');
 const getContentTypeFromOperation = require('./lib/get-content-type')
+const { getAuthPerPath } = require('./lib/get-auth')
 
 function Description({doc, suggestedEdits, baseUrl}) {
   const description = <FormattedMessage id={'doc.description'} defaultMessage={'Description'} />
@@ -92,6 +93,9 @@ class Doc extends React.Component {
     const list = getContentTypeFromOperation(this.getOperation())
     if (list && list.length > 0) {
       this.state.selectedContentType = list[0]
+    }
+    if(this.getOperation() && this.getOperation().securityDefinitions){
+      this.state.auth = getAuthPerPath(this.props.user, this.getOperation().securityDefinitions)
     }
   }
 
@@ -184,7 +188,6 @@ class Doc extends React.Component {
   }
 
   getCurrentAuth() {
-    console.log('AUTH', this.state.auth, this.props.auth)
     return this.state.auth || this.props.auth
   }
 
@@ -257,7 +260,6 @@ class Doc extends React.Component {
   renderCodeSample() {
     const {selectedContentType} = this.state
     const examples = get(this.props, 'doc.api.examples.codes', [])
-    console.log('current auth',this.getCurrentAuth())
     return (
       <CodeSample
         oas={this.oas}

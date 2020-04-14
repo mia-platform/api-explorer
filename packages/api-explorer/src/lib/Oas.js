@@ -29,7 +29,7 @@ class Operation {
         return keys.map(key => {
           let security;
           try {
-            // maybe old version of swagger has this.securitySchemeS instead of this.securityDefinitions
+            // maybe old version of swagger has this.securitySchemes instead of this.securityDefinitions
             security = this.securityDefinitions ? this.securityDefinitions[key] : this.oas.components.securitySchemes[key];
           } catch (e) {
             return false;

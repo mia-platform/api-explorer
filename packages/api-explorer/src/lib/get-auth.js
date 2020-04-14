@@ -46,6 +46,21 @@ function getAuth(user, oasFiles) {
     .reduce((prev, next) => Object.assign(prev, next), {});
 }
 
+function getAuthPerPath(user, securitySchemes){
+  return Object.keys(securitySchemes)
+        .map(scheme => {
+          return {
+            [scheme]: getSingle(
+              user,
+              Object.assign({}, securitySchemes[scheme], { _key: scheme }),
+            ),
+          };
+        })
+        .reduce((prev, next) => Object.assign(prev, next), {});
+}
+
 module.exports = getAuth;
+
+module.exports.getAuthPerPath = getAuthPerPath
 
 module.exports.getSingle = getSingle;

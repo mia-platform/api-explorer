@@ -1,10 +1,9 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Input, Divider} from 'antd'
+import {Divider} from 'antd'
 import debounce from 'lodash.debounce'
 import {pick} from 'lodash'
 import {omit} from 'ramda'
-import {FormattedMessage, injectIntl} from 'react-intl'
 
 const SecurityInput = require('../../SecurityInput')
 
@@ -21,10 +20,6 @@ const styles = {
   }
 }
 
-// this constants are api-explorer standard for variables.user object when securityScheme is of type 'http'.
-// ref: https://github.com/mia-platform/api-explorer/blob/master/packages/api-explorer/src/SecurityInput.jsx#L64
-const USER = 'user'
-const PASSWORD = 'pass'
 
 function omitOrMerge (current, value, key) {
   if (!value) {
@@ -36,7 +31,7 @@ function omitOrMerge (current, value, key) {
   }
 }
 
-function getSecurityTabs(securityTypes, config, onChange, onSubmit, schemeName) {
+function getSecuritySections(securityTypes, config, onChange, onSubmit, schemeName) {
   const {authInputRef, oauth, auth} = config
   return (
     <form onSubmit={onSubmit}>
@@ -104,8 +99,7 @@ class AuthForm extends Component {
                 <div key={`field-${schemeName}`}>
                   <span style={styles.schemeName}>{schemeName}</span>
                   <div style={styles.inputsContainer}>
-                    {/* {this.renderFieldByType(securitySchemes[schemeName].type, schemeName)} */}
-                    {getSecurityTabs(
+                    {getSecuritySections(
                       pick(securitySchemes, schemeName),
                       { authInputRef, oauth, auth },
                       onChange, 
@@ -139,4 +133,4 @@ AuthForm.defaultProps = {
   onSubmit: () => {},
   securitySchemes: {}
 }
-module.exports = injectIntl(AuthForm);
+module.exports = AuthForm;

@@ -65,7 +65,7 @@ class AuthBox extends Component {
       onReset
     } = this.props
 
-    return( 
+    return(
       <Fragment>
         <AuthForm 
           onChange={onChange}
@@ -73,22 +73,8 @@ class AuthBox extends Component {
           authInputRef={authInputRef}
           auth={auth}
           oauth={oauth}
-          securitySchemes={filterSecurityScheme(security,securityTypes)} 
+          securitySchemes={security ? filterSecurityScheme(security,securityTypes) : {}} 
         />
-        {/* <Tabs defaultActiveKey={'security-0'}>
-          {
-            getSecurityTabs(
-              securityTypes,
-              { authInputRef, oauth, auth },
-              onChange,
-              e => {
-                e.preventDefault();
-                onSubmit();
-              }
-            )
-          }
-        </Tabs> */}
-
         {
           showReset ?
             <div style={{padding: 5}}>
