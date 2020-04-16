@@ -1,11 +1,10 @@
 import React, {Component, Fragment} from 'react'
-import {Icon, Popover, Alert, Tabs, Button} from 'antd'
-import { injectIntl, FormattedMessage, intlShape} from 'react-intl';
+import {Icon, Popover, Alert, Button} from 'antd'
+import {injectIntl, FormattedMessage, intlShape} from 'react-intl';
 import {flatten, uniq} from 'lodash'
 import AuthForm from './components/AuthForm';
 
 const PropTypes = require('prop-types');
-
 
 function filterSecurityScheme(security, securitySchemes) {
   const securities = uniq(flatten(security.map(elem => Object.keys(elem))))
