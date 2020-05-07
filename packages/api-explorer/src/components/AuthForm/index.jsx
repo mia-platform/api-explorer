@@ -115,9 +115,9 @@ class AuthForm extends Component {
   }
 }
 AuthForm.propTypes = {
+  auth: PropTypes.object,
   authInputRef: PropTypes.func,
-  oauth: PropTypes.bool.isRequired,
-  auth: PropTypes.shape({}),
+  oauth: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   securitySchemes: PropTypes.object
@@ -125,6 +125,7 @@ AuthForm.propTypes = {
 AuthForm.defaultProps = {
   authInputRef: () => {},
   auth: {},
+  oauth: {},
   securitySchemes: {}
 }
 module.exports = AuthForm;
