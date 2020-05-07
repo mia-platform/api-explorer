@@ -36,31 +36,3 @@ test('should display a single heading for single auth type', () => {
 
   expect(popoverContent.find(AuthForm)).toHaveLength(1);
 });
-
-
-test.skip('should display a dropdown for when multiple oauths are present', () => {
-  const authBox = shallowWithIntl(<AuthBox {...props} path="/multiple-oauths" />);
-
-  expect(authBox.find('select option').length).toBe(2);
-  expect(authBox.find('select option').map(option => option.text())).toEqual([
-    'oauth',
-    'oauthDiff',
-  ]);
-});
-
-test.skip('should not display authentication warning if authData is passed', () => {
-  const authBox = mountWithIntl(<AuthBox {...props} operation={oas.operation('/single-auth', 'post')} />);
-
-  authBox.setProps({ needsAuth: false });
-
-  expect(authBox.props().open).toBe(false);
-});
-
-test.skip('should hide authbox if open=false', () => {
-  const authBox = mountWithIntl(<AuthBox {...props} operation={oas.operation('/single-auth', 'post')} />);
-
-  authBox.setProps({ needsAuth: true });
-  authBox.setProps({ needsAuth: false });
-
-  expect(authBox.props().open).toBe(false);
-});
