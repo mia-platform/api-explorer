@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-continue */
 import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types';
 import {injectIntl, FormattedMessage, intlShape} from 'react-intl';
