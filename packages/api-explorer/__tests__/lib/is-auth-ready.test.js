@@ -97,9 +97,8 @@ describe('isAuthReady', () => {
     ).toBe(true);
   });
 
-  it('should return false if required security scheme is not provided', () => {
+  it('should return false if required `apiKeyScheme` security is not provided', () => {
     const operation = oas2.operation('/required-and-or-security', 'post');
-
     expect(
       isAuthReady(operation, {
         oauthScheme: 'bearer',
@@ -111,18 +110,21 @@ describe('isAuthReady', () => {
     expect(
       isAuthReady(operation, {
         oauthScheme: '',
-        apiKeyScheme: 'key',
-        oauthDiff: '',
-      }),
-    ).toBe(true);
-
-    expect(
-      isAuthReady(operation, {
-        oauthScheme: '',
         apiKeyScheme: '',
         oauthDiff: '',
       }),
     ).toBe(false);
+  })
+
+  it('should return true if required `apiKeyScheme` security is provided', () => {
+    const operation = oas2.operation('/required-and-or-security', 'post');
+    expect(
+      isAuthReady(operation, {
+        oauthScheme: '',
+        apiKeyScheme: 'key',
+        oauthDiff: '',
+      }),
+    ).toBe(true);
   });
 
   it('should return true if one security types required (&& ||)', () => {
