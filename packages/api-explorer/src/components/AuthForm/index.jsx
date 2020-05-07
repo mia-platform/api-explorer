@@ -79,8 +79,14 @@ class AuthForm extends Component {
     onChange(mergeAuths)
   }
 
+  onSecuritySectionSubmit (e) {
+    const {onSubmit} = this.props
+    e.preventDefault();
+    onSubmit();
+  }
+
   render () {
-    const {securitySchemes, onSubmit, onChange, auth, oauth, authInputRef} = this.props
+    const {securitySchemes, onChange, auth, oauth, authInputRef} = this.props
     const schemeKeys = Object.keys(securitySchemes)
 
     return (
@@ -95,10 +101,7 @@ class AuthForm extends Component {
                       pick(securitySchemes, schemeName),
                       { authInputRef, oauth, auth },
                       onChange, 
-                      e => {
-                        e.preventDefault();
-                        onSubmit();
-                      },
+                      this.onSecuritySectionSubmit,
                       schemeName
                       )}
                   </div>
