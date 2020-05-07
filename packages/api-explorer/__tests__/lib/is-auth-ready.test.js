@@ -58,7 +58,7 @@ describe('isAuthReady', () => {
     ).toBe(true);
   });
 
-  it('should return false if both of multiple security types required is missing (||)', () => {
+  it('should return true if both of multiple security types are missing (when using || they are not required)', () => {
     const operation = oas2.operation('/or-security', 'post');
 
     expect(
@@ -66,11 +66,39 @@ describe('isAuthReady', () => {
         oauthScheme: '',
         oauthDiff: '',
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
-  it('should return false if both security types required are missing (&& ||)', () => {
+  it('should return true if both security types are missing (&& ||)', () => {
     const operation = oas2.operation('/and-or-security', 'post');
+
+    expect(
+      isAuthReady(operation, {
+        oauthScheme: 'bearer',
+        apiKeyScheme: '',
+        oauthDiff: '',
+      }),
+    ).toBe(true);
+
+    expect(
+      isAuthReady(operation, {
+        oauthScheme: '',
+        apiKeyScheme: 'key',
+        oauthDiff: '',
+      }),
+    ).toBe(true);
+
+    expect(
+      isAuthReady(operation, {
+        oauthScheme: '',
+        apiKeyScheme: '',
+        oauthDiff: '',
+      }),
+    ).toBe(true);
+  });
+
+  it('should return false if required security scheme is not provided', () => {
+    const operation = oas2.operation('/required-and-or-security', 'post');
 
     expect(
       isAuthReady(operation, {
@@ -86,7 +114,7 @@ describe('isAuthReady', () => {
         apiKeyScheme: 'key',
         oauthDiff: '',
       }),
-    ).toBe(false);
+    ).toBe(true);
 
     expect(
       isAuthReady(operation, {
