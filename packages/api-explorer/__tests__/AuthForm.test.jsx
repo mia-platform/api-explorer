@@ -3,7 +3,6 @@ import { shallowWithIntl, mountWithIntl } from 'enzyme-react-intl';
 
 import AuthForm from '../src/components/AuthForm'
 
-
 const props = {
   onChange: () => {},
   onSubmit: () => {},

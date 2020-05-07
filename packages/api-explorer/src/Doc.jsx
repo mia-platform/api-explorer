@@ -6,7 +6,7 @@ import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import {Icon} from 'antd'
 import fetchHar from 'fetch-har'
-import {get} from 'lodash'
+import get from 'lodash.get'
 import {clone} from 'ramda'
 
 import extensions from '@mia-platform/oas-extensions'
@@ -94,7 +94,7 @@ class Doc extends React.Component {
     if (list && list.length > 0) {
       this.state.selectedContentType = list[0]
     }
-    if(this.getOperation() && this.getOperation().securityDefinitions){
+    if (this.getOperation() && this.getOperation().securityDefinitions) {
       this.state.auth = getAuthPerPath(this.props.user, this.getOperation().securityDefinitions)
     }
   }
@@ -115,6 +115,7 @@ class Doc extends React.Component {
       try {
         this.formSubmitSubscribers.forEach(subscriber => subscriber.onFormSubmission())
       } catch(e) {
+        // eslint-disable-next-line no-console
         console.error('Form submission interrupted:', e.message)
         return false
       }

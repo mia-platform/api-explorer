@@ -29,11 +29,12 @@ class Operation {
         return keys.map(key => {
           let security;
           try {
-            // maybe old version of swagger has this.securitySchemes instead of this.securityDefinitions
+            // old version of swagger has this.securitySchemes instead of this.securityDefinitions
             security = this.securityDefinitions ? this.securityDefinitions[key] : this.oas.components.securitySchemes[key];
           } catch (e) {
             return false;
           }
+
           if (!security) return false;
           let type = security.type;
           if (security.type === 'http') {
@@ -128,6 +129,5 @@ class Oas {
     return new Operation(this, path, method, operation, stripSlash);
   }
 }
-
 module.exports = Oas;
 module.exports.Operation = Operation;

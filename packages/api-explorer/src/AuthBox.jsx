@@ -1,30 +1,35 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-continue */
 import React, {Component, Fragment} from 'react'
-import {Icon, Popover, Alert, Button} from 'antd'
+import PropTypes from 'prop-types';
 import {injectIntl, FormattedMessage, intlShape} from 'react-intl';
-import {flatten, uniq} from 'lodash'
+import {Icon, Popover, Alert, Button} from 'antd'
+import flatten from 'lodash.flatten'
+import uniq from 'lodash.uniq'
+
+
 import AuthForm from './components/AuthForm';
 
-const PropTypes = require('prop-types');
 
 function filterSecurityScheme(security, securitySchemes) {
   const securities = uniq(flatten(security.map(elem => Object.keys(elem))))
   const newSecurityScheme = {}
   for (const securityType of Object.keys(securitySchemes)) {
-    for (const elem of uniq(securitySchemes[securityType])){
-      const scheme = elem._key
-      if(securities.includes(scheme)){
-        if(newSecurityScheme[securityType]){
-          newSecurityScheme[securityType].push(elem)
-        }else{
-          newSecurityScheme[securityType] = [elem]
-        }
+    for (const elem of uniq(securitySchemes[securityType])) {
+      if (!securities.includes(elem._key)) {
+        continue
       }
+
+      if (!newSecurityScheme[securityType]) {
+        newSecurityScheme[securityType] = []
+      }
+
+      newSecurityScheme[securityType].push(elem)
     }
   }
   return newSecurityScheme
 }
 
-// eslint-disable-next-line react/prefer-stateless-function
 class AuthBox extends Component {
 
   renderIconLock() {

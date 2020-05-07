@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Divider} from 'antd'
 import debounce from 'lodash.debounce'
-import {pick} from 'lodash'
+import pick from 'lodash.pick'
 import {omit} from 'ramda'
 
 const SecurityInput = require('../../SecurityInput')
@@ -20,11 +20,11 @@ const styles = {
   }
 }
 
-
 function omitOrMerge (current, value, key) {
   if (!value) {
     return omit([key], current)
   }
+
   return {
     ...current,
     [key]: value
@@ -36,39 +36,39 @@ function getSecuritySections(securityTypes, config, onChange, onSubmit, schemeNa
   return (
     <form onSubmit={onSubmit}>
       <div>
-        {Object.keys(securityTypes).map((type, index) => {
-        const securities = securityTypes[type];
-        return(
-        /* eslint-disable-next-line react/no-array-index-key  */
-          <div key={`security-${index}`} >
-            <div style={{padding: '15px 17px'}}>
-              <section>
-                {securities.map(security => (
-                  <SecurityInput
-                    {...{ auth, onChange, authInputRef, oauth }}
-                    key={security._key}
-                    scheme={security}
-                    schemeName={schemeName}
-                  />
-            ))}
-              </section>
-            </div>
-          </div>
-        )})}
+        {
+          Object.keys(securityTypes).map((type, index) => {
+            const securities = securityTypes[type];
+            return (
+              <div key={`security-${type + index}`} >
+                <div style={{padding: '15px 17px'}}>
+                  <section>
+                    {
+                      securities.map(security => (
+                        <SecurityInput
+                          {...{ auth, onChange, authInputRef, oauth }}
+                          key={security._key}
+                          scheme={security}
+                          schemeName={schemeName}
+                        />
+                      ))
+                    }
+                  </section>
+                </div>
+              </div>
+          )})
+        }
       </div>
     </form>
     )
 }
 
-
 class AuthForm extends Component {
-  
   constructor (props) {
     super(props)
     this.onChangeDebounced = debounce(this.onChange, 200)
     this.state = {auth: {}}
   }
-
 
   onChange (value, schemeName) {
     const {onChange} = this.props
