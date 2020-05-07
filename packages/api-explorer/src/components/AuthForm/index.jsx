@@ -64,6 +64,21 @@ function getSecuritySections(securityTypes, config, onChange, onSubmit, schemeNa
 }
 
 class AuthForm extends Component {
+  static propTypes = {
+    auth: PropTypes.object,
+    authInputRef: PropTypes.func,
+    oauth: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    securitySchemes: PropTypes.object
+  }
+  static defaultProps = {
+    authInputRef: () => {},
+    auth: {},
+    oauth: {},
+    securitySchemes: {}
+  }
+
   constructor (props) {
     super(props)
     this.onChangeDebounced = debounce(this.onChange, 200)
@@ -113,19 +128,5 @@ class AuthForm extends Component {
       </div>
     )
   }
-}
-AuthForm.propTypes = {
-  auth: PropTypes.object,
-  authInputRef: PropTypes.func,
-  oauth: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  securitySchemes: PropTypes.object
-}
-AuthForm.defaultProps = {
-  authInputRef: () => {},
-  auth: {},
-  oauth: {},
-  securitySchemes: {}
 }
 module.exports = AuthForm;

@@ -1,5 +1,6 @@
 {
   "extends": ["airbnb", "prettier"],
+  "plugins": ["react"],
   "rules": {
     "arrow-body-style": 0,
     "react/forbid-prop-types": 0,
