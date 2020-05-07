@@ -56,7 +56,6 @@ function SecurityInput(props) {
       );
     }
     case 'http':
-      // TODO support other schemes? https://github.com/readmeio/api-explorer/issues/15
       if (scheme.scheme === 'basic') {
         return (
           <Basic
