@@ -86,7 +86,6 @@ class AuthForm extends Component {
     this.onChangeDebounced(Object.keys(dataMerged).length > 0 ? dataMerged : null, schemeName)
   }
 
-
   render () {
     const {securitySchemes, onSubmit, onChange, auth, oauth, authInputRef} = this.props
     const schemeKeys = Object.keys(securitySchemes)
@@ -124,13 +123,12 @@ AuthForm.propTypes = {
   oauth: PropTypes.bool.isRequired,
   auth: PropTypes.shape({}),
   onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
   securitySchemes: PropTypes.object
 }
 AuthForm.defaultProps = {
   authInputRef: () => {},
   auth: {},
-  onSubmit: () => {},
   securitySchemes: {}
 }
 module.exports = AuthForm;
