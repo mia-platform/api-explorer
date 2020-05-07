@@ -7,9 +7,7 @@ import {Icon, Popover, Alert, Button} from 'antd'
 import flatten from 'lodash.flatten'
 import uniq from 'lodash.uniq'
 
-
 import AuthForm from './components/AuthForm';
-
 
 function filterSecurityScheme(security, securitySchemes) {
   const securities = uniq(flatten(security.map(elem => Object.keys(elem))))
@@ -31,7 +29,6 @@ function filterSecurityScheme(security, securitySchemes) {
 }
 
 class AuthBox extends Component {
-
   renderIconLock() {
     const {toggle, open} = this.props
     return(
@@ -163,7 +160,7 @@ AuthBox.propTypes = {
   showReset: PropTypes.bool,
   intl: intlShape.isRequired,
   onVisibleChange: PropTypes.func,
-  security: PropTypes.arrayOf(PropTypes.object).isRequired
+  security: PropTypes.arrayOf(PropTypes.object)
 };
 
 AuthBox.defaultProps = {
@@ -176,6 +173,7 @@ AuthBox.defaultProps = {
   showReset: true,
   securityTypes: {},
   onVisibleChange: () => {},
+  security: [],
 };
 
 module.exports = injectIntl(AuthBox);
