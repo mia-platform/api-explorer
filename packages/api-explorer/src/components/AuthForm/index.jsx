@@ -79,13 +79,6 @@ class AuthForm extends Component {
     onChange(mergeAuths)
   }
 
-  onChangeWithMerge (value, schemeName, keyName) {
-    const {auth} = this.state
-    const dataBySchemeName = auth[schemeName] || {}
-    const dataMerged = omitOrMerge(dataBySchemeName, value, keyName)
-    this.onChangeDebounced(Object.keys(dataMerged).length > 0 ? dataMerged : null, schemeName)
-  }
-
   render () {
     const {securitySchemes, onSubmit, onChange, auth, oauth, authInputRef} = this.props
     const schemeKeys = Object.keys(securitySchemes)
