@@ -12,17 +12,17 @@ const { Operation } = Oas;
 const parametersToJsonSchema = require('./lib/parameters-to-json-schema');
 
 export default class Params extends Component{
-  
   renderParam(schema) {
     const {
       onChange,
       onSubmit,
       setFormSubmissionListener,
     } = this.props
+    console.log('Params', schema)
     return(
-      <JsonForm 
-        schema={schema.schema} 
-        onChange={values => onChange({ schema, formData: { [schema.type]: values } })} 
+      <JsonForm
+        schema={schema.schema}
+        onChange={values => onChange({ schema, formData: { [schema.type]: values } })}
         onSubmit={() => onSubmit()}
         setFormSubmissionListener={setFormSubmissionListener}
       />
@@ -33,8 +33,7 @@ export default class Params extends Component{
     const {oas, operation} = this.props
     const jsonSchema = parametersToJsonSchema(operation, oas);
     return (
-      jsonSchema &&
-      jsonSchema.map((schema) => {
+      jsonSchema && jsonSchema.map((schema) => {
         return (<ContentWithTitle
           key={schema.label+schema.schema.ref}
           title={<FormattedMessage id={`doc.params.${schema.label.toLowerCase().replace(/\s/g,'')}`} defaultMessage={schema.label} />}

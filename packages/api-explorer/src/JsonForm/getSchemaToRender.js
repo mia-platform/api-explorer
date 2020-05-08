@@ -7,7 +7,7 @@ const TITLE = " "
  * Convert the json-schema to a json-schema supported from the JsonEditor.
  * Set an empty title and resolve the $ref on the root of the schema if it exists, because it is an invalid json-schema,
  * but due to retrocompatibility we have to support it.
- * 
+ *
  * Reference: https://github.com/json-schema-org/json-schema-spec/issues/479
  */
 export default function getSchemaToRender(schema){

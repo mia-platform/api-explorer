@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
-import JSONEditor from '@json-editor/json-editor'
 
 import getSchemaToRender from './getSchemaToRender'
-import antdTheme from './antd-theme-json-editor'
+// import antdTheme from './antd-theme-json-editor'
 import getCustomEditor from './get-custom-editor'
 import arrayCustomEditor from './array-custom-editors'
 import objectCustomEditor from './object-custom-editors'
@@ -12,25 +11,34 @@ import notCustomEditor from './not-custom-editor'
 import anyOfEditor from './anyOf-custom-editor'
 import it from '../../i18n/it.json'
 
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
-function configureJSONEditor(intl, setFormSubmissionListener) {
-  const editorsKeys = Object.keys(JSONEditor.defaults.editors)
-  const keysToExclude = ['array', 'object', 'not', 'anyOf']
-  editorsKeys.filter(key => !keysToExclude.includes(key)).forEach(key => {
-    JSONEditor.defaults.editors[key] = getCustomEditor(key);
-  });
+const JSONEditor = require('@json-editor/json-editor').JSONEditor;
 
+function configureJSONEditor(intl, setFormSubmissionListener) {
   JSONEditor.defaults.languages.it = it
   JSONEditor.defaults.language = intl.locale
 
-  JSONEditor.defaults.editors.array = arrayCustomEditor()
-  JSONEditor.defaults.editors.object = objectCustomEditor()
-  JSONEditor.defaults.editors.not = notCustomEditor()
-  JSONEditor.defaults.editors.anyOf = anyOfEditor(intl,setFormSubmissionListener)
+  // const editorsKeys = Object.keys(JSONEditor.defaults.editors)
+  // const keysToExclude = ['array', 'object', 'not', 'anyOf']
+  // console.log('JSONEditor obj', JSONEditor.defaults)
+  // editorsKeys.filter(key => !keysToExclude.includes(key)).forEach(key => {
+  //   JSONEditor.defaults.editors[key] = getCustomEditor(JSONEditor, key);
+  // });
 
-  JSONEditor.defaults.themes.antdTheme = antdTheme
+
+  // JSONEditor.defaults.editors.array = arrayCustomEditor()
+  // JSONEditor.defaults.editors.object = objectCustomEditor()
+  // JSONEditor.defaults.editors.not = notCustomEditor()
+  // JSONEditor.defaults.editors.anyOf = anyOfEditor(intl, setFormSubmissionListener)
+
+  // JSONEditor.defaults.themes.antdTheme = antdTheme
 
   // eslint-disable-next-line consistent-return
   JSONEditor.defaults.resolvers.unshift((scheme) => {
@@ -70,15 +78,19 @@ class JsonForm extends Component {
   createEditor(element) {
     const {intl, onChange, schema, setFormSubmissionListener} = this.props
     if (this.editor === null) {
+      console.log('schema', schema)
       const schemaToRender = getSchemaToRender(schema)
 
       configureJSONEditor(intl, setFormSubmissionListener)
       this.editor = new JSONEditor(element, {
-        schema: schemaToRender,
+        schema,
         show_opt_in: true,
         prompt_before_delete: false,
         form_name_root:"",
-        theme: "antdTheme"
+        iconlib: 'fontawesome5',
+        object_layout: 'normal',
+        show_errors: 'interaction',
+        theme: 'bootstrap4'
       });
       this.editor.on('change', () => onChange(this.editor.getValue()))
     }
@@ -88,9 +100,7 @@ class JsonForm extends Component {
     const {onSubmit} = this.props
     return (
       <form
-        ref={r => {
-          this.createEditor(r);
-        }}
+        ref={r => this.createEditor(r)}
         onSubmit={(e) => {
           e.preventDefault()
           onSubmit()
