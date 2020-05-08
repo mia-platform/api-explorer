@@ -111,6 +111,7 @@ class Doc extends React.Component {
       try {
         this.formSubmitSubscribers.forEach(subscriber => subscriber.onFormSubmission())
       } catch(e) {
+        // eslint-disable-next-line no-console
         console.error('Form submission interrupted:', e.message)
         return false
       }

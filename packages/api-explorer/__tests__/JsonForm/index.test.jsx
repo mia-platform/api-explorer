@@ -6,13 +6,16 @@ import renderer from 'react-test-renderer'
 import JsonForm from '../../src/JsonForm'
 
 const JSONEditor = require('@json-editor/json-editor').JSONEditor
-jest.mock('../../src/JsonForm/configureJsonEditor', () => console.log('mockedJE'))
-jest.mock('@json-editor/json-editor', () => ({
-  __esModule: true, // this property makes it work
-  default: 'mockedDefaultExport',
-  JSONEditor: jest.fn(),
-}))
 
+// eslint-disable-next-line no-console
+// jest.mock('../../src/JsonForm/configureJsonEditor', () => console.log('mockedJE'))
+// jest.mock('@json-editor/json-editor', () => ({
+//   __esModule: true, // this property makes it work
+//   default: 'mockedDefaultExport',
+//   JSONEditor: jest.fn(),
+// }))
+
+// eslint-disable-next-line no-unused-vars
 function createNodeMock(element) {
   if (element.type === 'form') {
     return {
@@ -22,6 +25,7 @@ function createNodeMock(element) {
   return null;
 }
 
+// eslint-disable-next-line no-unused-vars
 const createComponentWithIntl = (children, props = {locale: 'en'}, options) => {
   return renderer.create(<IntlProvider {...props}>{children}</IntlProvider>, options);
 };
@@ -44,10 +48,12 @@ describe('JSONForm ', () => {
     setFormSubmissionListener: jest.fn(),
   }
 
-  it('renders json-editor', () => {
-    const element = mountWithIntl(<JsonForm {...props} />)
+  it('snapshot', () => {
+    const element = createComponentWithIntl(<JsonForm {...props} />, undefined, {createNodeMock})
+    expect(element.toJSON()).toMatchSnapshot()
+  })
 
-    expect(element).toMatchSnapshot()
+  it('renders json-editor', () => {
     expect(JSONEditor).toHaveBeenCalledWith(
       {
         thisIs: 'my-form'
@@ -75,6 +81,7 @@ describe('JSONForm ', () => {
   it.skip('extend all json-editor editors', () => {
     mountWithIntl(<JsonForm {...props} />)
     expect(
+      // eslint-disable-next-line no-undef
       extendMock.mock.calls.map(call => Object.keys(call[0]))
     ).toEqual([
       ['setContainer', 'build'], // foo
