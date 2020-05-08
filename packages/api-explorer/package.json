@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@json-editor/json-editor": "^2.2.1",
+    "@json-editor/json-editor": "2.0.0",
     "@mia-platform/markdown": "^6.1.0",
     "@mia-platform/oas-extensions": "^6.1.0",
     "@mia-platform/syntax-highlighter": "^6.1.0",

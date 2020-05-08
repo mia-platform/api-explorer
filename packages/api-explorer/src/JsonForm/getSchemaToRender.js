@@ -11,6 +11,7 @@ const TITLE = " "
  * Reference: https://github.com/json-schema-org/json-schema-spec/issues/479
  */
 export default function getSchemaToRender(schema){
+
   const withoutTitle = {...schema, title: TITLE}
   const ref = withoutTitle.$ref
   if(!ref) {
@@ -18,7 +19,7 @@ export default function getSchemaToRender(schema){
   }
   // e.g.:    "#/components/schemas/Pet" -> ".components.schemas.Pet"
   const componentsPath = ref.slice(1, ref.length).replace(/\//g, '.')
-  const foundReference = get(schema, `definitions${componentsPath}`)
+  const foundReference = get(schema, componentsPath.split('.').filter(Boolean))
   if(!foundReference) {
     return withoutTitle
   }

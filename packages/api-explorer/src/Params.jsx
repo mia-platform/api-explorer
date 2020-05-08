@@ -18,7 +18,6 @@ export default class Params extends Component{
       onSubmit,
       setFormSubmissionListener,
     } = this.props
-    console.log('Params', schema)
     return(
       <JsonForm
         schema={schema.schema}
