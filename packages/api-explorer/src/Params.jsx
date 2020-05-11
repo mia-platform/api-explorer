@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { FormattedMessage } from 'react-intl'
+import { injectIntl, intlShape } from 'react-intl'
 
 import './params.css'
 import ContentWithTitle from './components/ContentWithTitle'
@@ -11,15 +11,17 @@ const Oas = require('./lib/Oas');
 const { Operation } = Oas;
 const parametersToJsonSchema = require('./lib/parameters-to-json-schema');
 
-export default class Params extends Component{
+class Params extends Component{
   renderParam(schema) {
     const {
       onChange,
       onSubmit,
       setFormSubmissionListener,
+      intl
     } = this.props
     return(
       <JsonForm
+        title={intl.formatMessage({id: `doc.params.${schema.label.toLowerCase().replace(/\s/g,'')}`, default: schema.label})}
         schema={schema.schema}
         onChange={values => onChange({ schema, formData: { [schema.type]: values } })}
         onSubmit={() => onSubmit()}
@@ -33,19 +35,22 @@ export default class Params extends Component{
     const jsonSchema = parametersToJsonSchema(operation, oas);
     return (
       jsonSchema && jsonSchema.map((schema) => {
-        return (<ContentWithTitle
-          key={schema.label+schema.schema.ref}
-          title={<FormattedMessage id={`doc.params.${schema.label.toLowerCase().replace(/\s/g,'')}`} defaultMessage={schema.label} />}
-          content={this.renderParam(schema)}
-          showDivider={false}
-          theme={'dark'}
-          showBorder={false}
-          titleUpperCase
-        />)
+        return (
+          <ContentWithTitle
+            key={schema.label+schema.schema.ref}
+            content={this.renderParam(schema)}
+            showDivider={false}
+            theme={'dark'}
+            showBorder={false}
+            titleUpperCase
+          />
+        )
       })
     )
   }
 }
+
+export default injectIntl(Params)
 
 Params.propTypes = {
   oas: PropTypes.instanceOf(Oas).isRequired,
@@ -54,4 +59,5 @@ Params.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   setFormSubmissionListener: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };

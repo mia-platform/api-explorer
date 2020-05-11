@@ -8,3 +8,36 @@
     margin: 5px;
 }
 
+.card-title label {
+    font-size: 18px;
+    color: #666666;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.mia-container-wrapper {
+    border-radius: 4px;
+    border: solid 1px #d8d8d8;
+    background: #fafafa;
+    padding: 5px
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+    margin: 0px;
+    padding: 10px 0px;
+}
+
+.form-group label {
+    margin: 0px;
+}
+
+.ant-btn svg {
+    margin-right: 5px;
+}
+
+* {
+    outline: none;
+}

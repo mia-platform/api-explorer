@@ -39,11 +39,11 @@ function withSpecFetching(Component) {
     }
     convertSwagger(swagger) {
       this.updateStatus('Converting swagger file to OAS 3', () => {
-        SwaggerParser.dereference(swagger)
-          .then((converted) => {
-            swagger2openapi.convertObj(converted, {})
+        // SwaggerParser.dereference(swagger)
+          // .then((converted) => {
+        swagger2openapi.convertObj(swagger, {})
             .then(({ openapi }) => this.dereference(openapi));
-          });
+          // });
       });
     }
     createDocs(oas) {

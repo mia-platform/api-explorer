@@ -21,12 +21,15 @@ class JsonForm extends Component {
   }
 
   createEditor(element) {
-    const {intl, onChange, schema, setFormSubmissionListener} = this.props
+    const {intl, onChange, schema, setFormSubmissionListener, title} = this.props
     if (this.editor === null) {
       const self = this
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
       self.editor = new JSONEditor(element, {
-        schema,
+        schema: {
+          ...schema,
+          title
+        },
         show_opt_in: false,
         prompt_before_delete: false,
         form_name_root:"",
@@ -60,5 +63,6 @@ JsonForm.propTypes = {
   schema: PropTypes.object.isRequired,
   setFormSubmissionListener: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired
 }
 export default injectIntl(JsonForm)

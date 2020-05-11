@@ -66,8 +66,8 @@ describe('Params', () => {
   });
   test('renders with correct title', () => {
     const params = mount(<Params {...props} />)
-    const contentWithTitle = params.find(ContentWithTitle)
-    const title = contentWithTitle.prop('title')
+    const jsonForm = params.find(JsonForm)
+    const title = jsonForm.prop('title')
     const expectedTitle = {
       id: 'doc.params.pathparams',
       defaultMessage: 'Path Params'

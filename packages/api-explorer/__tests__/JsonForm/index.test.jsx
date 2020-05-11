@@ -19,6 +19,7 @@ describe('JSONForm ', () => {
     onChange: jest.fn(),
     onSubmit: jest.fn(),
     setFormSubmissionListener: jest.fn(),
+    title: 'The Title'
   }
 
   it('snapshot', () => {

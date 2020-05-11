@@ -7,55 +7,11 @@ const antdTheme = (JSONEditor ) => class extends JSONEditor.defaults.themes.boot
   getFormControl (label, input, description, infoText) {
     const labelText = label ? label.textContent : "";
     const descriptionText = description ? description.textContent : "";
-    const group = document.createElement('div')
 
-    group.classList.add('form-group')
+    const group = super.getFormControl (label, input, description, infoText)
 
-    if (label && (input.type === 'checkbox' || input.type === 'radio')) {
-      const check = document.createElement('div')
-
-      if (this.options.custom_forms === false) {
-        check.classList.add('form-check')
-        input.classList.add('form-check-input')
-        label.classList.add('form-check-label')
-      } else {
-        check.classList.add('custom-control')
-        input.classList.add('custom-control-input')
-        label.classList.add('custom-control-label')
-
-        if (input.type === 'checkbox') {
-          check.classList.add('custom-checkbox')
-        } else {
-          check.classList.add('custom-radio')
-        }
-      }
-
-      const unique = label.innerText
-      label.setAttribute('for', unique)
-      input.setAttribute('id', unique)
-
-      check.appendChild(input)
-      check.appendChild(label)
-      if (infoText) check.appendChild(infoText)
-
-      group.appendChild(check)
-    } else {
-      if (label) {
-        group.appendChild(label)
-
-        if (infoText) group.appendChild(infoText)
-      }
-
-      group.appendChild(input)
-    }
-
-    // Input Text.
-    if (!input.type || input.type === 'text') {
-      input.classList.add('input-field', 'ant-input')
-    }
-
-    if (description && labelText !== descriptionText) {
-      group.appendChild(description)
+    if (description && labelText === descriptionText) {
+      description.style.display = 'none'
     }
 
     return group
@@ -63,7 +19,7 @@ const antdTheme = (JSONEditor ) => class extends JSONEditor.defaults.themes.boot
 
   getButton (text, icon, title) {
     const el = super.getButton(text, icon, title)
-    el.classList.add('ant-btn', 'ant-btn-primary')
+    el.classList.add('ant-btn')
     return el
   }
 
