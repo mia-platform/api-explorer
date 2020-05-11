@@ -29,7 +29,7 @@ function getBodyParam(pathOperation, oas) {
     type,
     label: types[type],
     schema: oas.components
-      ? { components: oas.components, ...schema.schema }
+    ? { definitions: { components: oas.components }, ...schema.schema }
       : schema.schema,
   };
 }

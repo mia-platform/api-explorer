@@ -7,7 +7,7 @@ import anyOfEditor from "./anyOf-custom-editor";
 module.exports = function configureJSONEditor(JSONEditor, intl, setFormSubmissionListener) {
   JSONEditor.defaults.languages.it = it
   JSONEditor.defaults.language = intl.locale
-  JSONEditor.defaults.themes.antdTheme = antdTheme
+  JSONEditor.defaults.themes.antdTheme = antdTheme(JSONEditor)
   JSONEditor.defaults.editors.not = notCustomEditor(JSONEditor.defaults.editors.multiple)
   JSONEditor.defaults.editors.anyOf = anyOfEditor(intl, setFormSubmissionListener, JSONEditor.defaults.editors.multiple)
 

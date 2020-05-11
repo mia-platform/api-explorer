@@ -6,14 +6,12 @@ import '@fortawesome/fontawesome-free/js/brands'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
+import {JSONEditor} from '@json-editor/json-editor'
 
-import getSchemaToRender from './getSchemaToRender'
 import configureJsonEditor from './configureJsonEditor'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
-
-const JSONEditor = require('@json-editor/json-editor').JSONEditor;
 
 class JsonForm extends Component {
   constructor(props) {
@@ -25,17 +23,18 @@ class JsonForm extends Component {
   createEditor(element) {
     const {intl, onChange, schema, setFormSubmissionListener} = this.props
     if (this.editor === null) {
-      const schemaToRender = getSchemaToRender(schema)
+      const self = this
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
-      this.editor = new JSONEditor(element, {
-        schema: schemaToRender,
+      self.editor = new JSONEditor(element, {
+        schema,
         show_opt_in: false,
         prompt_before_delete: false,
         form_name_root:"",
         iconlib: 'fontawesome5',
         theme: 'antdTheme'
       });
-      this.editor.on('change', () => onChange(this.editor.getValue()))
+      self.editor.on('change', () => onChange(self.editor.getValue()))
+      
     }
   }
 

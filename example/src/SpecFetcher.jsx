@@ -1,6 +1,6 @@
 const React = require('react');
 const swagger2openapi = require('swagger2openapi');
-
+const SwaggerParser = require('@apidevtools/swagger-parser');
 const createDocs = require('../../packages/api-explorer/lib/create-docs');
 
 function withSpecFetching(Component) {
@@ -39,8 +39,11 @@ function withSpecFetching(Component) {
     }
     convertSwagger(swagger) {
       this.updateStatus('Converting swagger file to OAS 3', () => {
-        swagger2openapi.convertObj(swagger, {})
-          .then(({ openapi }) => this.dereference(openapi));
+        SwaggerParser.dereference(swagger)
+          .then((converted) => {
+            swagger2openapi.convertObj(converted, {})
+            .then(({ openapi }) => this.dereference(openapi));
+          });
       });
     }
     createDocs(oas) {

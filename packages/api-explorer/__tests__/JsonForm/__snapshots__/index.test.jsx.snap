@@ -1,16 +1,208 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`JSONForm  renders json-editor 1`] = `
+exports[`JSONForm  snapshot 1`] = `
 <form
-  onSubmit={[Function]}
+  data-theme="antdTheme"
 >
   <button
-    style={
-      Object {
-        "display": "none",
-      }
-    }
+    style="display: none;"
     type="submit"
   />
+  <div
+    data-schemaid="root"
+    data-schemapath="root"
+    data-schematype="object"
+    style="position: relative;"
+  >
+    <h3
+      class="card-title"
+      style="display: inline-block;"
+    >
+      <button
+        class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-collapse json-editor-btntype-toggle"
+        style="margin: 0px 10px 0px 0px;"
+        title="Collapse"
+        type="button"
+      >
+        <i
+          class="fas fa-caret-down"
+        />
+        <span>
+           
+        </span>
+      </button>
+      <label>
+        root
+      </label>
+    </h3>
+    <span
+      class="btn-group"
+      style="display: inline-flex; margin: 0px 0px 0px 10px;"
+    >
+      <div
+        style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); position: absolute; z-index: 10; display: none; background: rgb(255, 255, 255); border-radius: 4px; margin-top: 5px; padding: 5px; font-size: 14px;"
+      >
+        <textarea
+          class="form-control"
+          style="height: 170px; width: 300px; display: block;"
+        />
+        <button
+          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-save json-editor-btntype-save"
+          title="Save"
+          type="button"
+        >
+          <i
+            class="fas fa-save"
+          />
+          <span>
+             Save
+          </span>
+        </button>
+        <button
+          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-copy json-editor-btntype-copy"
+          title="Copy"
+          type="button"
+        >
+          <i
+            class="fas fa-copy"
+          />
+          <span>
+             Copy
+          </span>
+        </button>
+        <button
+          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-cancel json-editor-btntype-cancel"
+          title="Cancel"
+          type="button"
+        >
+          <i
+            class="fas fa-ban"
+          />
+          <span>
+             Cancel
+          </span>
+        </button>
+      </div>
+      <div
+        style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); position: absolute; z-index: 10; display: none; background: rgb(255, 255, 255); border-radius: 4px; margin-top: 5px; padding: 5px; font-size: 14px;"
+      >
+        <div
+          class="property-selector"
+          style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"
+        >
+          <div
+            class="form-group"
+            style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;"
+          >
+            <div
+              class="form-check"
+            >
+              <input
+                class="form-check-input"
+                disabled=""
+                id="undefined"
+                style="width: auto;"
+                type="checkbox"
+              />
+              <label
+                class="form-check-label"
+                for="undefined"
+              >
+                 petId
+              </label>
+            </div>
+          </div>
+        </div>
+        <input
+          class="form-control"
+          placeholder="Property name..."
+          style="width: 220px; margin-bottom: 0px; display: inline-block;"
+          type="text"
+        />
+        <button
+          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-add json-editor-btntype-add"
+          title="add"
+          type="button"
+        >
+          <i
+            class="fas fa-plus"
+          />
+          <span>
+             add
+          </span>
+        </button>
+        <div
+          style="clear: both;"
+        />
+      </div>
+      <button
+        class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-edit json-editor-btntype-editjson"
+        title="Edit JSON"
+        type="button"
+      >
+        <i
+          class="fas fa-pen"
+        />
+        <span>
+           JSON
+        </span>
+      </button>
+      <button
+        class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-edit_properties json-editor-btntype-properties"
+        title="Object Properties"
+        type="button"
+      >
+        <i
+          class="fas fa-list"
+        />
+        <span>
+           Properties
+        </span>
+      </button>
+    </span>
+    <div
+      style="display: none;"
+    />
+    <div
+      class="card card-body mb-3 bg-light"
+    >
+      <div>
+        <div>
+          <div
+            class="row"
+          >
+            <div
+              class="col-md-12"
+              data-schemapath="root.petId"
+              data-schematype="integer"
+            >
+              <div
+                class="form-group"
+              >
+                <label
+                  class="required"
+                >
+                  petId
+                </label>
+                <input
+                  class="form-control input-field ant-input"
+                  data-schemaformat="int64"
+                  name="root[petId]"
+                  type="text"
+                />
+                <div />
+                <small
+                  class="form-text"
+                >
+                  ID of pet to return
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div />
+  </div>
 </form>
 `;
