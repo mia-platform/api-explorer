@@ -4,7 +4,6 @@
   "version": "6.1.1",
   "main": "dist/index.js",
   "dependencies": {
-    "@apidevtools/swagger-parser": "^9.0.1",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@json-editor/json-editor": "2.2.1",
     "@mia-platform/markdown": "^6.1.0",
