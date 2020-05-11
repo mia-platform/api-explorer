@@ -21,7 +21,7 @@ class Params extends Component{
     } = this.props
     return(
       <JsonForm
-        title={intl.formatMessage({id: `doc.params.${schema.label.toLowerCase().replace(/\s/g,'')}`, default: schema.label})}
+        title={intl.formatMessage({id: `doc.params.${schema.label.toLowerCase().replace(/\s/g,'')}`, defaultMessage: schema.label})}
         schema={schema.schema}
         onChange={values => onChange({ schema, formData: { [schema.type]: values } })}
         onSubmit={() => onSubmit()}

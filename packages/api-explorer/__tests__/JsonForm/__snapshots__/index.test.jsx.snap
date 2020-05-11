@@ -9,6 +9,7 @@ exports[`JSONForm  snapshot 1`] = `
     type="submit"
   />
   <div
+    class="mia-container-wrapper"
     data-schemaid="root"
     data-schemapath="root"
     data-schematype="object"
@@ -19,8 +20,8 @@ exports[`JSONForm  snapshot 1`] = `
       style="display: inline-block;"
     >
       <button
-        class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-collapse json-editor-btntype-toggle"
-        style="margin: 0px 10px 0px 0px;"
+        class="btn btn-secondary btn-sm ant-btn json-editor-btn-collapse json-editor-btntype-toggle ant-btn-sm"
+        style="margin: 0px 10px 0px 0px; border: 0px; background: transparent;"
         title="Collapse"
         type="button"
       >
@@ -32,12 +33,12 @@ exports[`JSONForm  snapshot 1`] = `
         </span>
       </button>
       <label>
-        root
+        The Title
       </label>
     </h3>
     <span
       class="btn-group"
-      style="display: inline-flex; margin: 0px 0px 0px 10px;"
+      style="display: inline-flex; margin: 5px 0px 0px 10px; float: right;"
     >
       <div
         style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); position: absolute; z-index: 10; display: none; background: rgb(255, 255, 255); border-radius: 4px; margin-top: 5px; padding: 5px; font-size: 14px;"
@@ -47,7 +48,7 @@ exports[`JSONForm  snapshot 1`] = `
           style="height: 170px; width: 300px; display: block;"
         />
         <button
-          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-save json-editor-btntype-save"
+          class="btn btn-secondary btn-sm ant-btn json-editor-btn-save json-editor-btntype-save"
           title="Save"
           type="button"
         >
@@ -59,7 +60,7 @@ exports[`JSONForm  snapshot 1`] = `
           </span>
         </button>
         <button
-          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-copy json-editor-btntype-copy"
+          class="btn btn-secondary btn-sm ant-btn json-editor-btn-copy json-editor-btntype-copy"
           title="Copy"
           type="button"
         >
@@ -71,7 +72,7 @@ exports[`JSONForm  snapshot 1`] = `
           </span>
         </button>
         <button
-          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-cancel json-editor-btntype-cancel"
+          class="btn btn-secondary btn-sm ant-btn json-editor-btn-cancel json-editor-btntype-cancel"
           title="Cancel"
           type="button"
         >
@@ -100,13 +101,11 @@ exports[`JSONForm  snapshot 1`] = `
               <input
                 class="form-check-input"
                 disabled=""
-                id="undefined"
                 style="width: auto;"
                 type="checkbox"
               />
               <label
                 class="form-check-label"
-                for="undefined"
               >
                  petId
               </label>
@@ -120,7 +119,7 @@ exports[`JSONForm  snapshot 1`] = `
           type="text"
         />
         <button
-          class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-add json-editor-btntype-add"
+          class="btn btn-secondary btn-sm ant-btn json-editor-btn-add json-editor-btntype-add"
           title="add"
           type="button"
         >
@@ -136,7 +135,8 @@ exports[`JSONForm  snapshot 1`] = `
         />
       </div>
       <button
-        class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-edit json-editor-btntype-editjson"
+        class="btn btn-secondary btn-sm ant-btn json-editor-btn-edit json-editor-btntype-editjson ant-btn-sm"
+        style="margin: 0px 8px; border-radius: 4px;"
         title="Edit JSON"
         type="button"
       >
@@ -148,7 +148,8 @@ exports[`JSONForm  snapshot 1`] = `
         </span>
       </button>
       <button
-        class="btn btn-secondary btn-sm ant-btn ant-btn-primary json-editor-btn-edit_properties json-editor-btntype-properties"
+        class="btn btn-secondary btn-sm ant-btn json-editor-btn-edit_properties json-editor-btntype-properties ant-btn-sm"
+        style="margin: 0px 8px; border-radius: 4px;"
         title="Object Properties"
         type="button"
       >
@@ -185,7 +186,7 @@ exports[`JSONForm  snapshot 1`] = `
                   petId
                 </label>
                 <input
-                  class="form-control input-field ant-input"
+                  class="form-control"
                   data-schemaformat="int64"
                   name="root[petId]"
                   type="text"
