@@ -7,7 +7,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {JSONEditor} from '@json-editor/json-editor'
-import {Spin} from 'antd'
+import {Spin, Alert} from 'antd'
 
 import configureJsonEditor from './configureJsonEditor'
 import resolveReference from './resolveReference'
@@ -20,7 +20,7 @@ class JsonForm extends Component {
     super(props);
     this.editor = null;
     this.ref = null;
-    
+
     this.state = {
       error: null,
       jsonSchema: null
@@ -73,7 +73,13 @@ class JsonForm extends Component {
     const {onSubmit} = this.props
     const {error, jsonSchema} = this.state
     if (error) {
-      return <span>{error}</span>
+      return (
+        <Alert
+          message={error}
+          type={error}
+          showIcon
+        />
+      )
     }
     if (jsonSchema) {
       return (
