@@ -1,8 +1,14 @@
+/* eslint-disable no-use-before-define */
 import React from 'react'
 import {mountWithIntl as mount} from 'enzyme-react-intl'
+import parser from '@apidevtools/json-schema-ref-parser'
 
 import JsonForm from '../src/JsonForm'
 import Params from '../src/Params'
+
+// ref: https://github.com/facebook/react/issues/15691 
+jest.mock('@apidevtools/json-schema-ref-parser')
+parser.mockImplementation((_, callbackFun) => callbackFun())
 
 const Oas = require('../src/lib/Oas');
 const petstore = require('./fixtures/petstore/oas.json');
@@ -10,16 +16,16 @@ const petstore = require('./fixtures/petstore/oas.json');
 const oas = new Oas(petstore);
 const operation = oas.operation('/pet/{petId}', 'get');
 
-const props = {
-  oas,
-  operation,
-  formData: {},
-  onChange:jest.fn(),
-  onSubmit: jest.fn(),
-  setFormSubmissionListener: jest.fn()
-};
-
 describe('Params', () => {
+  const props = {
+    oas,
+    operation,
+    formData: {},
+    onChange:jest.fn(),
+    onSubmit: jest.fn(),
+    setFormSubmissionListener: jest.fn()
+  };
+
   const expectedSchema = {
     type: 'object',
     properties: {
@@ -35,18 +41,20 @@ describe('Params', () => {
     props.onChange.mockClear()
     props.onSubmit.mockClear()
   })
-  test('renders a JsonForm with correct schema', () => {
+  test('renders a JsonForm with correct schema', async () => {
     const params = mount(<Params {...props} />)
     const jsonForm = params.find(JsonForm)
     expect(jsonForm).toHaveLength(1)
     expect(jsonForm.prop('schema')).toEqual(expectedSchema)
   });
+  
   test('calls onSubmit when JSONForm calls onSubmit', () => {
     const params = mount(<Params {...props} />)
     const jsonForm = params.find(JsonForm)
     jsonForm.prop('onSubmit')()
     expect(props.onSubmit).toHaveBeenCalledTimes(1)
   });
+
   test('calls onChange when JSONForm fires onChange', () => {
     const params = mount(<Params {...props} />)
     const jsonForm = params.find(JsonForm)
@@ -63,6 +71,7 @@ describe('Params', () => {
       }
     })
   });
+
   test('renders with correct title', () => {
     const params = mount(<Params {...props} />)
     const jsonForm = params.find(JsonForm)
@@ -75,4 +84,3 @@ describe('Params', () => {
   });
 
 })
-

@@ -7,8 +7,10 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {JSONEditor} from '@json-editor/json-editor'
+import {Spin} from 'antd'
 
 import configureJsonEditor from './configureJsonEditor'
+import resolveReference from './resolveReference'
 
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
@@ -18,15 +20,43 @@ class JsonForm extends Component {
     super(props);
     this.editor = null;
     this.ref = null;
+    
+    this.state = {
+      error: null,
+      jsonSchema: null
+    }
+    this.unmounted = false
   }
 
-  createEditor(element) {
-    const {intl, onChange, schema, setFormSubmissionListener, title} = this.props
+  componentDidMount() {
+    const {schema} = this.props
+    resolveReference(schema)
+      .then(convertedSchema => {
+        if (!this.unmounted) {
+          return this.setState({
+            jsonSchema: convertedSchema
+          })
+        }
+        return null
+      }).catch(err => {
+        if (err && !this.unmounted) {
+          return this.setState({error: err.message})
+        }
+        return null
+      })
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true
+  }
+
+  createEditor(element, jsonSchema) {
+    const {intl, onChange, setFormSubmissionListener, title} = this.props
     if (this.editor === null) {
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
       this.editor = new JSONEditor(element, {
         schema: {
-          ...schema,
+          ...jsonSchema,
           title
         },
         show_opt_in: false,
@@ -36,23 +66,29 @@ class JsonForm extends Component {
         theme: 'antdTheme'
       });
       this.editor.on('change', () => onChange(this.editor.getValue()))
-      
     }
   }
 
   render() {
     const {onSubmit} = this.props
-    return (
-      <form
-        ref={r => this.createEditor(r)}
-        onSubmit={(e) => {
-          e.preventDefault()
-          onSubmit()
-        }}
-      >
-        <button type="submit" style={{ display: "none" }} />
-      </form>
-    );
+    const {error, jsonSchema} = this.state
+    if (error) {
+      return <span>{error}</span>
+    }
+    if (jsonSchema) {
+      return (
+        <form
+          ref={r => this.createEditor(r, jsonSchema)}
+          onSubmit={(e) => {
+            e.preventDefault()
+            onSubmit()
+          }}
+        >
+          <button type="submit" style={{ display: "none" }} />
+        </form>
+      );
+    }
+    return <Spin />
   }
 }
 

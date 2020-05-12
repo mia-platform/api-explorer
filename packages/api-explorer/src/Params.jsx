@@ -33,8 +33,10 @@ class Params extends Component{
   render() {
     const {oas, operation} = this.props
     const jsonSchema = parametersToJsonSchema(operation, oas);
-    return (
-      jsonSchema && jsonSchema.map((schema) => {
+    if (!jsonSchema) {
+      return null
+    }
+    return jsonSchema.map((schema) => {
         return (
           <ContentWithTitle
             key={schema.label+schema.schema.ref}
@@ -46,7 +48,6 @@ class Params extends Component{
           />
         )
       })
-    )
   }
 }
 

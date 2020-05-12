@@ -133,7 +133,6 @@ class ApiExplorer extends React.Component {
         appearance={this.props.appearance}
         language={this.state.language}
         oauth={this.props.oauth}
-        suggestedEdits={false}
         tryItMetrics={this.props.tryItMetrics}
         auth={auth}
         fallbackUrl={this.props.fallbackUrl}

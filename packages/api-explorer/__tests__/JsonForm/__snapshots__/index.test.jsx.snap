@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`JSONForm  on parsing error, shows error 1`] = `
+<span>
+  Token "foo" does not exist.
+</span>
+`;
+
 exports[`JSONForm  snapshot 1`] = `
 <form
   data-theme="antdTheme"
