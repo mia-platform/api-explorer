@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 
 
-const antdTheme = (JSONEditor ) => class extends JSONEditor.defaults.themes.bootstrap4 {
+const antdTheme = (JSONEditor) => class extends JSONEditor.defaults.themes.bootstrap4 {
   // ref: https://github.com/json-editor/json-editor/blob/master/src/themes/bootstrap4.js#L49
   getFormControl (label, input, description, infoText) {
     const labelText = label ? label.textContent : "";
