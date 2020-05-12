@@ -61,5 +61,6 @@
   "button_delete_row_title": "Delete {{0}}",
   "button_delete_row_title_short": "Delete",
   "button_collapse": "Collapse",
-  "button_expand": "Expand"
+  "button_expand": "Expand",
+  "authForm.input.placeholder": "Insert {name}"
 }

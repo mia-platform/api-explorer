@@ -1,9 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JSONForm  on parsing error, shows error 1`] = `
-<span>
-  Token "foo" does not exist.
-</span>
+<div
+  class="ant-alert ant-alert-Token \\"foo\\" does not exist."
+  data-show="true"
+>
+  <i
+    aria-label="icon: default"
+    class="anticon anticon-default ant-alert-icon"
+  />
+  <span
+    class="ant-alert-message"
+  >
+    Token "foo" does not exist.
+  </span>
+  <span
+    class="ant-alert-description"
+  />
+</div>
 `;
 
 exports[`JSONForm  snapshot 1`] = `

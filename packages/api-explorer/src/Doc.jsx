@@ -5,7 +5,7 @@ import React, {Fragment} from 'react'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import fetchHar from 'fetch-har'
-import {get} from 'lodash'
+import get from 'lodash.get'
 import {clone} from 'ramda'
 
 import extensions from '@mia-platform/oas-extensions'
@@ -30,6 +30,7 @@ const markdown = require('@mia-platform/markdown');
 const Oas = require('./lib/Oas');
 const parseResponse = require('./lib/parse-response');
 const getContentTypeFromOperation = require('./lib/get-content-type')
+const { getAuthPerPath } = require('./lib/get-auth')
 
 function Description({doc}) {
   const description = <FormattedMessage id={'doc.description'} defaultMessage={'Description'} />
@@ -79,6 +80,9 @@ class Doc extends React.Component {
     const list = getContentTypeFromOperation(this.getOperation())
     if (list && list.length > 0) {
       this.state.selectedContentType = list[0]
+    }
+    if (this.getOperation() && this.getOperation().securityDefinitions) {
+      this.state.auth = getAuthPerPath(this.props.user, this.getOperation().securityDefinitions)
     }
   }
 
@@ -244,7 +248,6 @@ class Doc extends React.Component {
   renderCodeSample() {
     const {selectedContentType} = this.state
     const examples = get(this.props, 'doc.api.examples.codes', [])
-
     return (
       <CodeSample
         oas={this.oas}
