@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallowWithIntl as shallow} from 'enzyme-react-intl'
 import ReactJson from 'react-json-view';
-import {Icon} from 'antd'
+import {Icon, Button} from 'antd'
 
 import Result from '../src/components/Response/Result';
 
@@ -46,6 +46,7 @@ describe('Result component', () => {
   })
 
   it('and render download file if isBinary is true', () => {
+    global.open = jest.fn();
     const caseProps = {
       ...props,
       result: {
@@ -57,5 +58,8 @@ describe('Result component', () => {
     }
     const element = shallow(<Result {...caseProps} />)
     expect(element.find(Icon).prop('type')).toEqual('download')
+
+    element.find(Button).simulate('click')
+    expect(global.open).toHaveBeenCalledWith(props.result.responseBody)
   })
 })
