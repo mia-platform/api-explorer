@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import React from 'react'
 import {mountWithIntl as mount} from 'enzyme-react-intl'
 import parser from '@apidevtools/json-schema-ref-parser'

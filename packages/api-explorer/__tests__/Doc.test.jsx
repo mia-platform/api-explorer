@@ -52,10 +52,6 @@ test('should output correct components', (done) => {
     expect(wrapper.find(`div#page-${props.doc.slug}`).length).toBe(1);
     expect(wrapper.find('PathUrl').length).toBe(1);
     expect(wrapper.find('CodeSample').length).toBe(1);
-    // This test needs the component to be `mount()`ed
-    // but for some reason when I mount in this test
-    // it makes the test below that uses `jest.useFakeTimers()`
-    // fail ¯\_(ツ)_/¯. Skipping for now
     expect(wrapper.find('Params').length).toBe(1);
     expect(wrapper.find(ContentWithTitle)).toHaveLength(5);
     expect(wrapper.find(SchemaTabs)).toHaveLength(1)

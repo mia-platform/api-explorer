@@ -1,6 +1,5 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 const Choices = require('choices.js')
 require('choices.js/public/assets/styles/choices.min.css')

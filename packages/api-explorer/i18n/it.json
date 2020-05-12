@@ -6,7 +6,7 @@
   "doc.description.na": "Descrizione non disponibile",
   "doc.suggest.edits": "Suggerisci modifiche",
   "doc.params.bodyparams": "Parametri del Body",
-  "doc.params.queryparam": "Parametri della Query",
+  "doc.params.queryparams": "Parametri della Query",
   "doc.params.pathparams": "Paramentri del Path",
   "doc.params.formdata": "Dati del Form",
   "doc.params.headers": "Headers",

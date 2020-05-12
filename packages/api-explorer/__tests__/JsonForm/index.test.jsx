@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import React from 'react'
 import { mountWithIntl } from 'enzyme-react-intl'
 
@@ -83,8 +82,8 @@ describe('JSONForm ', () => {
   })
 
   it('converts schema correctly with nested ref', async () => {
-    const element = await mountJsonForm({...props, schema: SCHEMA_BUG})
-    expect(element.find('JsonForm').state().jsonSchema).toEqual(EXPECTED_SCHEMA_BUG)
+    const element = await mountJsonForm({...props, schema: SCHEMA_WITH_REF_ROOT_AND_NESTED})
+    expect(element.find('JsonForm').state().jsonSchema).toEqual(EXPECTED_WITH_REF_ROOT_AND_NESTED)
   })
 })
 
@@ -98,7 +97,7 @@ function mountJsonForm (props) {
   })
 }
 
-const SCHEMA_BUG = {
+const SCHEMA_WITH_REF_ROOT_AND_NESTED = {
   "components": {
     "securitySchemes": {
       "petstore_auth": {
@@ -296,7 +295,7 @@ const SCHEMA_BUG = {
 }
 
 
-const EXPECTED_SCHEMA_BUG = {
+const EXPECTED_WITH_REF_ROOT_AND_NESTED = {
   "components": {
     "securitySchemes": {
       "petstore_auth": {
