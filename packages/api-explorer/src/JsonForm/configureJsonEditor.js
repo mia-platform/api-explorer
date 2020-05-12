@@ -7,7 +7,7 @@ import objectsEditor from "./objects-editor";
 
 function setDefaultCustomization (JSONEditor) {
   const editorsKeys = Object.keys(JSONEditor.defaults.editors)
-  const keysToExclude = []// 'object', 'not', 'anyOf']
+  const keysToExclude = ['object', 'not', 'anyOf']
 
   editorsKeys.filter(key => !keysToExclude.includes(key)).forEach(key => {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {

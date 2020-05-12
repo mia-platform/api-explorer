@@ -23,9 +23,8 @@ class JsonForm extends Component {
   createEditor(element) {
     const {intl, onChange, schema, setFormSubmissionListener, title} = this.props
     if (this.editor === null) {
-      const self = this
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
-      self.editor = new JSONEditor(element, {
+      this.editor = new JSONEditor(element, {
         schema: {
           ...schema,
           title
@@ -36,7 +35,7 @@ class JsonForm extends Component {
         iconlib: 'fontawesome5',
         theme: 'antdTheme'
       });
-      self.editor.on('change', () => onChange(self.editor.getValue()))
+      this.editor.on('change', () => onChange(this.editor.getValue()))
       
     }
   }

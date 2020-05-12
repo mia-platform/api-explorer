@@ -61,10 +61,7 @@ Parameters.propTypes = {
     data: PropTypes.shape({
       cols: PropTypes.number.isRequired,
       rows: PropTypes.number.isRequired,
-      data: PropTypes.shape({
-        'h-0': PropTypes.string,
-        'h-1': PropTypes.string,
-      }).isRequired,
+      data: PropTypes.object.isRequired,
     }),
   }).isRequired,
   flags: PropTypes.shape({}),
