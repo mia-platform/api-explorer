@@ -91,7 +91,6 @@ test('and CopyCode is rendered correctly with a result binary', () => {
   expect(doc.state().collapse).toEqual(false)
 })
 
-
 test('and CopyCode is rendered correctly with a responseBody === string', () => {
   const customProps = {
     ...props,
