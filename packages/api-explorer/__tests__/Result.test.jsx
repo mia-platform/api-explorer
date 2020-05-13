@@ -46,6 +46,8 @@ describe('Result component', () => {
   })
 
   it('and render download file if isBinary is true', () => {
+    const originalOpen = global.open
+    
     global.open = jest.fn();
     const caseProps = {
       ...props,
@@ -61,5 +63,7 @@ describe('Result component', () => {
 
     element.find(Button).simulate('click')
     expect(global.open).toHaveBeenCalledWith(props.result.responseBody)
+
+    global.open = originalOpen
   })
 })
