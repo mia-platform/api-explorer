@@ -40,7 +40,7 @@ describe('Params', () => {
     props.onChange.mockClear()
     props.onSubmit.mockClear()
   })
-  test('renders a JsonForm with correct schema', async () => {
+  test('renders a JsonForm with correct schema', () => {
     const params = mount(<Params {...props} />)
     const jsonForm = params.find(JsonForm)
     expect(jsonForm).toHaveLength(1)
