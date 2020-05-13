@@ -7,6 +7,14 @@
       }
     }
   },
+  "anyOf-example.json": {
+    "preferred": "1.0",
+    "versions": {
+      "1.0": {
+        "swaggerUrl": "swagger-files/anyOf-example.json"
+      }
+    }
+  },
   "auth-types.json": {
     "preferred": "1.0.0",
     "versions": {
@@ -76,6 +84,22 @@
     "versions": {
       "1.0": {
         "swaggerUrl": "swagger-files/no-servers.json"
+      }
+    }
+  },
+  "not-example.json": {
+    "preferred": "1.0",
+    "versions": {
+      "1.0": {
+        "swaggerUrl": "swagger-files/not-example.json"
+      }
+    }
+  },
+  "openapi3.json": {
+    "preferred": "12bd7688957f960c9fb2819517eff4e3116ba51e",
+    "versions": {
+      "12bd7688957f960c9fb2819517eff4e3116ba51e": {
+        "swaggerUrl": "swagger-files/openapi3.json"
       }
     }
   },
