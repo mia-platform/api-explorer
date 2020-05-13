@@ -8,10 +8,10 @@ import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {JSONEditor} from '@json-editor/json-editor'
 import {Spin, Alert} from 'antd'
+import {omit} from 'ramda'
 
 import configureJsonEditor from './configureJsonEditor'
 import resolveReference from './resolveReference'
-
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
 
@@ -23,9 +23,10 @@ class JsonForm extends Component {
 
     this.state = {
       error: null,
-      jsonSchema: null
+      hasSchema: false
     }
     this.unmounted = false
+    this.jsonSchema = null
   }
 
   componentDidMount() {
@@ -33,14 +34,15 @@ class JsonForm extends Component {
     resolveReference(schema)
       .then(convertedSchema => {
         if (!this.unmounted) {
+          this.jsonSchema = convertedSchema
           return this.setState({
-            jsonSchema: convertedSchema
+            hasSchema: true 
           })
         }
         return null
       }).catch(err => {
         if (err && !this.unmounted) {
-          return this.setState({error: err.message})
+          return this.setState({error: err.message, hasSchema: false})
         }
         return null
       })
@@ -58,7 +60,7 @@ class JsonForm extends Component {
     configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
     this.editor = new JSONEditor(element, {
       schema: {
-        ...jsonSchema,
+        ...omit(['components'], jsonSchema),
         title
       },
       show_opt_in: false,
@@ -72,7 +74,7 @@ class JsonForm extends Component {
 
   render() {
     const {onSubmit} = this.props
-    const {error, jsonSchema} = this.state
+    const {error, hasSchema} = this.state
     if (error) {
       return (
         <Alert
@@ -82,10 +84,10 @@ class JsonForm extends Component {
         />
       )
     }
-    if (jsonSchema) {
+    if (hasSchema) {
       return (
         <form
-          ref={r => this.createEditor(r, jsonSchema)}
+          ref={r => this.createEditor(r, this.jsonSchema)}
           onSubmit={(e) => {
             e.preventDefault()
             onSubmit()
