@@ -50,18 +50,5 @@
   "auth.oauth2.info": "Authenticate via OAuth2",
   "auth.oauth2.authorization": "Authorization",
   "auth.oauth2.bearer": "Bearer",
-  "authForm.input.placeholder": "Insert {name}",
-
-  "button_delete_all": "All",
-  "button_delete_all_title": "Delete all",
-  "button_delete_last": "Last {{0}}",
-  "button_delete_last_title": "Delete last {{0}}",
-  "button_add_row_title": "Add {{0}}",
-  "button_move_down_title": "Move down",
-  "button_move_up_title": "Move up",
-  "button_object_properties": "Object Properties",
-  "button_delete_row_title": "Delete {{0}}",
-  "button_delete_row_title_short": "Delete",
-  "button_collapse": "Collapse",
-  "button_expand": "Expand"
+  "authForm.input.placeholder": "Insert {name}"
 }

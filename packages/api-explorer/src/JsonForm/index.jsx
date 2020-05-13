@@ -52,21 +52,22 @@ class JsonForm extends Component {
 
   createEditor(element, jsonSchema) {
     const {intl, onChange, setFormSubmissionListener, title} = this.props
-    if (this.editor === null) {
-      configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
-      this.editor = new JSONEditor(element, {
-        schema: {
-          ...jsonSchema,
-          title
-        },
-        show_opt_in: false,
-        prompt_before_delete: false,
-        form_name_root:"",
-        iconlib: 'fontawesome5',
-        theme: 'antdTheme'
-      });
-      this.editor.on('change', () => onChange(this.editor.getValue()))
+    if (this.editor !== null) {
+      return
     }
+    configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
+    this.editor = new JSONEditor(element, {
+      schema: {
+        ...jsonSchema,
+        title
+      },
+      show_opt_in: false,
+      prompt_before_delete: false,
+      form_name_root:"",
+      iconlib: 'fontawesome5',
+      theme: 'antdTheme'
+    });
+    this.editor.on('change', () => onChange(this.editor.getValue()))
   }
 
   render() {
