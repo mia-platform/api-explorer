@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-mount-set-state */
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
@@ -8,12 +9,15 @@ import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {JSONEditor} from '@json-editor/json-editor'
 import {Spin, Alert} from 'antd'
-import {omit} from 'ramda'
 
 import configureJsonEditor from './configureJsonEditor'
-import resolveReference from './resolveReference'
+import resolveRootRef from './resolveRootRef'
+// import resolveReference from './resolveReference'
+import refReplacer from './refReplacer'
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
+
+import TEST from '../../__tests__/datatest/json-editor-bug-max-stack.json'
 
 class JsonForm extends Component {
   constructor(props) {
@@ -29,23 +33,34 @@ class JsonForm extends Component {
     this.jsonSchema = null
   }
 
+  // _componentDidMount() {
+  //   console.log('I AM MOUNTED ', this.props.title, this.props.schema)
+  //   const {schema} = this.props
+  //     resolveReference(schema)
+  //       .then(convertedSchema => {
+  //         this.jsonSchema = convertedSchema
+  //         return this.setState({
+  //           hasSchema: true 
+  //         })
+  //       }).catch(err => {
+  //         console.log('Error in resolveReference: ', err)
+  //         return this.setState({error: err.message, hasSchema: false})
+  //       })
+  // }
+
   componentDidMount() {
     const {schema} = this.props
-    resolveReference(schema)
-      .then(convertedSchema => {
-        if (!this.unmounted) {
-          this.jsonSchema = convertedSchema
-          return this.setState({
-            hasSchema: true 
-          })
-        }
-        return null
-      }).catch(err => {
-        if (err && !this.unmounted) {
-          return this.setState({error: err.message, hasSchema: false})
-        }
-        return null
+    try {
+      console.log('To convert', schema)
+      const convertedSchema = refReplacer(schema)
+      const resolvedRoot = resolveRootRef(convertedSchema)
+      this.jsonSchema = resolvedRoot
+      return this.setState({
+        hasSchema: true 
       })
+    }catch(err) {
+      return this.setState({error: err.message, hasSchema: false})
+    }
   }
 
   componentWillUnmount() {
@@ -61,18 +76,22 @@ class JsonForm extends Component {
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
       this.editor = new JSONEditor(element, {
         schema: {
-          ...omit(['components'], jsonSchema),
+          ...jsonSchema,
           title
         },
         show_opt_in: false,
         prompt_before_delete: false,
         form_name_root:"",
         iconlib: 'fontawesome5',
-        theme: 'antdTheme'
+        theme: 'antdTheme',
+        maxRecurions: 0,
+        useDefault: false,
+        remove_empty_properties: true
       });
       this.editor.on('change', () => onChange(this.editor.getValue()))
 
     } catch(err) {
+      console.log('Error in create editor---: ', err)
       this.setState({error: err.message, hasSchema: false})
     }
   }

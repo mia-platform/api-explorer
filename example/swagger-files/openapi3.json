@@ -11,6 +11,36 @@
     "description": "Project to try & test feature of the platform"
   },
   "paths": {
+    "/test": {
+      "post": {
+        "summary": "Add a new item to the testv1adapter collection",
+        "tags": [
+          "V1adapter"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/foo"
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "pattern": "^[a-fA-F\\d]{24}$",
+                      "description": "Hexadecimal identifier of the document in the collection"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v2/v1adapter/": {
       "get": {
         "summary": "Get a list of testv1adapter",
@@ -2287,7 +2317,24 @@
             }
           }
         }
+      },
+      "foo": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lorem": {
+                  "$ref":"#/components/bar"
+                }
+              }
+            }
+          }
+        }
       }
+    },
+    "bar": {
+      "type": "string"
     }
   },
   "tags": []
