@@ -2,8 +2,8 @@ import React from 'react'
 import { mountWithIntl } from 'enzyme-react-intl'
 
 import JsonForm from '../../src/JsonForm'
-import SCHEMA_WITH_REF_ROOT_AND_NESTED from './config-root-ref-and-nested.json'
-import EXPECTED_WITH_REF_ROOT_AND_NESTED from './config-root-ref-and-nested.expected.json'
+import SCHEMA_WITH_REF_ROOT_AND_NESTED from '../datatest/config-root-ref-and-nested.json'
+import EXPECTED_WITH_REF_ROOT_AND_NESTED from '../datatest/config-root-ref-and-nested.expected.json'
 
 describe('JSONForm ', () => {
   const props = {
@@ -61,7 +61,7 @@ describe('JSONForm ', () => {
       $ref: "#/definitions/address"
     };
     const element = await mountJsonForm({...props, schema: schemaWithRef})
-    expect(element.find('JsonForm').state().jsonSchema).toEqual({
+    expect(element.find('JsonForm').instance().jsonSchema).toEqual({
       definitions: {
         address: {
           type: "object",
@@ -85,7 +85,7 @@ describe('JSONForm ', () => {
 
   it('converts schema correctly with nested ref', async () => {
     const element = await mountJsonForm({...props, schema: SCHEMA_WITH_REF_ROOT_AND_NESTED})
-    expect(element.find('JsonForm').state().jsonSchema).toEqual(EXPECTED_WITH_REF_ROOT_AND_NESTED)
+    expect(element.find('JsonForm').instance().jsonSchema).toEqual(EXPECTED_WITH_REF_ROOT_AND_NESTED)
   })
 })
 

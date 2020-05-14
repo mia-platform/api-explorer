@@ -57,19 +57,24 @@ class JsonForm extends Component {
     if (this.editor !== null) {
       return
     }
-    configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
-    this.editor = new JSONEditor(element, {
-      schema: {
-        ...omit(['components'], jsonSchema),
-        title
-      },
-      show_opt_in: false,
-      prompt_before_delete: false,
-      form_name_root:"",
-      iconlib: 'fontawesome5',
-      theme: 'antdTheme'
-    });
-    this.editor.on('change', () => onChange(this.editor.getValue()))
+    try {
+      configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
+      this.editor = new JSONEditor(element, {
+        schema: {
+          ...omit(['components'], jsonSchema),
+          title
+        },
+        show_opt_in: false,
+        prompt_before_delete: false,
+        form_name_root:"",
+        iconlib: 'fontawesome5',
+        theme: 'antdTheme'
+      });
+      this.editor.on('change', () => onChange(this.editor.getValue()))
+
+    } catch(err) {
+      this.setState({error: err.message, hasSchema: false})
+    }
   }
 
   render() {
@@ -79,7 +84,7 @@ class JsonForm extends Component {
       return (
         <Alert
           message={error}
-          type={error}
+          type={'error'}
           showIcon
         />
       )
