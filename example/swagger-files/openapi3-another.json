@@ -1978,7 +1978,8 @@
                                     "items": {
                                         "lorem": {"type": "string"}
                                     }
-                                }
+                                },
+                                "field_string": {"type": "string"}
                             },
                             "additionalProperties":false
                          },
