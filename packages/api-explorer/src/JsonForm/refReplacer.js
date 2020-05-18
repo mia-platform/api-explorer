@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 function injectDefinitions (ref) {
   return ref.split('/').join('/definitions/')
 }

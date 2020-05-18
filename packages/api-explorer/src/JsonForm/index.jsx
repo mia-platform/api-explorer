@@ -55,7 +55,6 @@ class JsonForm extends Component {
     }
     try {
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
-      console.log('JSON SCHEMA ', jsonSchema)
       this.editor = new JSONEditor(element, {
         schema: {
           ...jsonSchema,
@@ -66,14 +65,13 @@ class JsonForm extends Component {
         form_name_root:"",
         iconlib: 'fontawesome5',
         theme: 'antdTheme',
-        maxRecursions: 0,
-        useDefault: false,
+        max_depth: 1,
+        use_default_values: false,
         remove_empty_properties: true
       });
       this.editor.on('change', () => onChange(this.editor.getValue()))
 
     } catch(err) {
-      console.log('Error in create editor---: ', err)
       this.setState({error: err.message, hasSchema: false})
     }
   }
