@@ -4,7 +4,7 @@ import { mountWithIntl } from 'enzyme-react-intl'
 import JsonForm from '../../src/JsonForm'
 import SCHEMA_WITH_REF_ROOT_AND_NESTED from '../datatest/config-root-ref-and-nested.json'
 import EXPECTED_WITH_REF_ROOT_AND_NESTED from '../datatest/config-root-ref-and-nested.expected.json'
-import JSON_EDITOR_DIE_SCHEME from '../datatest/json-editor-bug-max-stack.json'
+import JSON_EDITOR_MAX_STACK_SCHEME_BUG from '../datatest/json-editor-bug-max-stack.json'
 
 describe('JSONForm ', () => {
   const props = {
@@ -89,8 +89,8 @@ describe('JSONForm ', () => {
     expect(element.find('JsonForm').instance().jsonSchema).toEqual(EXPECTED_WITH_REF_ROOT_AND_NESTED)
   })
 
-  it.only('json-editor die', async () => {
-    const element = await mountJsonForm({...props, schema: JSON_EDITOR_DIE_SCHEME})
+  it('scheme with recursion in object properties (json-editor bug)', async () => {
+    const element = await mountJsonForm({...props, schema: JSON_EDITOR_MAX_STACK_SCHEME_BUG})
     expect(element.find('form')).toHaveLength(1)
   })
 })
