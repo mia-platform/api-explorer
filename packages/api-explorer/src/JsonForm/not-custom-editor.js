@@ -10,7 +10,7 @@ module.exports = (classReference) => class notCustomEditor extends classReferenc
 
   preBuild() {
     const { not: notSchema } = this.schema
-
+    console.log('NOT SCHEMA ', notSchema)
     if (!isArrayWithItems(notSchema) && !isObjectWithProps(notSchema)) {
       this.schema.disallow = [this.schema.not.type]
     }

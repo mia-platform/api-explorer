@@ -3,6 +3,9 @@ function injectDefinitions (ref) {
 }
 
 function isChildADefinition (currentKey, obj) {
+  if (obj.not) {
+    return false
+  }
   if (currentKey === 'properties') {
     return false
   }

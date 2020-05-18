@@ -55,6 +55,7 @@ class JsonForm extends Component {
     }
     try {
       configureJsonEditor(JSONEditor, intl, setFormSubmissionListener)
+      console.log('JSON SCHEMA ', jsonSchema)
       this.editor = new JSONEditor(element, {
         schema: {
           ...jsonSchema,

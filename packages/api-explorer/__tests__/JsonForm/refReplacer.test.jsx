@@ -8,6 +8,8 @@ import simple2 from '../datatest/simple2.json'
 import simple2Expected from '../datatest/simple2.refReplacer.expected.json'
 import simple3 from '../datatest/simple3.json'
 import simple3Expected from '../datatest/simple3.refReplacer.expected.json'
+import withNot from '../datatest/not.json'
+import withNotExpected from '../datatest/not.refReplacer.expected.json'
 
 describe('refReplacer', () => {
     it('anyOf', () => {
@@ -24,5 +26,9 @@ describe('refReplacer', () => {
 
     it('simple3', () => {
         expect(refReplacer(simple3)).toEqual(simple3Expected)
+    })
+
+    it('with not', () => {
+        expect(refReplacer(withNot)).toEqual(withNotExpected)
     })
 })
