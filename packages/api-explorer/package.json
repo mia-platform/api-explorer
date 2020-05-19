@@ -4,7 +4,6 @@
   "version": "6.1.1",
   "main": "dist/index.js",
   "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "^9.0.1",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@json-editor/json-editor": "2.2.1",
     "@mia-platform/markdown": "^6.1.0",
@@ -30,7 +29,6 @@
     "react-debounce-input": "^3.2.0",
     "react-intl": "^2.8.0",
     "react-json-view": "^1.19.1",
-    "reftools": "^1.1.1",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {

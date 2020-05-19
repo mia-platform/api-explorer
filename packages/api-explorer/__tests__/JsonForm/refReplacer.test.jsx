@@ -1,15 +1,15 @@
 import refReplacer from '../../src/JsonForm/refReplacer'
 
-import anyOf from '../datatest/anyOf.json'
-import anyOfExpected from '../datatest/anyOf.refReplacer.expected.json'
-import simple from '../datatest/simple.json'
-import simpleExpected from '../datatest/simple.refReplacer.expected.json'
-import simple2 from '../datatest/simple2.json'
-import simple2Expected from '../datatest/simple2.refReplacer.expected.json'
-import simple3 from '../datatest/simple3.json'
-import simple3Expected from '../datatest/simple3.refReplacer.expected.json'
-import withNot from '../datatest/not.json'
-import withNotExpected from '../datatest/not.refReplacer.expected.json'
+import anyOf from '../testdata/anyOf.json'
+import anyOfExpected from '../testdata/anyOf.refReplacer.expected.json'
+import simple from '../testdata/simple.json'
+import simpleExpected from '../testdata/simple.refReplacer.expected.json'
+import simple2 from '../testdata/simple2.json'
+import simple2Expected from '../testdata/simple2.refReplacer.expected.json'
+import simple3 from '../testdata/simple3.json'
+import simple3Expected from '../testdata/simple3.refReplacer.expected.json'
+import withNot from '../testdata/not.json'
+import withNotExpected from '../testdata/not.refReplacer.expected.json'
 
 describe('refReplacer', () => {
     it('anyOf', () => {

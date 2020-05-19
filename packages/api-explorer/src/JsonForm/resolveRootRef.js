@@ -1,8 +1,10 @@
 import get from 'lodash.get'
 import {omit} from 'ramda'
 
+const MAX_RECURSION_COUNT = 8
+
 export default function resolveRootRef(schema, count = 0) {
-  if (count === 8) {
+  if (count === MAX_RECURSION_COUNT) {
     throw new Error('circular reference')
   }
 

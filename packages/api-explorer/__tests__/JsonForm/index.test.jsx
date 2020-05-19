@@ -2,9 +2,9 @@ import React from 'react'
 import { mountWithIntl } from 'enzyme-react-intl'
 
 import JsonForm from '../../src/JsonForm'
-import SCHEMA_WITH_REF_ROOT_AND_NESTED from '../datatest/config-root-ref-and-nested.json'
-import EXPECTED_WITH_REF_ROOT_AND_NESTED from '../datatest/config-root-ref-and-nested.expected.json'
-import JSON_EDITOR_MAX_STACK_SCHEME_BUG from '../datatest/json-editor-bug-max-stack.json'
+import SCHEMA_WITH_REF_ROOT_AND_NESTED from '../testdata/config-root-ref-and-nested.json'
+import EXPECTED_WITH_REF_ROOT_AND_NESTED from '../testdata/config-root-ref-and-nested.expected.json'
+import JSON_EDITOR_MAX_STACK_SCHEME_BUG from '../testdata/json-editor-bug-max-stack.json'
 
 describe('JSONForm ', () => {
   const props = {

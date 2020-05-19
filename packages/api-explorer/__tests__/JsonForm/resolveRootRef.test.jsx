@@ -1,8 +1,8 @@
 import resolveRootRef from '../../src/JsonForm/resolveRootRef'
-import ROOT_REF_SCHEMA from '../datatest/config-root-ref-and-nested.json'
-import EXPECTED_ROOT_REF from '../datatest/config-root-ref-and-nested.expected.json'
-import CIRCULAR_ROOT_SCHEMA from '../datatest/circular-on-root.json'
-import MISSING_REFERENCE from '../datatest/missing-reference.json'
+import ROOT_REF_SCHEMA from '../testdata/config-root-ref-and-nested.json'
+import EXPECTED_ROOT_REF from '../testdata/config-root-ref-and-nested.expected.json'
+import CIRCULAR_ROOT_SCHEMA from '../testdata/circular-on-root.json'
+import MISSING_REFERENCE from '../testdata/missing-reference.json'
 
 test('resolve correctly $ref on root', async () => {
   const resp = await resolveRootRef(ROOT_REF_SCHEMA)

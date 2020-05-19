@@ -1,4 +1,12 @@
 /* eslint-disable consistent-return */
+
+/**
+ *  This is needed because of json-editor schema structure limitation.
+ *  json-editor requires that all definitions are located under an object called "definitions"
+ *  reference: https://github.com/json-editor/json-editor/issues/156
+ */
+
+ 
 function injectDefinitions (ref) {
   return ref.split('/').join('/definitions/')
 }

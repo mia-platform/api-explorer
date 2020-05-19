@@ -1,13 +1,8 @@
 import React from 'react'
 import {mountWithIntl as mount} from 'enzyme-react-intl'
-import parser from '@apidevtools/json-schema-ref-parser'
 
 import JsonForm from '../src/JsonForm'
 import Params from '../src/Params'
-
-// ref: https://github.com/facebook/react/issues/15691 
-jest.mock('@apidevtools/json-schema-ref-parser')
-parser.mockImplementation((_, callbackFun) => callbackFun())
 
 const Oas = require('../src/lib/Oas');
 const petstore = require('./fixtures/petstore/oas.json');
