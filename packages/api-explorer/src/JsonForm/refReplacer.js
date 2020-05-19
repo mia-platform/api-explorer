@@ -57,9 +57,7 @@ export default function replaceRefs(obj)  {
             return {
               ...acc,
               [k]: {
-                definitions: {
-                  ...replaceRefs(obj[k])
-                }
+                definitions: replaceRefs(obj[k])
               }
             }
           }
