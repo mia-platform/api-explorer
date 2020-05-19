@@ -136,11 +136,13 @@ exports[`JSONForm  snapshot 1`] = `
               <input
                 class="form-check-input"
                 disabled=""
+                id="794943320288"
                 style="width: auto;"
                 type="checkbox"
               />
               <label
                 class="form-check-label"
+                for="794943320288"
               >
                  petId
               </label>

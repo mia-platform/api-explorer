@@ -26,8 +26,22 @@ describe('JSONForm ', () => {
   }
 
   it('snapshot', async () => {
+    /**
+    * mock because of random id on input/label
+    * https://github.com/mia-platform/json-editor/blob/master/src/themes/bootstrap4.js#L129
+    */
+   
+    const originalDateNow = Date.now
+    const originalRandom = Math.random
+
+    Date.now = jest.fn().mockReturnValue(1589886640576)
+    Math.random = jest.fn().mockReturnValue(0.5)
+
     const element = await mountJsonForm(props)
     expect(element.getDOMNode()).toMatchSnapshot()
+
+    Date.now = originalDateNow
+    Math.random = originalRandom
   })
 
   it('when form submits, calls onSubmit prop', async () => {
@@ -48,7 +62,7 @@ describe('JSONForm ', () => {
 
   it('converts schema correctly', async () => {
     const schemaWithRef =  {
-      definitions: {
+      components: {
         address: {
           type: "object",
           properties: {
@@ -59,19 +73,23 @@ describe('JSONForm ', () => {
           required: ["street_address", "city", "state"]
         }
       },
-      $ref: "#/definitions/address"
+      $ref: "#/components/address"
     };
     const element = await mountJsonForm({...props, schema: schemaWithRef})
     expect(element.find('JsonForm').instance().jsonSchema).toEqual({
       definitions: {
-        address: {
-          type: "object",
-          properties: {
-            street_address: { type: "string" },
-            city: { type: "string" },
-            state: { type: "string" }
-          },
-          required: ["street_address", "city", "state"]
+        components: {
+          definitions: {
+            address: {
+              type: "object",
+              properties: {
+                street_address: { type: "string" },
+                city: { type: "string" },
+                state: { type: "string" }
+              },
+              required: ["street_address", "city", "state"]
+            }
+          }
         }
       },
       type: "object",
