@@ -65,7 +65,7 @@ class JsonForm extends Component {
         form_name_root:"",
         iconlib: 'fontawesome5',
         theme: 'antdTheme',
-        max_depth: 1,
+        max_depth: 3,
         use_default_values: false,
         remove_empty_properties: true
       });
