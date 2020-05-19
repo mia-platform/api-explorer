@@ -1,6 +1,6 @@
 import resolveRootRef from '../../src/JsonForm/resolveRootRef'
 import ROOT_REF_SCHEMA from '../testdata/config-root-ref-and-nested.json'
-import EXPECTED_ROOT_REF from '../testdata/config-root-ref-and-nested.expected.json'
+import EXPECTED_ROOT_REF from '../testdata/config-root-ref-and-nested.resolveRootRef.expected.json'
 import CIRCULAR_ROOT_SCHEMA from '../testdata/circular-on-root.json'
 import MISSING_REFERENCE from '../testdata/missing-reference.json'
 
