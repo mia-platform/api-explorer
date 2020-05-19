@@ -135,6 +135,14 @@
       }
     }
   },
+  "trenord-swagger.json": {
+    "preferred": "478e51c0a9e1e697d79c93d541cfcaea075b37b5",
+    "versions": {
+      "478e51c0a9e1e697d79c93d541cfcaea075b37b5": {
+        "swaggerUrl": "swagger-files/trenord-swagger.json"
+      }
+    }
+  },
   "types.json": {
     "preferred": "1.0.0",
     "versions": {
