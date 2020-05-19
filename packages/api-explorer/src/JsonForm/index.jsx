@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/js/brands'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
-import {JSONEditor} from '@mia-platform/json-editor/dist/jsoneditor'
+import {JSONEditor} from '@mia-platform/json-editor'
 import {Spin, Alert} from 'antd'
 
 import configureJsonEditor from './configureJsonEditor'
