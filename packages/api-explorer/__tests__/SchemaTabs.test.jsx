@@ -1,9 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import {mountWithIntl} from 'enzyme-react-intl'
 import { omit } from 'ramda'
 import { FormattedMessage } from 'react-intl';
 import jsf from 'json-schema-faker'
+import {Alert} from "antd";
 
 import SchemaTabs from '../src/components/SchemaTabs'
 import BlockWithTab from '../src/components/BlockWithTab';
@@ -11,7 +11,6 @@ import Oas from '../src/lib/Oas'
 import RequestSchema from '../src/RequestSchema'
 import ResponseSchema from '../src/ResponseSchema'
 import JsonViewer from "../src/components/JsonViewer";
-import {Alert} from "antd";
 
 const petstore = require('./fixtures/petstore/oas.json')
 const operationWithExample = require('./fixtures/withExample/operation.json')
