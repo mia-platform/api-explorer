@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
 import jsf from 'json-schema-faker'
-import { FormattedMessage } from 'react-intl';
+import refParser from '@apidevtools/json-schema-ref-parser'
+import {FormattedMessage} from 'react-intl';
+import {omit} from 'ramda'
+import {Alert} from 'antd'
 
 import parametersToJsonSchema from '../../lib/parameters-to-json-schema'
 import BlockWithTab from '../BlockWithTab'
@@ -10,6 +13,7 @@ import ResponseSchema from '../../ResponseSchema';
 import RequestSchema from '../../RequestSchema';
 import colors from '../../colors'
 import JsonViewer from "../JsonViewer";
+import resolveRootRef from "../../JsonForm/resolveRootRef";
 
 const styleList = {
   fontSize: '18px',
@@ -40,6 +44,10 @@ function renderMissingSchema(nameSchema) {
     </div>
   )
 }
+jsf.option({
+  failOnInvalidTypes: false,
+  useDefaultValue: true,
+})
 
 export default class SchemaTabs extends Component {
   constructor(props) {
@@ -49,28 +57,35 @@ export default class SchemaTabs extends Component {
     }
   }
 
-  renderSchemaExample() {
+  componentDidMount() {
     const { operation, oas } = this.props
-    const schema = get(parametersToJsonSchema(operation, oas), '[0].schema')
-    if (schema) {
-      const example = get(schema, 'example')
-      if (example) {
-        return (
-          <JsonViewer
-            missingMessage={''}
-            schema={example}
-          />
-        )
+    const schema = get(parametersToJsonSchema(operation, oas), '[0].schema', {})
+    refParser.dereference(resolveRootRef(schema), (err, schemaResolved) => {
+      if (!err) {
+        this.setState({schema: omit(['components'], schemaResolved)})
+        return
+      }
+      console.log('dbfjshghfjhsdgfjhsgdfjhgsdjfhgsd', err)
+      this.setState({schema: omit(['components'], schema)})
+    })
+  }
+
+  renderSchemaExample() {
+    try {
+      const {schema} = this.state
+      if (!schema) {
+        return renderMissingSchema('Example')
       }
 
-      return (
-        <JsonViewer
-          missingMessage={''}
-          schema={jsf.generate(schema)}
-        />
-      )
+      let example = get(schema, 'example')
+
+      if (!example) {
+        example = jsf.generate(schema)
+      }
+      return <JsonViewer missingMessage={'schemaTabs.missing.example'} schema={example} />
+    } catch (error) {
+      return <Alert type={'error'} message={error.message} />
     }
-    return renderMissingSchema('Example')
   }
 
   renderResponseSchema() {

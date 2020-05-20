@@ -4,6 +4,7 @@
   "version": "6.1.1",
   "main": "dist/index.js",
   "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^9.0.1",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@mia-platform/json-editor": "^2.3.0",
     "@mia-platform/markdown": "^6.1.0",

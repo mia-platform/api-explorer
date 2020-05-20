@@ -5,8 +5,8 @@ jsf._generateReturnValue = (value) => {
   generate = value
 }
 
-jsf.generate = () => {
-  return generate
-}
+jsf.generate = jest.fn(() => {
+  return generate()
+})
 
 export default jsf

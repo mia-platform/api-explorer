@@ -6,6 +6,7 @@ import ReactJson from 'react-json-view'
 import colors from '../../colors'
 
 export default function JsonViewer({ schema, missingMessage }) {
+  const message = missingMessage ? <FormattedMessage id={missingMessage} defaultValue={'missing message'} /> : null
   return (
     schema ? <ReactJson
       src={schema}
@@ -23,11 +24,15 @@ export default function JsonViewer({ schema, missingMessage }) {
         whiteSpace: 'pre-wrap',
         wordBreak: 'break-all'
       }}
-    /> : <FormattedMessage id={missingMessage} defaultValue={'missing message'} />
+    /> : message
   )
 }
 
 JsonViewer.propTypes = {
-  schema: PropTypes.object.isRequired,
-  missingMessage: PropTypes.string.isRequired
+  schema: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired,
+  // eslint-disable-next-line react/require-default-props
+  missingMessage: PropTypes.string
 }

@@ -93,24 +93,16 @@
                     }
                   },
                   {
-                    "title": "Pet by Name",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "pet_name": {
-                          "type": "string"
-                        }
-                      }
+                    "PetName": {
+                      "type": "string"
                     }
                   },
                   {
-                    "title": "PetName",
-                    "type": "string"
-                  },
-                  {
-                    "title": "PetAge",
-                    "type": "number"
+                    "PetAge": {
+                      "type": "number",
+                      "maximum": 20,
+                      "minimum": 1
+                    }
                   }
                 ]
               }

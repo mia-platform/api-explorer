@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { mountWithIntl } from 'enzyme-react-intl'
+import {mountWithIntl} from 'enzyme-react-intl'
 import { omit } from 'ramda'
 import { FormattedMessage } from 'react-intl';
 import jsf from 'json-schema-faker'
@@ -11,10 +11,13 @@ import Oas from '../src/lib/Oas'
 import RequestSchema from '../src/RequestSchema'
 import ResponseSchema from '../src/ResponseSchema'
 import JsonViewer from "../src/components/JsonViewer";
+import {Alert} from "antd";
 
 const petstore = require('./fixtures/petstore/oas.json')
 const operationWithExample = require('./fixtures/withExample/operation.json')
 const oasWithExample = require('./fixtures/withExample/oas.json')
+const maxStackOas = require('./fixtures/withExample/maxStackOas.json')
+const maxStackOperation = require('./fixtures/withExample/maxStackOperation.json')
 
 const { Operation } = Oas
 const oas = new Oas(petstore);
@@ -46,6 +49,8 @@ const props = {
   oas,
 };
 
+jest.mock('json-schema-faker')
+
 describe('SchemaTabs', () => {
   let element
   let block
@@ -76,45 +81,52 @@ describe('SchemaTabs', () => {
 
   describe('if example is selected', () => {
     beforeEach(() => {
-      element = shallow(<SchemaTabs {...props} />)
-      block = element.find(BlockWithTab)
+      jest.clearAllMocks()
     })
 
-    test('and render example if requestBody.example is set', () => {
-      element = mountWithIntl(
-        <SchemaTabs
-          oas={oasWithExample}
-          operation={operationWithExample}
-        />
-      )
-
+    test('and render example if requestBody.example is set', (done) => {
+      element = shallow(<SchemaTabs oas={oasWithExample} operation={operationWithExample} />)
       const petType = 'Carlino'
       const petChildren = ['john', 'doo']
-      expect(element.find(JsonViewer).prop('schema')).toEqual({pet_type: petType, pet_children: petChildren})
+      setTimeout(() => {
+        element.update()
+        expect(element.find(JsonViewer).prop('schema')).toEqual({pet_type: petType, pet_children: petChildren})
+        done()
+      }, 0)
     })
 
-    test('render generated example when requestBody.example is not set', () => {
-      jest.mock('json-schema-faker')
+    test('render generated example when requestBody.example is not set', (done) => {
       const petId = 1234
       // eslint-disable-next-line no-underscore-dangle
-      jsf._generateReturnValue({petId})
+      jsf._generateReturnValue(() => ({petId}))
 
-      element = mountWithIntl(<SchemaTabs {...props} />)
-      expect(element.find(JsonViewer).prop('schema')).toEqual({petId})
+      element = shallow(<SchemaTabs {...props} />)
+      setTimeout(() => {
+        element.update()
+        expect(element.find(JsonViewer).prop('schema')).toEqual({petId})
+        done()
+      }, 0)
 
-      jest.unmock('json-schema-faker')
     })
 
     test('render missing schema message', () => {
-      element = shallow(
-        <SchemaTabs
-          oas={{}}
-          operation={{}}
-        />
-      )
+      element = shallow(<SchemaTabs oas={{}} operation={{}} />)
       const formattedMessage = element.find(FormattedMessage)
       expect(formattedMessage).toHaveLength(1)
       expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.example')
+    })
+
+    test('render missing schema alert ', (done) => {
+      // eslint-disable-next-line no-underscore-dangle
+      jsf._generateReturnValue(() => {
+        throw new Error('Maximum call stack size exceeded')
+      })
+      element = shallow(<SchemaTabs oas={maxStackOas} operation={maxStackOperation} />)
+      setTimeout(() => {
+        element.update()
+        expect(element.find(Alert).prop('message')).toEqual('Maximum call stack size exceeded')
+        done()
+      }, 0)
     })
   })
 
