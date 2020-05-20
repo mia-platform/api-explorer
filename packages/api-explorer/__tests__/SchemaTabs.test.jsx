@@ -116,7 +116,7 @@ describe('SchemaTabs', () => {
       expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.example')
     })
 
-    test('render missing schema alert ', (done) => {
+    test('render errors alert', (done) => {
       // eslint-disable-next-line no-underscore-dangle
       jsf._generateReturnValue(() => {
         throw new Error('Maximum call stack size exceeded')
