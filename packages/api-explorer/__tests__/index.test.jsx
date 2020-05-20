@@ -289,7 +289,6 @@ describe('showOnlyAPI', () => {
 describe('defaultOpen', () => {
   it('should pass defaultActiveKey a value (default behaviour)', () => {
     const explorer = shallow(<ApiExplorer {...props} />);
-    console.log(explorer.debug())
     const collapse = explorer.find(Collapse)
     expect(collapse.prop('defaultActiveKey')).toEqual(['0']);
   })

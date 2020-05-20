@@ -65,7 +65,6 @@ export default class SchemaTabs extends Component {
         this.setState({schema: omit(['components'], schemaResolved)})
         return
       }
-      console.log('dbfjshghfjhsdgfjhsgdfjhgsdjfhgsd', err)
       this.setState({schema: omit(['components'], schema)})
     })
   }

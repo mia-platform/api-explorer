@@ -48,7 +48,6 @@ test('should output correct components', (done) => {
   );
   setTimeout(() => {
     wrapper.mount()
-    console.log(wrapper.debug())
     assertDocElements(wrapper, props.doc);
     expect(wrapper.find(`div#page-${props.doc.slug}`).length).toBe(1);
     expect(wrapper.find('PathUrl').length).toBe(1);
