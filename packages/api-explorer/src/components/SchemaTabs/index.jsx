@@ -37,6 +37,10 @@ const styleItem = {
   color: colors.schemaTabItemColor
 }
 
+const EXAMPLE = 'example'
+const REQUEST = 'request'
+const RESPONSE = 'response'
+
 function renderMissingSchema(nameSchema) {
   return (
     <div style={{padding: 10, background: colors.schemaTabMissingSchemaBackground}}>
@@ -53,7 +57,7 @@ export default class SchemaTabs extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 'example'
+      selected: EXAMPLE
     }
   }
 
@@ -73,11 +77,9 @@ export default class SchemaTabs extends Component {
     try {
       const {schema} = this.state
       if (!schema) {
-        return renderMissingSchema('Example')
+        return renderMissingSchema(EXAMPLE)
       }
-
-      let example = get(schema, 'example')
-
+      let example = get(schema, EXAMPLE)
       if (!example) {
         example = jsf.generate(schema)
       }
@@ -91,28 +93,31 @@ export default class SchemaTabs extends Component {
     const { operation, oas } = this.props
     return operation && operation.responses ? (
       <ResponseSchema operation={operation} oas={oas} />
-    ) : renderMissingSchema('Response')
+    ) : renderMissingSchema(RESPONSE)
   }
 
   renderRequestSchema() {
     const { operation, oas } = this.props
     return operation && operation.requestBody ? (
       <RequestSchema operation={operation} oas={oas} />
-    ) : renderMissingSchema('Request')
+    ) : renderMissingSchema(REQUEST)
   }
 
   renderSchema () {
     const {selected} = this.state
     const selectedType = () => {
       switch (selected) {
-        case 'request': {
+        case REQUEST: {
           return this.renderRequestSchema()
         }
-        case 'response': {
+        case RESPONSE: {
           return this.renderResponseSchema()
         }
-        default: {
+        case EXAMPLE: {
           return this.renderSchemaExample()
+        }
+        default: {
+          return null
         }
       }
     }
@@ -129,9 +134,9 @@ export default class SchemaTabs extends Component {
     return (
       <BlockWithTab
         items={[
-          { value: 'example', label: <FormattedMessage id='schemaTabs.label.example' defaultMessage='Example' /> },
-          { value: 'request', label: <FormattedMessage id='schemaTabs.label.request' defaultMessage='Request' /> },
-          { value: 'response', label: <FormattedMessage id='schemaTabs.label.response' defaultMessage='Response' />}
+          { value: EXAMPLE, label: <FormattedMessage id='schemaTabs.label.example' defaultMessage='Example' /> },
+          { value: REQUEST, label: <FormattedMessage id='schemaTabs.label.request' defaultMessage='Request' /> },
+          { value: RESPONSE, label: <FormattedMessage id='schemaTabs.label.response' defaultMessage='Response' />}
         ]}
         selected={selected}
         styleList={styleList}
