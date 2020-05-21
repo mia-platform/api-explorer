@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import fetchHar from 'fetch-har'
 import get from 'lodash.get'
 import {clone} from 'ramda'
-import {Button} from "antd";
+import {Button} from 'antd';
 
 import extensions from '@mia-platform/oas-extensions'
 
