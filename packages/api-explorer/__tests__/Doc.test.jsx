@@ -157,7 +157,7 @@ describe('state.dirty', () => {
   });
 });
 
-test('should updated formData correctly on Params onChange with schema', () => {
+test('should update formData correctly on Params onChange with schema', () => {
   const schemaFromOnchange = {
     "type": "body",
     "label": "body Params",
@@ -192,19 +192,7 @@ test('should updated formData correctly on Params onChange with schema', () => {
   expect(element.state().formData).toEqual({ body: {} })
 })
 
-test('should updated formData correctly on Params onChange without schema', () => {
-  const schemaFromOnchange = {
-    "type": "body",
-    "label": "body Params",
-    "schema": {
-      "type":"object",
-      "properties":{
-         "foo": {"type": "string"}
-      },
-      "additionalProperties":false
-   }
-  }
-
+test('should NOT update formData on Params onChange without schema', () => {
   const element = shallow(<Doc
     {...props}
     stripSlash
@@ -217,14 +205,19 @@ test('should updated formData correctly on Params onChange without schema', () =
         formData: { body: { id: '1' }, auth: { api_key: '' } },
         onSubmit: () => {},
       }}
-    oas={GET_OAS_SCHEMA(schemaFromOnchange.schema)}
+    oas={GET_OAS_SCHEMA({
+      "type":"object",
+      "properties":{
+         "foo": {"type": "string"}
+      },
+      "additionalProperties":false
+   })}
   />)
 
-  element.find(Params).prop('onChange')({formData: {body: { id: '1' }}, schema: schemaFromOnchange})
-  expect(element.state().formData).toEqual({ body: { id: '1' } })
+  const previousFormData = element.state().formData
+  element.find(Params).prop('onChange')({formData: {body: { id: '1' }}, schema: undefined})
 
-  element.find(Params).prop('onChange')({formData: {body: {}}, schema: schemaFromOnchange})
-  expect(element.state().formData).toEqual({ body: {} })
+  expect(element.state().formData).toEqual(previousFormData)
 })
 
 describe('onSubmit', () => {
@@ -549,5 +542,5 @@ function GET_OAS_SCHEMA (jsonSchemaBody) {
         }
      },
     }
-}
+  }
 }
