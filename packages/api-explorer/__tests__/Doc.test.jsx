@@ -372,16 +372,18 @@ describe('stripSlash', () => {
   })
 })
 
-test('expand renderCodeAndResponse should be render correctly', () => {
+test('expand renderCodeAndResponse should be render correctly', (done) => {
   const element = mountWithIntl(<Doc {...props} />)
   const expandableElement = element.find('.expandable')
   expect(expandableElement.find(Button).find(FormattedMessage).prop('id')).toEqual('doc.expand')
   expect(expandableElement.find(Button).prop('icon')).toEqual('import')
   expect(expandableElement.prop('style')).toMatchSnapshot()
-  element.find('.expandable').find(Button).simulate('click')
 
+  element.find('.expandable').find(Button).simulate('click')
   const expandableElementAfter = element.find('.expandable')
   expect(expandableElementAfter.find(Button).find(Button).find(FormattedMessage).prop('id')).toEqual('doc.collapse')
   expect(expandableElementAfter.find(Button).find(Button).prop('icon')).toEqual('export')
   expect(expandableElementAfter.prop('style')).toMatchSnapshot()
+  // the setImmadiate & done solves the `body of null` mentioned here https://github.com/facebook/react/issues/15691
+  setImmediate(() => done())
 })
