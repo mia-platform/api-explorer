@@ -75,18 +75,20 @@
               "schema": {
                 "anyOf": [
                   {
-                    "title": "Pet by Type",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "pet_type": {
-                          "type": "string"
-                        },
-                        "pet_children": {
-                          "type": "array",
-                          "items": {
+                    "PetType": {
+                      "title": "Pet by Type",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "pet_type": {
                             "type": "string"
+                          },
+                          "pet_children": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         }
                       }
