@@ -11,7 +11,7 @@ const collapseButtonStyle = {
   position: 'absolute',
   top: 10,
   right: 10,
-  zIndex: 99999
+  zIndex: 999
 }
 
 export default function JsonViewer({ schema, missingMessage }) {
