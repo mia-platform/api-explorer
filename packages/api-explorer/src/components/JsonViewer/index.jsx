@@ -10,8 +10,7 @@ import colors from '../../colors'
 const collapseButtonStyle = {
   position: 'absolute',
   top: 10,
-  right: 10,
-  zIndex: 99999
+  right: 10
 }
 
 export default function JsonViewer({ schema, missingMessage }) {
@@ -23,12 +22,9 @@ export default function JsonViewer({ schema, missingMessage }) {
 
   return (
     <div style={{position: 'relative'}}>
-      <Button style={collapseButtonStyle} onClick={() => setIsCollapsed(!isCollapsed)}>
-        <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
-      </Button>
       <ReactJson
         src={schema}
-        collapsed={isCollapsed ? 1 : false}
+        collapsed={isCollapsed ? 1 : 5}
         collapseStringsAfterLength={100}
         enableClipboard={false}
         name={null}
@@ -43,6 +39,9 @@ export default function JsonViewer({ schema, missingMessage }) {
           wordBreak: 'break-all'
         }}
       />
+      <Button style={collapseButtonStyle} onClick={() => setIsCollapsed(!isCollapsed)}>
+        <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
+      </Button>
     </div>
   )
 }
