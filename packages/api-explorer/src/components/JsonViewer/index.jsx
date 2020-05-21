@@ -16,31 +16,34 @@ const collapseButtonStyle = {
 
 export default function JsonViewer({ schema, missingMessage }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
-  return (
-    schema ? (
-      <div style={{position: 'relative'}}>
-        <Button style={collapseButtonStyle} onClick={() => setIsCollapsed(!isCollapsed)}>
-          <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
-        </Button>
-        <ReactJson
-          src={schema}
-          collapsed={isCollapsed ? 1 : false}
-          collapseStringsAfterLength={100}
-          enableClipboard={false}
-          name={null}
-          displayDataTypes={false}
-          displayObjectSize={false}
-          style={{
-            padding: '20px 10px',
-            backgroundColor: colors.jsonViewerBackground,
-            fontSize: '12px',
-            overflow: 'visible',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-all'
-          }}
-        />
-      </div>
-    ) : <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
+
+  if (!schema) {
+    return  <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
+  }
+  
+  return ((
+    <div style={{position: 'relative'}}>
+      <Button style={collapseButtonStyle} onClick={() => setIsCollapsed(!isCollapsed)}>
+        <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
+      </Button>
+      <ReactJson
+        src={schema}
+        collapsed={isCollapsed ? 1 : false}
+        collapseStringsAfterLength={100}
+        enableClipboard={false}
+        name={null}
+        displayDataTypes={false}
+        displayObjectSize={false}
+        style={{
+          padding: '20px 10px',
+          backgroundColor: colors.jsonViewerBackground,
+          fontSize: '12px',
+          overflow: 'visible',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'break-all'
+        }}
+      />
+    </div>
   )
 }
 
