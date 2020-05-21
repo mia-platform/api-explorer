@@ -20,8 +20,8 @@ export default function JsonViewer({ schema, missingMessage }) {
   if (!schema) {
     return  <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
   }
-  
-  return ((
+
+  return (
     <div style={{position: 'relative'}}>
       <Button style={collapseButtonStyle} onClick={() => setIsCollapsed(!isCollapsed)}>
         <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
