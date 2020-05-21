@@ -16,8 +16,6 @@ const collapseButtonStyle = {
 
 export default function JsonViewer({ schema, missingMessage }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
-  const message = missingMessage ? <FormattedMessage id={missingMessage} defaultValue={'missing schema'} /> : null
-
   return (
     schema ? (
       <div style={{position: 'relative'}}>
@@ -42,7 +40,7 @@ export default function JsonViewer({ schema, missingMessage }) {
           }}
         />
       </div>
-    ) : message
+    ) : <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
   )
 }
 
