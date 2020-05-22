@@ -9,11 +9,10 @@ import {Alert} from 'antd'
 
 import parametersToJsonSchema from '../../lib/parameters-to-json-schema'
 import BlockWithTab from '../BlockWithTab'
-import ResponseSchema from '../../ResponseSchema';
-import RequestSchema from '../../RequestSchema';
 import colors from '../../colors'
 import JsonViewer from "../JsonViewer";
 import resolveRootRef from "../../JsonForm/resolveRootRef";
+import Select from "../Select";
 
 const styleList = {
   fontSize: '18px',
@@ -53,12 +52,32 @@ jsf.option({
   useDefaultValue: true,
 })
 
+const styles = {
+  responseSchemaWrapper: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  responseSchemaSelect: {
+    margin: '0 0 8px auto',
+  }
+}
+
 export default class SchemaTabs extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: EXAMPLE
+      selected: EXAMPLE,
+      selectedStatus: undefined,
+      schema: undefined
     }
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const {operation} = props
+    if (operation && operation.responses && !state.selectedStatus) {
+      return {selectedStatus: Object.keys(operation.responses)[0]}
+    }
+    return null
   }
 
   componentDidMount() {
@@ -90,17 +109,35 @@ export default class SchemaTabs extends Component {
   }
 
   renderResponseSchema() {
-    const { operation, oas } = this.props
-    return operation && operation.responses ? (
-      <ResponseSchema operation={operation} oas={oas} />
-    ) : renderMissingSchema(RESPONSE)
+    const {operation} = this.props
+    if (operation && !operation.responses) {
+      return renderMissingSchema(RESPONSE)
+    }
+
+    const {selectedStatus} = this.state
+    const responses = operation.responses
+    const statusCodes = Object.keys(responses)
+    return (
+      <div style={styles.responseSchemaWrapper}>
+        <Select
+          firstActiveValue={selectedStatus}
+          options={statusCodes}
+          onChange={value => this.setState({selectedStatus: value})}
+          value={this.state.selectedStatus}
+          style={styles.responseSchemaSelect}
+        />
+        <JsonViewer missingMessage={'schemaTabs.missing.response'} schema={responses[selectedStatus]} />
+      </div>
+    )
   }
 
   renderRequestSchema() {
-    const { operation, oas } = this.props
-    return operation && operation.requestBody ? (
-      <RequestSchema operation={operation} oas={oas} />
-    ) : renderMissingSchema(REQUEST)
+    const {schema} = this.state
+    if (!schema) {
+      return renderMissingSchema(REQUEST)
+    }
+
+    return <JsonViewer missingMessage={'schemaTabs.missing.example'} schema={schema} />
   }
 
   renderSchema () {

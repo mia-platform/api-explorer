@@ -7,55 +7,160 @@ import {Alert} from "antd";
 
 import SchemaTabs from '../src/components/SchemaTabs'
 import BlockWithTab from '../src/components/BlockWithTab';
-import Oas from '../src/lib/Oas'
-import RequestSchema from '../src/RequestSchema'
-import ResponseSchema from '../src/ResponseSchema'
 import JsonViewer from "../src/components/JsonViewer";
 
-const petstore = require('./fixtures/petstore/oas.json')
 const operationWithExample = require('./fixtures/withExample/operation.json')
 const oasWithExample = require('./fixtures/withExample/oas.json')
 const maxStackOas = require('./fixtures/withExample/maxStackOas.json')
 const maxStackOperation = require('./fixtures/withExample/maxStackOperation.json')
 
-const { Operation } = Oas
-const oas = new Oas(petstore);
-
-const operationSchema = {
-  responses: {
-    '200': {
-      content: {
-        'application/xml': {
-          description: 'successful operation',
-          schema: {
-            $ref: '#/components/schemas/Pet',
-          },
+const OAS = {
+  "x-explorer-enabled": true,
+  "x-samples-enabled": true,
+  "x-samples-languages": [
+    "curl",
+    "node",
+    "javascript",
+    "java"
+  ],
+  "x-proxy-enabled": true,
+  "x-send-defaults": false,
+  "openapi": "3.0.0",
+  "info": {
+    "version": "12bd7688957f960c9fb2819517eff4e3116ba51e",
+    "title": "Test Development",
+    "description": "Project to try & test feature of the platform"
+  },
+  "paths": {
+    "/test": {
+      "post": {
+        "summary": "Add a new item to the testv1adapter collection",
+        "tags": [
+          "V1adapter"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/foo"
         },
-      },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "pattern": "^[a-fA-F\\d]{24}$",
+                      "description": "Hexadecimal identifier of the document in the collection"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
   },
-  requestBody: {
-    foo: 'bar'
-  }
+  "components": {
+    "securitySchemes": {
+      "APISecretHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "secret",
+        "_key": "APISecretHeader"
+      }
+    },
+    "requestBodies": {
+      "foo": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lorem": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "bar": {
+      "type": "string"
+    }
+  },
+  "tags": [],
+  "user": {
+    "keys": [
+      {
+        "name": "project1",
+        "apiKey": "123",
+        "user": "user1",
+        "pass": "pass1"
+      },
+      {
+        "name": "project2",
+        "apiKey": "456",
+        "user": "user2",
+        "pass": "pass2"
+      }
+    ]
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9966"
+    }
+  ]
 }
-const props = {
-  operation: new Operation(
-    oas,
-    '/',
-    'get',
-    Object.assign({}, oas.operation('/pet/{petId}', 'get'), operationSchema),
-  ),
-  oas,
-};
+const OPERATION = {
+  "summary": "Add a new item to the testv1adapter collection",
+  "tags": [
+    "V1adapter"
+  ],
+  "requestBody": {
+    "$ref": "#/components/requestBodies/foo"
+  },
+  "responses": {
+    "200": {
+      "description": "Default Response",
+      "content": {
+        "*/*": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "pattern": "^[a-fA-F\\d]{24}$",
+                "description": "Hexadecimal identifier of the document in the collection"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "oas": OAS,
+  "path": "/test",
+  "method": "post"
+}
 
 jest.mock('json-schema-faker')
 
 describe('SchemaTabs', () => {
+  const props = {
+    oas: OAS,
+    operation: OPERATION
+  }
+
   let element
   let block
 
   beforeEach(() => {
-    element = shallow(<SchemaTabs{...props} />)
+    jest.clearAllMocks()
+    element = shallow(<SchemaTabs {...props} />)
     block = element.find(BlockWithTab)
   })
 
@@ -78,12 +183,8 @@ describe('SchemaTabs', () => {
     expect(element.find(BlockWithTab).prop('selected')).toEqual('response')
   })
 
-  describe('if example is selected', () => {
-    beforeEach(() => {
-      jest.clearAllMocks()
-    })
-
-    test('and render example if requestBody.example is set', (done) => {
+  describe('with example schema selected', () => {
+    test('render jsonEditor', (done) => {
       element = shallow(<SchemaTabs oas={oasWithExample} operation={operationWithExample} />)
       const petType = 'Carlino'
       const petChildren = ['john', 'doo']
@@ -94,24 +195,21 @@ describe('SchemaTabs', () => {
       }, 0)
     })
 
-    test('render generated example when requestBody.example is not set', (done) => {
+    test('render generated example when operation.requestBody.example is not set', (done) => {
       const petId = 1234
       // eslint-disable-next-line no-underscore-dangle
       jsf._generateReturnValue(() => ({petId}))
-
       element = shallow(<SchemaTabs {...props} />)
       setTimeout(() => {
         element.update()
         expect(element.find(JsonViewer).prop('schema')).toEqual({petId})
         done()
       }, 0)
-
     })
 
     test('render missing schema message', () => {
-      element = shallow(<SchemaTabs oas={{}} operation={{}} />)
+      element = shallow(<SchemaTabs {...props} operation={{}} />)
       const formattedMessage = element.find(FormattedMessage)
-      expect(formattedMessage).toHaveLength(1)
       expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.example')
     })
 
@@ -129,71 +227,39 @@ describe('SchemaTabs', () => {
     })
   })
 
-  describe('if request is set as selected', () => {
-    beforeEach(() => {
+  describe('with request schema selected', () => {
+    test('render jsonEditor', (done) => {
       element = shallow(<SchemaTabs {...props} />)
-      block = element.find(BlockWithTab)
-      block.prop('onClick')('request')
-      element.update()
+      element.find(BlockWithTab).simulate('click', 'request')
+      setTimeout(() => {
+        element.update()
+        expect(element.find(BlockWithTab).find(JsonViewer)).toHaveLength(1)
+        done()
+      }, 0)
     })
 
-    test('renders RequestSchema if operation.requestBody is set', () => {
-      expect(element.find(RequestSchema)).toHaveLength(1)
-    })
-
-    test('render missing schema message if request is not set', () => {
-      element = shallow(
-        <SchemaTabs
-          {...props}
-          operation={new Operation(
-            oas,
-            '/',
-            'get',
-            {
-              ...oas.operation('/pet/{petId}', 'get'),
-              ...omit(['requestBody'], operationSchema)
-            }
-          )}
-        />
-      )
-      element.find(BlockWithTab).prop('onClick')('request')
-      element.update()
+    test('render missing schema message if the request is missing', () => {
+      element = shallow(<SchemaTabs {...props} operation={omit(['requestBody'], OPERATION)} />)
+      element.find(BlockWithTab).simulate('click', 'request')
       const formattedMessage = element.find(FormattedMessage)
-      expect(formattedMessage).toHaveLength(1)
       expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.request')
     })
   })
 
-  describe('if response is set as selected', () => {
-    beforeEach(() => {
-      element = shallow(<SchemaTabs {...props} />)
-      block = element.find(BlockWithTab)
-      block.prop('onClick')('response')
-      element.update()
+  describe('with response schema selected', () => {
+    test('renders jsonEditor', (done) => {
+      element.find(BlockWithTab).simulate('click', 'response')
+      setTimeout(() => {
+        element.update()
+        expect(element.find(BlockWithTab).find(JsonViewer)).toHaveLength(1)
+        done()
+      }, 0)
     })
 
-    test('renders ResponseSchema if operation.responses is set', () => {
-      expect(element.find(ResponseSchema)).toHaveLength(1)
-    })
-
-    test('render missing schema message if responses is not set', () => {
-      element = shallow(
-        <SchemaTabs
-          {...props}
-          operation={new Operation(
-            oas,
-            '/',
-            'get',
-            {
-              ...omit(['responses'], oas.operation('/pet/{petId}', 'get'))
-            }
-          )}
-        />
-      )
-      element.find(BlockWithTab).prop('onClick')('response')
-      element.update()
+    test('render missing schema message if the responses is missing', () => {
+      element = shallow(<SchemaTabs {...props} operation={omit(['responses'], OPERATION)} />)
+      element.find(BlockWithTab).simulate('click', 'response')
       const formattedMessage = element.find(FormattedMessage)
-      expect(formattedMessage).toHaveLength(1)
       expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.response')
     })
   })
