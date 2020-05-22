@@ -47,6 +47,6 @@ export default function JsonViewer({ schema, missingMessage }) {
 }
 
 JsonViewer.propTypes = {
-  schema: PropTypes.object.isRequired,
+  schema: PropTypes.object,
   missingMessage: PropTypes.string.isRequired
 }
