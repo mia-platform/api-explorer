@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import {mountWithIntl} from 'enzyme-react-intl'
 import { omit } from 'ramda'
 import { FormattedMessage } from 'react-intl';
 import jsf from 'json-schema-faker'
