@@ -95,7 +95,7 @@ export default class SchemaTabs extends Component {
   renderSchemaExample() {
     try {
       const {schema} = this.state
-      if (!schema) {
+      if (!schema || Object.keys(schema).length === 0) {
         return renderMissingSchema(EXAMPLE)
       }
       let example = get(schema, EXAMPLE)
@@ -110,30 +110,31 @@ export default class SchemaTabs extends Component {
 
   renderResponseSchema() {
     const {operation} = this.props
-    if (operation && !operation.responses) {
+    if (
+      operation && !operation.responses ||
+      operation && operation.responses && Object.keys(operation.responses).length === 0
+    ) {
       return renderMissingSchema(RESPONSE)
     }
 
     const {selectedStatus} = this.state
-    const responses = operation.responses
-    const statusCodes = Object.keys(responses)
     return (
       <div style={styles.responseSchemaWrapper}>
         <Select
           firstActiveValue={selectedStatus}
-          options={statusCodes}
+          options={Object.keys(operation.responses)}
           onChange={value => this.setState({selectedStatus: value})}
           value={this.state.selectedStatus}
           style={styles.responseSchemaSelect}
         />
-        <JsonViewer missingMessage={'schemaTabs.missing.response'} schema={responses[selectedStatus]} />
+        <JsonViewer missingMessage={'schemaTabs.missing.response'} schema={operation.responses[selectedStatus]} />
       </div>
     )
   }
 
   renderRequestSchema() {
     const {schema} = this.state
-    if (!schema) {
+    if (!schema || Object.keys(schema).length === 0) {
       return renderMissingSchema(REQUEST)
     }
 

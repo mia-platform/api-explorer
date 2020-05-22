@@ -1,13 +1,15 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import {mountWithIntl} from 'enzyme-react-intl'
 import { omit } from 'ramda'
 import { FormattedMessage } from 'react-intl';
 import jsf from 'json-schema-faker'
 import {Alert} from "antd";
 
 import SchemaTabs from '../src/components/SchemaTabs'
-import BlockWithTab from '../src/components/BlockWithTab';
-import JsonViewer from "../src/components/JsonViewer";
+import BlockWithTab from '../src/components/BlockWithTab'
+import JsonViewer from '../src/components/JsonViewer'
+import Select from '../src/components/Select'
 
 const operationWithExample = require('./fixtures/withExample/operation.json')
 const oasWithExample = require('./fixtures/withExample/oas.json')
@@ -58,6 +60,23 @@ const OAS = {
                 }
               }
             }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "pattern": "^[a-fA-F\\d]{24}$",
+                      "description": "Hexadecimal identifier of the document in the collection"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -90,7 +109,7 @@ const OAS = {
     },
     "bar": {
       "type": "string"
-    }
+    },
   },
   "tags": [],
   "user": {
@@ -126,6 +145,23 @@ const OPERATION = {
   "responses": {
     "200": {
       "description": "Default Response",
+      "content": {
+        "*/*": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "pattern": "^[a-fA-F\\d]{24}$",
+                "description": "Hexadecimal identifier of the document in the collection"
+              }
+            }
+          }
+        }
+      }
+    },
+    "403": {
+      "description": "Unauthorized",
       "content": {
         "*/*": {
           "schema": {
@@ -190,9 +226,10 @@ describe('SchemaTabs', () => {
       const petChildren = ['john', 'doo']
       setTimeout(() => {
         element.update()
-        expect(element.find(JsonViewer).prop('schema')).toEqual({pet_type: petType, pet_children: petChildren})
+        const expected = {pet_type: petType, pet_children: petChildren}
+        expect(element.find(JsonViewer).prop('schema')).toEqual(expected)
         done()
-      }, 0)
+      })
     })
 
     test('render generated example when operation.requestBody.example is not set', (done) => {
@@ -204,13 +241,12 @@ describe('SchemaTabs', () => {
         element.update()
         expect(element.find(JsonViewer).prop('schema')).toEqual({petId})
         done()
-      }, 0)
+      })
     })
 
-    test('render missing schema message', () => {
-      element = shallow(<SchemaTabs {...props} operation={{}} />)
-      const formattedMessage = element.find(FormattedMessage)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.example')
+    test('render missing schema message', (done) => {
+      element = shallow(<SchemaTabs {...props} operation={omit(['requestBody'], OPERATION)} />)
+      renderMissingSchemaMessage(element, 'example', done)
     })
 
     test('render errors alert', (done) => {
@@ -223,44 +259,105 @@ describe('SchemaTabs', () => {
         element.update()
         expect(element.find(Alert).prop('message')).toEqual('Maximum call stack size exceeded')
         done()
-      }, 0)
+      })
     })
   })
 
   describe('with request schema selected', () => {
     test('render jsonEditor', (done) => {
-      element = shallow(<SchemaTabs {...props} />)
-      element.find(BlockWithTab).simulate('click', 'request')
+      selectResponseTab(element, 'request')
       setTimeout(() => {
         element.update()
-        expect(element.find(BlockWithTab).find(JsonViewer)).toHaveLength(1)
+        const expected = {
+          type: 'object',
+          properties: {
+            lorem: {
+              type: 'string'
+            }
+          }
+        }
+        expect(element.find(JsonViewer).prop('schema')).toEqual(expected)
         done()
-      }, 0)
+      })
     })
 
-    test('render missing schema message if the request is missing', () => {
+    test('render missing schema message if the request is missing', (done) => {
       element = shallow(<SchemaTabs {...props} operation={omit(['requestBody'], OPERATION)} />)
-      element.find(BlockWithTab).simulate('click', 'request')
-      const formattedMessage = element.find(FormattedMessage)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.request')
+      renderMissingSchemaMessage(element, 'request', done)
     })
   })
 
   describe('with response schema selected', () => {
     test('renders jsonEditor', (done) => {
-      element.find(BlockWithTab).simulate('click', 'response')
+      selectResponseTab(element, 'response')
       setTimeout(() => {
         element.update()
-        expect(element.find(BlockWithTab).find(JsonViewer)).toHaveLength(1)
+        expect(element.find(Select).prop('value')).toEqual('200')
+        const expectedFor200 = {
+          "description": "Default Response",
+          "content": {
+            "*/*": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F\\d]{24}$",
+                    "description": "Hexadecimal identifier of the document in the collection"
+                  }
+                }
+              }
+            }
+          }
+        }
+        expect(element.find(JsonViewer).prop('schema')).toEqual(expectedFor200)
+
+        element.find(Select).simulate('change', '403')
+        const expectedFor403 = {
+          "description": "Unauthorized",
+          "content": {
+            "*/*": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "pattern": "^[a-fA-F\\d]{24}$",
+                    "description": "Hexadecimal identifier of the document in the collection"
+                  }
+                }
+              }
+            }
+          }
+        }
+        expect(element.find(JsonViewer).prop('schema')).toEqual(expectedFor403)
         done()
-      }, 0)
+      })
     })
 
-    test('render missing schema message if the responses is missing', () => {
+    test('render correct jsonEditor when change response statusCode', () => {
+      selectResponseTab(element, 'response')
+      expect(element.find(Select).prop('value')).toEqual('200')
+      expect(element.find(BlockWithTab).find(JsonViewer)).toHaveLength(1)
+    })
+
+    test('render missing schema message if the responses is missing', (done) => {
       element = shallow(<SchemaTabs {...props} operation={omit(['responses'], OPERATION)} />)
-      element.find(BlockWithTab).simulate('click', 'response')
-      const formattedMessage = element.find(FormattedMessage)
-      expect(formattedMessage.prop('id')).toEqual('schemaTabs.missing.response')
+      renderMissingSchemaMessage(element, 'response', done)
     })
   })
 })
+
+function selectResponseTab (element, tabType) {
+  return element.find(BlockWithTab).simulate('click', tabType)
+}
+
+function renderMissingSchemaMessage(element, tabType, done) {
+  selectResponseTab(element, tabType)
+  setTimeout(() => {
+    element.update()
+    const formattedMessage = element.find(FormattedMessage)
+    expect(formattedMessage.prop('id')).toEqual(`schemaTabs.missing.${tabType}`)
+    done()
+  })
+}
