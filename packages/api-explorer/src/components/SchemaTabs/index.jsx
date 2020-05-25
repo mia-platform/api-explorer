@@ -95,9 +95,6 @@ export default class SchemaTabs extends Component {
   renderSchemaExample() {
     try {
       const {schema} = this.state
-      if (!schema || Object.keys(schema).length === 0) {
-        return renderMissingSchema(EXAMPLE)
-      }
       let example = get(schema, EXAMPLE)
       if (!example) {
         example = jsf.generate(schema)
@@ -110,13 +107,6 @@ export default class SchemaTabs extends Component {
 
   renderResponseSchema() {
     const {operation} = this.props
-    if (
-      operation && !operation.responses ||
-      operation && operation.responses && Object.keys(operation.responses).length === 0
-    ) {
-      return renderMissingSchema(RESPONSE)
-    }
-
     const {selectedStatus} = this.state
     return (
       <div style={styles.responseSchemaWrapper}>
@@ -134,25 +124,30 @@ export default class SchemaTabs extends Component {
 
   renderRequestSchema() {
     const {schema} = this.state
-    if (!schema || Object.keys(schema).length === 0) {
-      return renderMissingSchema(REQUEST)
-    }
-
-    return <JsonViewer missingMessage={'schemaTabs.missing.example'} schema={schema} />
+    return (
+      <JsonViewer
+        missingMessage={'schemaTabs.missing.example'}
+        schema={schema}
+      />
+    )
   }
 
   renderSchema () {
-    const {selected} = this.state
+    const {operation} = this.props
+    const {selected, schema} = this.state
+    const hasSchema = schema && Object.keys(schema).length > 0
+    const hasResponses = operation && operation.responses && Object.keys(operation.responses).length > 0
+
     const selectedType = () => {
       switch (selected) {
         case REQUEST: {
-          return this.renderRequestSchema()
+          return hasSchema ? this.renderRequestSchema() : renderMissingSchema(REQUEST)
         }
         case RESPONSE: {
-          return this.renderResponseSchema()
+          return hasResponses ? this.renderResponseSchema() : renderMissingSchema(RESPONSE)
         }
         case EXAMPLE: {
-          return this.renderSchemaExample()
+          return hasSchema ? this.renderSchemaExample() : renderMissingSchema(EXAMPLE)
         }
         default: {
           return null

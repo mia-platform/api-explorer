@@ -5,6 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import jsf from 'json-schema-faker'
 import {Alert} from "antd";
 
+import OAS from './fixtures/basicOas.json'
+import OPERATION from './fixtures/basicOperations.json'
+
 import SchemaTabs from '../src/components/SchemaTabs'
 import BlockWithTab from '../src/components/BlockWithTab'
 import JsonViewer from '../src/components/JsonViewer'
@@ -14,173 +17,6 @@ const operationWithExample = require('./fixtures/withExample/operation.json')
 const oasWithExample = require('./fixtures/withExample/oas.json')
 const maxStackOas = require('./fixtures/withExample/maxStackOas.json')
 const maxStackOperation = require('./fixtures/withExample/maxStackOperation.json')
-
-const OAS = {
-  "x-explorer-enabled": true,
-  "x-samples-enabled": true,
-  "x-samples-languages": [
-    "curl",
-    "node",
-    "javascript",
-    "java"
-  ],
-  "x-proxy-enabled": true,
-  "x-send-defaults": false,
-  "openapi": "3.0.0",
-  "info": {
-    "version": "12bd7688957f960c9fb2819517eff4e3116ba51e",
-    "title": "Test Development",
-    "description": "Project to try & test feature of the platform"
-  },
-  "paths": {
-    "/test": {
-      "post": {
-        "summary": "Add a new item to the testv1adapter collection",
-        "tags": [
-          "V1adapter"
-        ],
-        "requestBody": {
-          "$ref": "#/components/requestBodies/foo"
-        },
-        "responses": {
-          "200": {
-            "description": "Default Response",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "pattern": "^[a-fA-F\\d]{24}$",
-                      "description": "Hexadecimal identifier of the document in the collection"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Unauthorized",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "pattern": "^[a-fA-F\\d]{24}$",
-                      "description": "Hexadecimal identifier of the document in the collection"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-  },
-  "components": {
-    "securitySchemes": {
-      "APISecretHeader": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "secret",
-        "_key": "APISecretHeader"
-      }
-    },
-    "requestBodies": {
-      "foo": {
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "lorem": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "bar": {
-      "type": "string"
-    },
-  },
-  "tags": [],
-  "user": {
-    "keys": [
-      {
-        "name": "project1",
-        "apiKey": "123",
-        "user": "user1",
-        "pass": "pass1"
-      },
-      {
-        "name": "project2",
-        "apiKey": "456",
-        "user": "user2",
-        "pass": "pass2"
-      }
-    ]
-  },
-  "servers": [
-    {
-      "url": "http://localhost:9966"
-    }
-  ]
-}
-const OPERATION = {
-  "summary": "Add a new item to the testv1adapter collection",
-  "tags": [
-    "V1adapter"
-  ],
-  "requestBody": {
-    "$ref": "#/components/requestBodies/foo"
-  },
-  "responses": {
-    "200": {
-      "description": "Default Response",
-      "content": {
-        "*/*": {
-          "schema": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "pattern": "^[a-fA-F\\d]{24}$",
-                "description": "Hexadecimal identifier of the document in the collection"
-              }
-            }
-          }
-        }
-      }
-    },
-    "403": {
-      "description": "Unauthorized",
-      "content": {
-        "*/*": {
-          "schema": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "pattern": "^[a-fA-F\\d]{24}$",
-                "description": "Hexadecimal identifier of the document in the collection"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "oas": OAS,
-  "path": "/test",
-  "method": "post"
-}
 
 jest.mock('json-schema-faker')
 
@@ -245,7 +81,7 @@ describe('SchemaTabs', () => {
 
     test('render missing schema message', (done) => {
       element = shallow(<SchemaTabs {...props} operation={omit(['requestBody'], OPERATION)} />)
-      renderMissingSchemaMessage(element, 'example', done)
+      assertToHaveFoundMissingSchemaMessage(element, 'example', done)
     })
 
     test('render errors alert', (done) => {
@@ -282,7 +118,7 @@ describe('SchemaTabs', () => {
 
     test('render missing schema message if the request is missing', (done) => {
       element = shallow(<SchemaTabs {...props} operation={omit(['requestBody'], OPERATION)} />)
-      renderMissingSchemaMessage(element, 'request', done)
+      assertToHaveFoundMissingSchemaMessage(element, 'request', done)
     })
   })
 
@@ -342,7 +178,7 @@ describe('SchemaTabs', () => {
 
     test('render missing schema message if the responses is missing', (done) => {
       element = shallow(<SchemaTabs {...props} operation={omit(['responses'], OPERATION)} />)
-      renderMissingSchemaMessage(element, 'response', done)
+      assertToHaveFoundMissingSchemaMessage(element, 'response', done)
     })
   })
 })
@@ -351,7 +187,7 @@ function selectResponseTab (element, tabType) {
   return element.find(BlockWithTab).simulate('click', tabType)
 }
 
-function renderMissingSchemaMessage(element, tabType, done) {
+function assertToHaveFoundMissingSchemaMessage(element, tabType, done) {
   selectResponseTab(element, tabType)
   setTimeout(() => {
     element.update()
