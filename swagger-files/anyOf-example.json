@@ -16,6 +16,10 @@
           "content": {
             "application/json": {
               "schema": {
+                "example": {
+                  "pet_type": "Carlino",
+                  "pet_children": ["john", "doo"]
+                },
                 "anyOf": [
                   {
                     "title": "Pet by Type",
@@ -71,42 +75,36 @@
               "schema": {
                 "anyOf": [
                   {
-                    "title": "Pet by Type",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "pet_type": {
-                          "type": "string"
-                        },
-                        "pet_children": {
-                          "type": "array",
-                          "items": {
+                    "PetType": {
+                      "title": "Pet by Type",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "pet_type": {
                             "type": "string"
+                          },
+                          "pet_children": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         }
                       }
                     }
                   },
                   {
-                    "title": "Pet by Name",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "pet_name": {
-                          "type": "string"
-                        }
-                      }
+                    "PetName": {
+                      "type": "string"
                     }
                   },
                   {
-                    "title": "PetName",
-                    "type": "string"
-                  },
-                  {
-                    "title": "PetAge",
-                    "type": "number"
+                    "PetAge": {
+                      "type": "number",
+                      "maximum": 20,
+                      "minimum": 1
+                    }
                   }
                 ]
               }
