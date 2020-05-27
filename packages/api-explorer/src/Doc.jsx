@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unused-prop-types */
-import React from 'react'
+import React, {Fragment} from 'react'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import fetchHar from 'fetch-har'
@@ -342,7 +342,7 @@ class Doc extends React.Component {
     const {isCollapse} = this.state
     return (
         doc.type === 'endpoint' ? (
-          <>
+          <Fragment>
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr',
@@ -369,7 +369,7 @@ class Doc extends React.Component {
             >
               {this.renderCodeAndResponse()}
             </div>
-          </>
+          </Fragment>
         ) : null
     );
   }

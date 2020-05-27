@@ -108,6 +108,8 @@
 
 /** general */
 
-*, *:active, *:focus {
+.mia-container-wrapper *,
+.mia-container-wrapper *:active,
+.mia-container-wrapper *:focus {
   outline: none !important;
 }
