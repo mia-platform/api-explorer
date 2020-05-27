@@ -346,7 +346,7 @@ class Doc extends React.Component {
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr',
-                gridTemplateRows: 'repeat(auto-fit, minmax(70px, min-content))',
+                gridTemplateRows: 'repeat(auto-fit, minmax(50px, min-content))',
                 gridGap: '16px',
                 paddingRight: '16px',
                 minWidth: 0,
