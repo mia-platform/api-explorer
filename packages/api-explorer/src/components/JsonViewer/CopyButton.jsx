@@ -7,8 +7,7 @@ import CopyText from '../CopyText'
 
 function stringify (schema) {
     try {
-      const stringified = JSON.stringify(schema)
-      return stringified
+      return JSON.stringify(schema)
     } catch(err) {
       return null
     }
