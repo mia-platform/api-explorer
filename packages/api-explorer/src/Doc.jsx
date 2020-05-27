@@ -446,7 +446,8 @@ class Doc extends React.Component {
         <div id={`page-${doc.slug}`}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isCollapse ? 'minmax(480px, 1fr) minmax(320px, 480px)' : '1fr',	            position: 'relative'
+            gridTemplateColumns: isCollapse ? 'minmax(480px, 1fr) minmax(320px, 480px)' : '1fr',
+            position: 'relative'
           }}
           >
             {this.renderEndpoint()}
