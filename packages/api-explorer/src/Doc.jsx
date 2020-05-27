@@ -344,14 +344,14 @@ class Doc extends React.Component {
         doc.type === 'endpoint' ? (
           <Fragment>
             <div style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr',
-                gridTemplateRows: 'repeat(auto-fit, minmax(50px, min-content))',
-                gridGap: '16px',
-                paddingRight: '16px',
-                minWidth: 0,
-                 ...!isCollapse ? {display: 'none'} : {}
-                }}
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              gridTemplateRows: 'repeat(auto-fit, minmax(50px, min-content))',
+              gridGap: '16px',
+              paddingRight: '16px',
+              minWidth: 0,
+               ...!isCollapse ? {display: 'none'} : {}
+              }}
             >
               {this.renderPathUrl()}
               <Description

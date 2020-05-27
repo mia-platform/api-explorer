@@ -1,6 +1,6 @@
 import { mountWithIntl } from 'enzyme-react-intl';
 import { IntlProvider, FormattedMessage } from 'react-intl';
-import {shallow, mount} from 'enzyme'
+import {shallow} from 'enzyme'
 import {Button} from 'antd'
 
 import ContentWithTitle from '../src/components/ContentWithTitle'
@@ -232,8 +232,8 @@ describe('onSubmit', () => {
     expect(doc.state('showAuthBox')).toBe(true);
 
     jest.runAllTimers();
-
     expect(doc.state('needsAuth')).toBe(true);
+    jest.useRealTimers();
   });
 
   test('should make request on Submit', () => {
@@ -474,25 +474,19 @@ describe('stripSlash', () => {
 })
 
 test('expand renderCodeAndResponse should be render correctly', (done) => {
-  const element = mount(
-    <IntlProvider>
-      <Doc {...props} />
-    </IntlProvider>
-    )
-
+  const element = mountWithIntl(<Doc {...props} />)
+  const expandableElement = element.find('.expandable')
+  expect(expandableElement.find(Button).find(FormattedMessage).prop('id')).toEqual('doc.expand')
+  expect(expandableElement.find(Button).prop('icon')).toEqual('import')
+  checkCodeAndResponseCollapse(element, {isCollapsed: true})
+  element.find('.expandable').find(Button).simulate('click')
   setTimeout(() => {
-    const expandableElement = element.find('.expandable')
-    expect(expandableElement.find(Button).find(FormattedMessage).prop('id')).toEqual('doc.expand')
-    expect(expandableElement.find(Button).prop('icon')).toEqual('import')
-    checkCodeAndResponseCollapse(element, {isCollapsed: true})
-    element.find('.expandable').find(Button).simulate('click')
-
     const expandableElementAfter = element.find('.expandable')
     expect(expandableElementAfter.find(Button).find(FormattedMessage).prop('id')).toEqual('doc.collapse')
     expect(expandableElementAfter.find(Button).prop('icon')).toEqual('export')
     checkCodeAndResponseCollapse(element, {isCollapsed: false})
     done()
-  })
+  }, 0)
 })
 
 function checkCodeAndResponseCollapse(element, {isCollapsed}) {
