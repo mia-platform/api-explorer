@@ -125,7 +125,7 @@ class Doc extends React.Component {
       if (!get(schema, 'type') || !get(formData, [schema.type])) {
         return {}
       }
-      
+
       const typeFromSchema = schema.type
       const schemaForFilterEmptyFormData = schema.schema
       const formDataToFilter = formData[typeFromSchema]
@@ -344,11 +344,12 @@ class Doc extends React.Component {
         doc.type === 'endpoint' ? (
           <>
             <div style={{
-                display: 'grid', 
-                gridTemplateColumns: '1fr', 
-                gridTemplateRows: 'min-content', 
-                gridGap: '16px', 
+                display: 'grid',
+                gridTemplateColumns: '1fr',
+                gridTemplateRows: 'repeat(auto-fit, minmax(70px, min-content))',
+                gridGap: '16px',
                 paddingRight: '16px',
+                minWidth: 0,
                  ...!isCollapse ? {display: 'none'} : {}
                 }}
             >
@@ -443,9 +444,9 @@ class Doc extends React.Component {
     return (
       <ErrorBoundary>
         <div id={`page-${doc.slug}`}>
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: isCollapse ? '1fr 420px' : '1fr', 
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isCollapse ? 'minmax(480px, 1fr) minmax(320px, 480px)' : '1fr',
             position: 'relative'
           }}
           >

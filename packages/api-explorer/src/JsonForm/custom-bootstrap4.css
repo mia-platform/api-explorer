@@ -9,11 +9,63 @@
     margin: 5px;
 }
 
-.card-title label {
+.mia-container-wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 40px 1fr;
+    grid-template-areas: 'card-title btn-group' 'card-body card-body';
+    align-items: center;
+}
+
+.mia-container-wrapper .card-title {
+    grid-area: card-title;
+    display: flex !important;
+    margin: 0;
+    min-width: 0;
+}
+
+.mia-container-wrapper .card-title .ant-btn-sm {
+    grid-area: card-title;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.65);
+    margin: 0 !important;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+}
+
+.mia-container-wrapper .btn-group {
+    grid-area: btn-group;
+    margin: 0 !important;
+}
+
+.mia-container-wrapper .btn-group textarea {
+    margin: 0 !important;
+    resize: both;
+}
+.mia-container-wrapper .btn-group .json-editor-btntype-copy,
+.mia-container-wrapper .btn-group .json-editor-btntype-cancel,
+.mia-container-wrapper .btn-group .json-editor-btntype-save {
+    margin: 4px 4px 0 0
+}
+
+.mia-container-wrapper .card-title label {
     font-size: 18px;
+    line-height: 25px;
     color: #666666;
     text-transform: uppercase;
     font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0
+}
+
+.mia-container-wrapper .card-body {
+    grid-area: card-body;
 }
 
 .form-group {
