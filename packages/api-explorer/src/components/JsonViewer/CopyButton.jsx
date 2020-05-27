@@ -9,7 +9,7 @@ function stringify (schema) {
     try {
       const stringified = JSON.stringify(schema)
       return stringified
-    }catch(err) {
+    } catch(err) {
       return null
     }
 }
