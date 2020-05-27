@@ -172,4 +172,6 @@
   outline: none !important;
 }
 
-.col-md-12 {padding: 0 8px}
+.col-md-12 {
+    padding: 0 8px
+}
