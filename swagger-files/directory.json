@@ -7,6 +7,14 @@
       }
     }
   },
+  "all_types.json": {
+    "preferred": "1.0.0",
+    "versions": {
+      "1.0.0": {
+        "swaggerUrl": "swagger-files/all_types.json"
+      }
+    }
+  },
   "anyOf-example.json": {
     "preferred": "1.0",
     "versions": {
@@ -71,6 +79,22 @@
       }
     }
   },
+  "json-editor-bug-max-stack.json": {
+    "preferred": "1.0",
+    "versions": {
+      "1.0": {
+        "swaggerUrl": "swagger-files/json-editor-bug-max-stack.json"
+      }
+    }
+  },
+  "max-stack.json": {
+    "preferred": "478e51c0a9e1e697d79c93d541cfcaea075b37b5",
+    "versions": {
+      "478e51c0a9e1e697d79c93d541cfcaea075b37b5": {
+        "swaggerUrl": "swagger-files/max-stack.json"
+      }
+    }
+  },
   "multiple-securities.json": {
     "preferred": "1.0.0",
     "versions": {
@@ -92,6 +116,22 @@
     "versions": {
       "1.0": {
         "swaggerUrl": "swagger-files/not-example.json"
+      }
+    }
+  },
+  "openapi3-another.json": {
+    "preferred": "44e3df4275cf22e1023e386aa00ad632462278cb",
+    "versions": {
+      "44e3df4275cf22e1023e386aa00ad632462278cb": {
+        "swaggerUrl": "swagger-files/openapi3-another.json"
+      }
+    }
+  },
+  "openapi3.json": {
+    "preferred": "12bd7688957f960c9fb2819517eff4e3116ba51e",
+    "versions": {
+      "12bd7688957f960c9fb2819517eff4e3116ba51e": {
+        "swaggerUrl": "swagger-files/openapi3.json"
       }
     }
   },
