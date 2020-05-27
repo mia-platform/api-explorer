@@ -108,6 +108,6 @@
 
 /** general */
 
-* {
-    outline: none;
+*, *:active, *:focus {
+  outline: none !important;
 }
