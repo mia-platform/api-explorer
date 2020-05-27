@@ -473,7 +473,7 @@ describe('stripSlash', () => {
   })
 })
 
-test.only('expand renderCodeAndResponse should be render correctly', (done) => {
+test('expand renderCodeAndResponse should be render correctly', (done) => {
   const element = mount(
     <IntlProvider>
       <Doc {...props} />
