@@ -13,6 +13,9 @@ const collapseButtonStyle = {
   right: 10
 }
 
+const COLLAPSED_LEVEL = 1
+const EXPANDED_LEVEL = 10
+
 export default function JsonViewer({ schema, missingMessage }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
 
@@ -24,7 +27,7 @@ export default function JsonViewer({ schema, missingMessage }) {
     <div style={{position: 'relative'}}>
       <ReactJson
         src={schema}
-        collapsed={isCollapsed ? 1 : 5}
+        collapsed={isCollapsed ? COLLAPSED_LEVEL : EXPANDED_LEVEL}
         collapseStringsAfterLength={100}
         enableClipboard={false}
         name={null}
