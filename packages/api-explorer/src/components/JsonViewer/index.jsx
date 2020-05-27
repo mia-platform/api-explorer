@@ -20,7 +20,6 @@ const collapseButtonStyle = {
 const COLLAPSED_LEVEL = 1
 const EXPANDED_LEVEL = 10
 
-
 export default function JsonViewer({ schema, missingMessage }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
 
