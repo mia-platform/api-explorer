@@ -27,7 +27,6 @@ export default function JsonViewer({ schema, missingMessage }) {
     return  <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
   }
 
-
   return (
     <div style={{position: 'relative'}}>
       <ReactJson
