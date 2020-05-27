@@ -13,7 +13,6 @@ const contentTypeIsJson = require('../../lib/content-type-is-json');
 
 const Oas = require('../../lib/Oas');
 
-
 const { Operation } = Oas;
 const ctaContainerStyle = {
   borderTop: '2px solid #fff',
