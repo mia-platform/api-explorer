@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import React, {useState} from 'react'
+import React, {Component} from 'react'
 import { FormattedMessage } from 'react-intl'
 import {Button} from 'antd'
 import PropTypes from 'prop-types'
@@ -20,40 +20,51 @@ const collapseButtonStyle = {
 const COLLAPSED_LEVEL = 1
 const EXPANDED_LEVEL = 10
 
-export default function JsonViewer({ schema, missingMessage }) {
-  const [isCollapsed, setIsCollapsed] = useState(true)
+export default class JsonViewer extends Component {
+  constructor(props) {
+    super(props)
 
-  if (!schema) {
-    return  <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
+    this.state = {
+      isCollapsed: true
+    }
   }
 
-  return (
-    <div style={{position: 'relative'}}>
-      <ReactJson
-        src={schema}
-        collapsed={isCollapsed ? COLLAPSED_LEVEL : EXPANDED_LEVEL}
-        collapseStringsAfterLength={100}
-        enableClipboard={false}
-        name={null}
-        displayDataTypes={false}
-        displayObjectSize={false}
-        style={{
-          padding: '20px 10px',
-          backgroundColor: colors.jsonViewerBackground,
-          fontSize: '12px',
-          overflow: 'visible',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-all'
-        }}
-      />
-      <div style={collapseButtonStyle} >
-        <CopyButton schema={schema} /> 
-        <Button onClick={() => setIsCollapsed(!isCollapsed)}>
-          <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
-        </Button>
+  render() {
+    const {schema, missingMessage} = this.props
+    const {isCollapsed} = this.state
+
+    if (!schema) {
+      return  <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
+    }
+
+    return (
+      <div style={{position: 'relative'}}>
+        <ReactJson
+          src={schema}
+          collapsed={isCollapsed ? COLLAPSED_LEVEL : EXPANDED_LEVEL}
+          collapseStringsAfterLength={100}
+          enableClipboard={false}
+          name={null}
+          displayDataTypes={false}
+          displayObjectSize={false}
+          style={{
+            padding: '20px 10px',
+            backgroundColor: colors.jsonViewerBackground,
+            fontSize: '12px',
+            overflow: 'visible',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-all'
+          }}
+        />
+        <div style={collapseButtonStyle} >
+          <CopyButton schema={schema} /> 
+          <Button onClick={() => this.setState({isCollapsed: !isCollapsed})}>
+            <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
+          </Button>
+        </div>
       </div>
-    </div>
-  )
+    )
+      }
 }
 
 JsonViewer.propTypes = {
