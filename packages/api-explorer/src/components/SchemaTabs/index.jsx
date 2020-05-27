@@ -105,7 +105,7 @@ export default class SchemaTabs extends Component {
           schema={example} 
           key={'json-viewer-example'}
         />
-        )
+      )
     } catch (error) {
       return <Alert type={'error'} message={error.message} />
     }
