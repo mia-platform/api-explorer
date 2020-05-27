@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
 import { shallow } from 'enzyme'
-import {mountWithIntl} from 'enzyme-react-intl'
+import {mountWithIntl, loadTranslationObject} from 'enzyme-react-intl'
 import ReactTestUtils from 'react-dom/test-utils'
 import { omit } from 'ramda'
 import { FormattedMessage } from 'react-intl';
@@ -17,6 +17,8 @@ import BlockWithTab from '../src/components/BlockWithTab'
 import JsonViewer from '../src/components/JsonViewer'
 import Select from '../src/components/Select'
 
+import strings from '../i18n/en.json'
+
 const operationWithExample = require('./fixtures/withExample/operation.json')
 const oasWithExample = require('./fixtures/withExample/oas.json')
 const maxStackOas = require('./fixtures/withExample/maxStackOas.json')
@@ -25,6 +27,8 @@ const maxStackOperation = require('./fixtures/withExample/maxStackOperation.json
 jest.mock('json-schema-faker')
 
 describe('SchemaTabs', () => {
+  loadTranslationObject(strings)
+
   const props = {
     oas: OAS,
     operation: OPERATION
@@ -225,8 +229,13 @@ function assertToHaveFoundMissingSchemaMessage(element, tabType, done) {
 
 
 function clickExpandButton(element) {
+  const formattedMessage = element
+    .findWhere(node => node.type() === FormattedMessage && 
+      (node.prop('id') === 'schemas.collapse' || node.prop('id') === 'schemas.expand'))
+  const button = formattedMessage.closest(Button)
+
   ReactTestUtils.act(() => {
-    element.find(JsonViewer).find(Button).prop('onClick')()
+    button.prop('onClick')()
   })
   element.mount()
 }

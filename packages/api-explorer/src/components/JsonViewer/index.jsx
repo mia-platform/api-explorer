@@ -6,15 +6,20 @@ import PropTypes from 'prop-types'
 import ReactJson from 'react-json-view'
 
 import colors from '../../colors'
+import CopyButton from './CopyButton'
 
 const collapseButtonStyle = {
   position: 'absolute',
   top: 10,
-  right: 10
+  right: 10,
+  display: 'grid',
+  gridAutoFlow: 'column',
+  gridGap: 10
 }
 
 const COLLAPSED_LEVEL = 1
 const EXPANDED_LEVEL = 10
+
 
 export default function JsonViewer({ schema, missingMessage }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
@@ -22,6 +27,7 @@ export default function JsonViewer({ schema, missingMessage }) {
   if (!schema) {
     return  <FormattedMessage id={missingMessage} defaultValue={'missing schema'} />
   }
+
 
   return (
     <div style={{position: 'relative'}}>
@@ -42,9 +48,12 @@ export default function JsonViewer({ schema, missingMessage }) {
           wordBreak: 'break-all'
         }}
       />
-      <Button style={collapseButtonStyle} onClick={() => setIsCollapsed(!isCollapsed)}>
-        <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
-      </Button>
+      <div style={collapseButtonStyle} >
+        <CopyButton schema={schema} /> 
+        <Button onClick={() => setIsCollapsed(!isCollapsed)}>
+          <FormattedMessage id={`schemas.${isCollapsed ? 'expand' : 'collapse'}`} />
+        </Button>
+      </div>
     </div>
   )
 }

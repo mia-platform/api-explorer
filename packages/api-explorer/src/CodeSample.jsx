@@ -2,15 +2,15 @@ import React from 'react'
 import {FormattedMessage} from 'react-intl';
 
 import BlockWithTab from './components/BlockWithTab'
+import CopyCode from './components/CopyCode'
 import colors from './colors';
+
 
 const PropTypes = require('prop-types');
 const extensions = require('@mia-platform/oas-extensions');
 const Oas = require('./lib/Oas');
 
 const { Operation } = Oas;
-
-const CopyCode = require('./components/CopyCode');
 
 const generateCodeSnippet = require('./lib/generate-code-snippet');
 
