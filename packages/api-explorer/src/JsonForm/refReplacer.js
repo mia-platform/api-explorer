@@ -38,7 +38,7 @@ export default function replaceRefs(obj)  {
   if (obj === undefined) {
     return;
   }
-  if (['string', 'boolean', 'number'].includes(typeof obj)) {
+  if (typeof obj !== 'object') {
     return obj;
   }
   if (Array.isArray(obj)) {
