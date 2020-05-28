@@ -5,7 +5,6 @@ import jsf from 'json-schema-faker'
 import refParser from '@apidevtools/json-schema-ref-parser'
 import {FormattedMessage} from 'react-intl';
 import {omit} from 'ramda'
-import {Alert} from 'antd'
 
 import parametersToJsonSchema from '../../lib/parameters-to-json-schema'
 import BlockWithTab from '../BlockWithTab'
