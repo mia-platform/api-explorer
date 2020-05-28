@@ -93,22 +93,14 @@ export default class SchemaTabs extends Component {
   }
 
   renderSchemaExample() {
-    try {
-      const {schema} = this.state
-      let example = get(schema, EXAMPLE)
-      if (!example) {
-        example = jsf.generate(schema)
-      }
-      return (
-        <JsonViewer 
-          missingMessage={'schemaTabs.missing.example'} 
-          schema={example} 
-          key={'json-viewer-example'}
-        />
-      )
-    } catch (error) {
-      return <Alert type={'error'} message={error.message} />
-    }
+    const {schema} = this.state
+    return (
+      <JsonViewer
+        missingMessage={'schemaTabs.missing.example'}
+        schema={schema.example}
+        key={'json-viewer-example'}
+      />
+    )
   }
 
   renderResponseSchema() {
@@ -143,6 +135,7 @@ export default class SchemaTabs extends Component {
     const {operation} = this.props
     const {selected, schema} = this.state
     const hasSchema = schema && Object.keys(schema).length > 0
+    const hasExample = hasSchema && schema.example
     const hasResponses = operation && operation.responses && Object.keys(operation.responses).length > 0
 
     const selectedType = () => {
@@ -154,7 +147,7 @@ export default class SchemaTabs extends Component {
           return hasResponses ? this.renderResponseSchema() : renderMissingSchema(RESPONSE)
         }
         case EXAMPLE: {
-          return hasSchema ? this.renderSchemaExample() : renderMissingSchema(EXAMPLE)
+          return hasExample ? this.renderSchemaExample() : renderMissingSchema(EXAMPLE)
         }
         default: {
           return null
