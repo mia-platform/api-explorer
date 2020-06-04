@@ -33,7 +33,7 @@ function setDefaultCustomization (JSONEditor) {
           this.toggle_button.classList.add('ant-btn-sm')
         }
 
-        if (this.container !== undefined && this.title !== undefined) {
+        if (this.container !== undefined && this.title !== undefined && (key !== 'upload' && key !== 'base64')) {
           this.container.classList.add('mia-container-wrapper')
         }
       }
