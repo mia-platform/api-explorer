@@ -71,6 +71,14 @@
       }
     }
   },
+  "file.json": {
+    "preferred": "1.2.0",
+    "versions": {
+      "1.2.0": {
+        "swaggerUrl": "swagger-files/file.json"
+      }
+    }
+  },
   "gh-issue-157.json": {
     "preferred": "1.0.0",
     "versions": {
