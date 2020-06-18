@@ -161,7 +161,7 @@ class Doc extends React.Component {
       return false;
     }
     this.setState({ loading: true, showAuthBox: false, needsAuth: false });
-
+    
     const har = oasToHar(this.oas, operation, this.state.formData, auth || this.props.auth, {
       proxyUrl: true,
     }, selectedContentType);

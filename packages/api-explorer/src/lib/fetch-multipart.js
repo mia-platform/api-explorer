@@ -25,8 +25,9 @@ export const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
 export const createMultipartBody = (formData) => {
   const data = new FormData();
   Object.keys(formData.formData).forEach((key) => {
-    const dataString = formData.formData[key];
-    if (dataString === undefined || dataString.indexOf('base64') < 0) {
+    const formDataItem = formData.formData[key];
+    if (typeof formDataItem !== 'string' || formDataItem.indexOf('base64') < 0) {
+      data.append(key, formDataItem)
       return;
     }
     // Explode data string into component to be appended.
@@ -36,8 +37,8 @@ export const createMultipartBody = (formData) => {
     //    data:<type>;filename=<name>;base64,<data>
     // e.g.
     //    data:image/jpeg;filename=cat.jpen;base64,/9j/4AAQS...AD/2w==
-    const actualData = dataString.split('base64,')[1];
-    const filename = dataString.split(';')[1].split('=')[1];
+    const actualData = formDataItem.split('base64,')[1];
+    const filename = formDataItem.split(';')[1].split('=')[1];
     data.append(key, b64toBlob(actualData), filename);
   });
   return data;
@@ -54,7 +55,6 @@ const fetchMultipart = (har, formData) => {
   const options = {
     method: request.method,
   };
-  
   // Process form data into a multipart.
   options.body = createMultipartBody(formData);
 
