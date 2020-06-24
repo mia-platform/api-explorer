@@ -13,6 +13,10 @@ function setDefaultCustomization (JSONEditor) {
       postBuild() {
         super.postBuild()
 
+        if (this.schema && this.schema.type && this.label) {
+          this.label.innerHTML = `${this.label.innerHTML} <em style="opacity: 0.5">(${this.schema.type})</em>`
+        }
+
         if (this.editjson_control) {
           this.editjson_control.classList.add('ant-btn-sm')
           this.editjson_control.style.margin = '0px 8px'
@@ -34,7 +38,7 @@ function setDefaultCustomization (JSONEditor) {
         }
 
         if (this.container !== undefined && this.title !== undefined) {
-          const classContainer = (key === 'upload' || key === 'base64') ? 'mia-container-upload-file-wrapper' : 'mia-container-wrapper' 
+          const classContainer = (key === 'upload' || key === 'base64') ? 'mia-container-upload-file-wrapper' : 'mia-container-wrapper'
           this.container.classList.add(classContainer)
         }
       }
@@ -42,6 +46,8 @@ function setDefaultCustomization (JSONEditor) {
   });
 }
 module.exports = function configureJSONEditor(JSONEditor, intl, setFormSubmissionListener) {
+  if (JSONEditor.hasBeenEdited) return
+  JSONEditor.hasBeenEdited = true
   JSONEditor.defaults.languages.it = it
   JSONEditor.defaults.language = intl.locale
 
