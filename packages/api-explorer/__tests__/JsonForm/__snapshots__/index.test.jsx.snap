@@ -219,12 +219,19 @@ exports[`JSONForm  snapshot 1`] = `
               >
                 <label
                   class="required"
+                  for="root[petId]"
                 >
-                  petId
+                  petId 
+                  <em
+                    style="opacity: 0.5"
+                  >
+                    (integer)
+                  </em>
                 </label>
                 <input
                   class="form-control"
                   data-schemaformat="int64"
+                  id="root[petId]"
                   name="root[petId]"
                   type="text"
                 />
