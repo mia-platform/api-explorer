@@ -45,19 +45,22 @@ function setDefaultCustomization (JSONEditor) {
     }
   });
 }
+
 module.exports = function configureJSONEditor(JSONEditor, intl, setFormSubmissionListener) {
-  if (JSONEditor.hasBeenEdited) return
-  JSONEditor.hasBeenEdited = true
   JSONEditor.defaults.languages.it = it
   JSONEditor.defaults.language = intl.locale
 
   JSONEditor.defaults.themes.antdTheme = antdTheme(JSONEditor)
 
-  setDefaultCustomization(JSONEditor)
+  if (!JSONEditor.isCustomized) {
+    setDefaultCustomization(JSONEditor)
+    JSONEditor.defaults.editors.anyOf = anyOfEditor(intl, setFormSubmissionListener, JSONEditor.defaults.editors.multiple)
+    JSONEditor.isCustomized = true
+  }
 
   JSONEditor.defaults.editors.not = notCustomEditor(JSONEditor.defaults.editors.multiple)
-  JSONEditor.defaults.editors.anyOf = anyOfEditor(intl, setFormSubmissionListener, JSONEditor.defaults.editors.multiple)
   JSONEditor.defaults.editors.object = objectsEditor(JSONEditor.defaults.editors.object)
+
   // eslint-disable-next-line consistent-return
   JSONEditor.defaults.resolvers.unshift((scheme) => {
     // If the schema can be of any type
