@@ -26,7 +26,6 @@ class JsonForm extends Component {
       error: null,
       hasSchema: false
     }
-    this.unmounted = false
     this.jsonSchema = null
   }
 
@@ -42,10 +41,6 @@ class JsonForm extends Component {
     }catch(err) {
       return this.setState({error: err.message, hasSchema: false})
     }
-  }
-
-  componentWillUnmount() {
-    this.unmounted = true
   }
 
   createEditor(element, jsonSchema) {
