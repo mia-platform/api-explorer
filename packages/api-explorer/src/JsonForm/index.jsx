@@ -37,7 +37,7 @@ class JsonForm extends Component {
       const resolvedRoot = resolveRootRef(convertedSchema)
       this.jsonSchema = resolvedRoot
       return this.setState({
-        hasSchema: true 
+        hasSchema: true
       })
     }catch(err) {
       return this.setState({error: err.message, hasSchema: false})

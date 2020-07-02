@@ -47,6 +47,17 @@ const antdTheme = (JSONEditor) => class extends JSONEditor.defaults.themes.boots
     el.style.display = 'inline-flex'
     return el
   }
+
+  addInputError (input, text) {
+    const el = super.addInputError(input, text)
+    el.style.background = 'white'
+    el.errmsg.style.gridColumn = '1 / -1'
+    el.errmsg.style.padding = '8px'
+    el.errmsg.style.margin = '8px 0 0'
+    el.errmsg.classList.add('alert', 'alert-danger')
+    el.errmsg.setAttribute('role', 'alert')
+    return el
+  }
 }
 
 module.exports = antdTheme
