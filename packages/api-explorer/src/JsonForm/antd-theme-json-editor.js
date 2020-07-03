@@ -49,14 +49,13 @@ const antdTheme = (JSONEditor) => class extends JSONEditor.defaults.themes.boots
   }
 
   addInputError (input, text) {
-    const el = super.addInputError(input, text)
-    el.style.background = 'white'
-    el.errmsg.style.gridColumn = '1 / -1'
-    el.errmsg.style.padding = '8px'
-    el.errmsg.style.margin = '8px 0 0'
-    el.errmsg.classList.add('alert', 'alert-danger')
-    el.errmsg.setAttribute('role', 'alert')
-    return el
+    super.addInputError(input, text)
+    input.style.background = 'white'
+    input.errmsg.style.gridColumn = '1 / -1'
+    input.errmsg.style.padding = '8px'
+    input.errmsg.style.margin = '8px 0 0'
+    input.errmsg.classList.add('alert', 'alert-danger')
+    input.errmsg.setAttribute('role', 'alert')
   }
 }
 
