@@ -25,6 +25,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "required": ["number"],
                   "properties": {
                     "status": {
                       "type": "boolean",
@@ -74,10 +75,43 @@
             }
           }
         }
+      },
+      "/files/": {
+        "post": {
+            "parameters": [
+                {
+                    "name": "content-type",
+                    "in": "header",
+                    "required": false,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "multipart/form-data": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Default Response"
+                }
+            }
+        }
       }
     },
     "x-explorer-enabled": true,
     "x-samples-enabled": true,
     "x-samples-languages": ["curl", "node", "ruby", "javascript", "python"]
   }
-  
