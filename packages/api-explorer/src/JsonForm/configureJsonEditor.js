@@ -10,8 +10,48 @@ function setDefaultCustomization (JSONEditor) {
 
   editorsKeys.forEach(key => {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
+      showEditJson(){
+        super.showEditJson()
+        this.editjson_holder.style.left = '-250px'
+      }
       postBuild() {
         super.postBuild()
+
+        if (this.editjson_holder && this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
+          this.editjson_holder.style.right = '0px'
+          this.editjson_inline_header = document.createElement('div')
+          this.editjson_inline_header.style.display = 'flex'
+          this.editjson_inline_header.style.justifyContent = 'space-between'
+          this.editjson_inline_footer = document.createElement('div')
+          this.editjson_inline_footer.style.display = 'flex'
+          this.editjson_inline_footer.style.justifyContent = 'flex-end'
+          this.editjson_textcontainer = document.createElement('h3')
+          this.editjson_textcontainer.classList.add('card-title')
+          this.editjson_textcontainer.style.height = '36px'
+          this.editjson_textcontainer.style.padding = '0px'
+          this.editjson_textcontainer.style.border = '0px'
+          this.editjson_text = document.createElement('label')
+          this.editjson_text.innerHTML = 'Edit JSON'
+          this.editjson_text.style.verticalAlign = 'middle'
+          this.editjson_text.style.display = 'inline-block'
+          this.editjson_text.style.lineHeight = '32px'
+          this.editjson_text.style.padding = '0px'
+          this.editjson_text.style.textTransform = 'none'
+          this.editjson_copy.classList.add('ant-btn-primary')
+          this.editjson_copy.classList.add('ant-btn-background-ghost')
+          this.editjson_copy.style.margin = '0 0 4px 4px'
+          this.editjson_copy.innerHTML = 'Copy JSON'
+          this.editjson_save.classList.add('ant-btn-primary')
+          this.editjson_textarea.style.width = '450px'
+          this.editjson_textarea.style.height = '250px'
+          this.editjson_holder.insertBefore(this.editjson_inline_header, this.editjson_textarea)
+          this.editjson_inline_header.append(this.editjson_textcontainer)
+          this.editjson_inline_header.append(this.editjson_copy)
+          this.editjson_textcontainer.append(this.editjson_text)
+          this.editjson_holder.append(this.editjson_inline_footer)
+          this.editjson_inline_footer.append(this.editjson_cancel)
+          this.editjson_inline_footer.append(this.editjson_save)
+        }
 
         if (this.schema && this.schema.type && this.label) {
           this.label.innerHTML = `${this.label.innerHTML} <em style="opacity: 0.5">(${this.schema.type})</em>`
@@ -21,6 +61,13 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_control.classList.add('ant-btn-sm')
           this.editjson_control.style.margin = '0px 8px'
           this.editjson_control.style.borderRadius = '4px'
+          // const temp = this.editjson_control.cloneNode(true)
+          // this.editjson_control.replaceWith(temp)
+          this.editjson_control.addEventListener('click', (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            console.log('Pippo')
+          })
         }
 
         if (this.addproperty_button) {
