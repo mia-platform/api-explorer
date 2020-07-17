@@ -7,7 +7,6 @@ import '@fortawesome/fontawesome-free/js/brands'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
-import {JSONEditor} from '../../../../../json-editor'
 // import {JSONEditor} from '@mia-platform/json-editor'
 import {Spin, Alert} from 'antd'
 
@@ -16,6 +15,7 @@ import resolveRootRef from './resolveRootRef'
 import refReplacer from './refReplacer'
 import './bootstrap4.css'
 import './custom-bootstrap4.css'
+import {JSONEditor} from '../../../../../json-editor'
 
 class JsonForm extends Component {
   constructor(props) {

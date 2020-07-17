@@ -186,3 +186,7 @@
 .col-md-12 {
     padding: 0 8px
 }
+
+.bigger-resizer::-webkit-resizer {
+    box-shadow: 0 0 0px 3px blue;
+ }

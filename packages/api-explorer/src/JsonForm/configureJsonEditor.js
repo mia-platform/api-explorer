@@ -10,15 +10,15 @@ function setDefaultCustomization (JSONEditor) {
 
   editorsKeys.forEach(key => {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
-      showEditJson(){
-        super.showEditJson()
-        this.editjson_holder.style.left = '-250px'
+      showEditJSON(){
+        super.showEditJSON()
+        // this.editjson_holder.style.display = 'none'
+        this.editjson_holder.style.left = `${-this.editjson_holder.offsetWidth + this.editjson_control.offsetWidth + parseInt(this.editjson_control.style.marginRight, 10)}px`
       }
       postBuild() {
         super.postBuild()
 
         if (this.editjson_holder && this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
-          this.editjson_holder.style.right = '0px'
           this.editjson_inline_header = document.createElement('div')
           this.editjson_inline_header.style.display = 'flex'
           this.editjson_inline_header.style.justifyContent = 'space-between'
@@ -44,6 +44,7 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_save.classList.add('ant-btn-primary')
           this.editjson_textarea.style.width = '450px'
           this.editjson_textarea.style.height = '250px'
+          this.editjson_textarea.classList.add('bigger-resizer')
           this.editjson_holder.insertBefore(this.editjson_inline_header, this.editjson_textarea)
           this.editjson_inline_header.append(this.editjson_textcontainer)
           this.editjson_inline_header.append(this.editjson_copy)
@@ -61,8 +62,6 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_control.classList.add('ant-btn-sm')
           this.editjson_control.style.margin = '0px 8px'
           this.editjson_control.style.borderRadius = '4px'
-          // const temp = this.editjson_control.cloneNode(true)
-          // this.editjson_control.replaceWith(temp)
           this.editjson_control.addEventListener('click', (e) => {
             e.preventDefault()
             e.stopPropagation()
