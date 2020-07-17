@@ -5,6 +5,7 @@ import jsf from 'json-schema-faker'
 import refParser from '@apidevtools/json-schema-ref-parser'
 import {FormattedMessage} from 'react-intl';
 import {omit} from 'ramda'
+import {Alert} from 'antd'
 
 import parametersToJsonSchema from '../../lib/parameters-to-json-schema'
 import BlockWithTab from '../BlockWithTab'
@@ -92,14 +93,23 @@ export default class SchemaTabs extends Component {
   }
 
   renderSchemaExample() {
-    const {schema} = this.state
-    return (
-      <JsonViewer
-        missingMessage={'schemaTabs.missing.example'}
-        schema={schema.example}
-        key={'json-viewer-example'}
-      />
-    )
+    try {
+      const {schema} = this.state
+      let example = get(schema, EXAMPLE)
+      if (!example) {
+        example = jsf.generate(schema)
+      }
+
+      return (
+        <JsonViewer
+          missingMessage={'schemaTabs.missing.example'}
+          schema={example}
+          key={'json-viewer-example'}
+        />
+      )
+    } catch (error) {
+      return <Alert type={'error'} message={error.message} />
+    }
   }
 
   renderResponseSchema() {
@@ -134,7 +144,6 @@ export default class SchemaTabs extends Component {
     const {operation} = this.props
     const {selected, schema} = this.state
     const hasSchema = schema && Object.keys(schema).length > 0
-    const hasExample = hasSchema && schema.example
     const hasResponses = operation && operation.responses && Object.keys(operation.responses).length > 0
 
     const selectedType = () => {
@@ -146,7 +155,7 @@ export default class SchemaTabs extends Component {
           return hasResponses ? this.renderResponseSchema() : renderMissingSchema(RESPONSE)
         }
         case EXAMPLE: {
-          return hasExample ? this.renderSchemaExample() : renderMissingSchema(EXAMPLE)
+          return hasSchema ? this.renderSchemaExample() : renderMissingSchema(EXAMPLE)
         }
         default: {
           return null
