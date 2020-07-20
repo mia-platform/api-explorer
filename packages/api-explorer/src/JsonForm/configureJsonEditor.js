@@ -12,12 +12,25 @@ function setDefaultCustomization (JSONEditor) {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
       showEditJSON(){
         super.showEditJSON()
-        // this.editjson_holder.style.display = 'none'
-        this.editjson_holder.style.left = `${-this.editjson_holder.offsetWidth + this.editjson_control.offsetWidth + parseInt(this.editjson_control.style.marginRight, 10)}px`
+        if (this.editjson_holder && this.editjson_textarea && this.editjson_control) {
+          const outsideClickListener = event => {
+            if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
+              this.hideEditJSON()
+              removeClickListener()
+            }
+          }
+          const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener)
+          }
+          document.addEventListener('click', outsideClickListener)
+            this.editjson_textarea.style.width = '450px'
+            this.editjson_textarea.style.height = '340px'
+            this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
+            this.editjson_holder.style.top = `-104px`
+        }
       }
       postBuild() {
         super.postBuild()
-
         if (this.editjson_holder && this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
           this.editjson_inline_header = document.createElement('div')
           this.editjson_inline_header.style.display = 'flex'
@@ -42,9 +55,6 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_copy.style.margin = '0 0 4px 4px'
           this.editjson_copy.innerHTML = 'Copy JSON'
           this.editjson_save.classList.add('ant-btn-primary')
-          this.editjson_textarea.style.width = '450px'
-          this.editjson_textarea.style.height = '250px'
-          this.editjson_textarea.classList.add('bigger-resizer')
           this.editjson_holder.insertBefore(this.editjson_inline_header, this.editjson_textarea)
           this.editjson_inline_header.append(this.editjson_textcontainer)
           this.editjson_inline_header.append(this.editjson_copy)
@@ -62,11 +72,6 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_control.classList.add('ant-btn-sm')
           this.editjson_control.style.margin = '0px 8px'
           this.editjson_control.style.borderRadius = '4px'
-          this.editjson_control.addEventListener('click', (e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            console.log('Pippo')
-          })
         }
 
         if (this.addproperty_button) {
@@ -86,6 +91,10 @@ function setDefaultCustomization (JSONEditor) {
         if (this.container !== undefined && this.title !== undefined) {
           const classContainer = (key === 'upload' || key === 'base64') ? 'mia-container-upload-file-wrapper' : 'mia-container-wrapper'
           this.container.classList.add(classContainer)
+        }
+
+        if (this.controls && this.addproperty_button && this.editjson_control) {
+          this.controls.insertBefore(this.addproperty_button, this.editjson_control)
         }
       }
     }
