@@ -25,7 +25,10 @@ function setDefaultCustomization (JSONEditor) {
           document.addEventListener('click', outsideClickListener)
           this.editjson_textarea.style.width = '450px'
           this.editjson_textarea.style.height = '340px'
-          this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
+          const leftSize = parseInt(this.editjson_holder.style.left, 10) - this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)
+          if(leftSize && typeof leftSize === 'number' && !isNaN(leftSize)){
+            this.editjson_holder.style.left = `${leftSize}px`
+          }
           this.editjson_holder.style.top = `-104px`
         }
       }
