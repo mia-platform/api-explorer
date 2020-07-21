@@ -12,26 +12,42 @@ function setDefaultCustomization (JSONEditor) {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
       showEditJSON(){
         super.showEditJSON()
-        if (this.editjson_holder && this.editjson_textarea && this.editjson_control) {
-          const outsideClickListener = event => {
-            if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
-              this.hideEditJSON()
-              removeClickListener()
-            }
-          }
-          const removeClickListener = () => {
-            document.removeEventListener('click', outsideClickListener)
-          }
-          document.addEventListener('click', outsideClickListener)
-          this.editjson_textarea.style.width = '450px'
-          this.editjson_textarea.style.height = '340px'
-          this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
-          this.editjson_holder.style.top = `-104px`
-        }
+        // if (this.editjson_holder && this.editjson_textarea && this.editjson_control) {
+        //   const outsideClickListener = event => {
+        //     if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
+        //       this.hideEditJSON()
+        //       removeClickListener()
+        //     }
+        //   }
+        //   const removeClickListener = () => {
+        //     document.removeEventListener('click', outsideClickListener)
+        //   }
+        //   document.addEventListener('click', outsideClickListener)
+        //   this.editjson_textarea.style.width = '450px'
+        //   this.editjson_textarea.style.height = '340px'
+        //   this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
+        //   this.editjson_holder.style.top = `-104px`
+        //   this.editjson_holder.style.display = 'none'
+        // }
+        this.editjson_holder.style.display = 'none'
+        this.editor_holder.style.display = 'none'
+        this.editjson_card_holder.style.display = ''
+      }
+      hideEditJSON(){
+        super.hideEditJSON()
+        this.editor_holder.style.display = ''
+        this.editjson_card_holder.style.display = 'none'
       }
       postBuild() {
         super.postBuild()
         if (this.editjson_holder && this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
+          this.editjson_card_holder = document.createElement('div')
+          this.editjson_card_holder.classList.add('card')
+          this.editjson_card_holder.classList.add('card-body')
+          this.editjson_card_holder.classList.add('mb-3')
+          this.editjson_card_holder.classList.add('bg-light')
+          this.editjson_card_holder.style.display = 'none'
+          this.editjson_card_holder.innerHTML = 'Pippo'
           this.editjson_inline_header = document.createElement('div')
           this.editjson_inline_header.style.display = 'flex'
           this.editjson_inline_header.style.justifyContent = 'space-between'
@@ -62,6 +78,7 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_holder.append(this.editjson_inline_footer)
           this.editjson_inline_footer.append(this.editjson_cancel)
           this.editjson_inline_footer.append(this.editjson_save)
+          this.container.append(this.editjson_card_holder)
         }
 
         if (this.schema && this.schema.type && this.label) {
