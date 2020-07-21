@@ -49,6 +49,7 @@ function renderMissingSchema(nameSchema) {
 }
 jsf.option({
   failOnInvalidTypes: false,
+  failOnInvalidFormat: false,
   useDefaultValue: true,
 })
 
@@ -96,14 +97,15 @@ export default class SchemaTabs extends Component {
     try {
       const {schema} = this.state
       let example = get(schema, EXAMPLE)
-      if (!example) {
-        example = jsf.generate(schema)
+
+      if (schema.type === 'array') {
+        example = get(schema.items, EXAMPLE)
       }
 
       return (
         <JsonViewer
           missingMessage={'schemaTabs.missing.example'}
-          schema={example}
+          schema={example || jsf.generate(schema)}
           key={'json-viewer-example'}
         />
       )
