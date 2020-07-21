@@ -12,34 +12,42 @@ function setDefaultCustomization (JSONEditor) {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
       showEditJSON(){
         super.showEditJSON()
-        // if (this.editjson_holder && this.editjson_textarea && this.editjson_control) {
-        //   const outsideClickListener = event => {
-        //     if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
-        //       this.hideEditJSON()
-        //       removeClickListener()
-        //     }
-        //   }
-        //   const removeClickListener = () => {
-        //     document.removeEventListener('click', outsideClickListener)
-        //   }
-        //   document.addEventListener('click', outsideClickListener)
-        //   this.editjson_textarea.style.width = '450px'
-        //   this.editjson_textarea.style.height = '340px'
-        //   this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
-        //   this.editjson_holder.style.top = `-104px`
-        //   this.editjson_holder.style.display = 'none'
-        // }
-        this.editjson_holder.style.display = 'none'
-        this.editor_holder.style.display = 'none'
-        this.editjson_card_holder.style.display = ''
+        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder){
+          console.log('root')
+          this.editjson_holder.style.display = 'none'
+          this.editor_holder.style.display = 'none'
+          this.editjson_card_holder.style.display = ''
+        } 
+
+        if (this.schema.id === undefined && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
+          console.log('no root')
+          const outsideClickListener = event => {
+            if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
+              this.hideEditJSON()
+              removeClickListener()
+            }
+          }
+          const removeClickListener = () => {
+            document.removeEventListener('click', outsideClickListener)
+          }
+          document.addEventListener('click', outsideClickListener)
+          this.editjson_textarea.style.width = '450px'
+          this.editjson_textarea.style.height = '340px'
+          this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
+          this.editjson_holder.style.top = `-104px`
+          this.editjson_holder.style.display = ''
+        }
       }
       hideEditJSON(){
         super.hideEditJSON()
-        this.editor_holder.style.display = ''
-        this.editjson_card_holder.style.display = 'none'
+        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder) {
+          this.editor_holder.style.display = ''
+          this.editjson_card_holder.style.display = 'none'
+        }
       }
       postBuild() {
         super.postBuild()
+        // console.log(this.schema.id)
         if (this.editjson_holder && this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
           this.editjson_card_holder = document.createElement('div')
           this.editjson_card_holder.classList.add('card')
