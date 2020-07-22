@@ -13,7 +13,6 @@ function setDefaultCustomization (JSONEditor) {
       showEditJSON(){
         super.showEditJSON()
         if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder){
-          // console.log('root')
           this.editjson_holder.style.display = 'none'
           this.editor_holder.style.display = 'none'
           this.editjson_card_holder.style.display = 'block'
@@ -23,7 +22,6 @@ function setDefaultCustomization (JSONEditor) {
         } 
 
         if (this.schema.id === undefined && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
-          // console.log('no root')
           const outsideClickListener = event => {
             if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
               this.hideEditJSON()
@@ -36,7 +34,10 @@ function setDefaultCustomization (JSONEditor) {
           document.addEventListener('click', outsideClickListener)
           this.editjson_textarea.style.width = '450px'
           this.editjson_textarea.style.height = '340px'
-          this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) - this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
+          const leftSize = parseInt(this.editjson_holder.style.left, 10) - this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)
+          if(leftSize && typeof leftSize === 'number' && !isNaN(leftSize)){
+            this.editjson_holder.style.left = `${leftSize}px`
+          }
           this.editjson_holder.style.top = `-104px`
           this.editjson_holder.style.display = ''
         }
@@ -51,7 +52,6 @@ function setDefaultCustomization (JSONEditor) {
       postBuild() {
         super.postBuild()
         if(this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel){
-          // console.log(this.schema.id)
           this.editjson_inline_header = document.createElement('div')
           this.editjson_inline_header.style.display = 'flex'
           this.editjson_inline_header.style.justifyContent = 'space-between'
