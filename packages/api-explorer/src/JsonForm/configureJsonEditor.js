@@ -13,14 +13,17 @@ function setDefaultCustomization (JSONEditor) {
       showEditJSON(){
         super.showEditJSON()
         if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder){
-          console.log('root')
+          // console.log('root')
           this.editjson_holder.style.display = 'none'
           this.editor_holder.style.display = 'none'
-          this.editjson_card_holder.style.display = ''
+          this.editjson_card_holder.style.display = 'block'
+          this.editjson_textarea.style.width = `100%`
+          this.editjson_textarea.style.height = '500px'
+          this.editjson_textarea.style.resize = 'vertical'
         } 
 
         if (this.schema.id === undefined && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
-          console.log('no root')
+          // console.log('no root')
           const outsideClickListener = event => {
             if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
               this.hideEditJSON()
@@ -33,7 +36,7 @@ function setDefaultCustomization (JSONEditor) {
           document.addEventListener('click', outsideClickListener)
           this.editjson_textarea.style.width = '450px'
           this.editjson_textarea.style.height = '340px'
-          this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) -this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
+          this.editjson_holder.style.left = `${parseInt(this.editjson_holder.style.left, 10) - this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)}px`
           this.editjson_holder.style.top = `-104px`
           this.editjson_holder.style.display = ''
         }
@@ -47,15 +50,8 @@ function setDefaultCustomization (JSONEditor) {
       }
       postBuild() {
         super.postBuild()
-        // console.log(this.schema.id)
-        if (this.editjson_holder && this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
-          this.editjson_card_holder = document.createElement('div')
-          this.editjson_card_holder.classList.add('card')
-          this.editjson_card_holder.classList.add('card-body')
-          this.editjson_card_holder.classList.add('mb-3')
-          this.editjson_card_holder.classList.add('bg-light')
-          this.editjson_card_holder.style.display = 'none'
-          this.editjson_card_holder.innerHTML = 'Pippo'
+        if(this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel){
+          // console.log(this.schema.id)
           this.editjson_inline_header = document.createElement('div')
           this.editjson_inline_header.style.display = 'flex'
           this.editjson_inline_header.style.justifyContent = 'space-between'
@@ -79,14 +75,34 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_copy.style.margin = '0 0 4px 4px'
           this.editjson_copy.innerHTML = 'Copy JSON'
           this.editjson_save.classList.add('ant-btn-primary')
-          this.editjson_holder.insertBefore(this.editjson_inline_header, this.editjson_textarea)
+          this.editjson_save.style.margin = '4px 0 0 0'
+          this.editjson_cancel.style.margin = '4px 4px 0 0'
+
+          if (this.schema.id === 'root' ) {
+            this.editjson_card_holder = document.createElement('div')
+            this.editjson_card_holder.classList.add('card')
+            this.editjson_card_holder.classList.add('card-body')
+            this.editjson_card_holder.classList.add('mb-3')
+            this.editjson_card_holder.classList.add('bg-light')
+            this.editjson_card_holder.style.padding = '20px'
+            this.editjson_card_holder.style.border = '1px'
+            this.editjson_card_holder.style.display = 'none'
+            this.container.append(this.editjson_card_holder)
+            this.editjson_card_holder.append(this.editjson_inline_header)
+            this.editjson_card_holder.append(this.editjson_textarea)
+            this.editjson_card_holder.append(this.editjson_inline_footer)
+          }
+
+          if (this.schema.id === undefined && this.editjson_holder) {
+            this.editjson_holder.insertBefore(this.editjson_inline_header, this.editjson_textarea)
+            this.editjson_holder.append(this.editjson_inline_footer)
+          }
+
           this.editjson_inline_header.append(this.editjson_textcontainer)
           this.editjson_inline_header.append(this.editjson_copy)
           this.editjson_textcontainer.append(this.editjson_text)
-          this.editjson_holder.append(this.editjson_inline_footer)
           this.editjson_inline_footer.append(this.editjson_cancel)
           this.editjson_inline_footer.append(this.editjson_save)
-          this.container.append(this.editjson_card_holder)
         }
 
         if (this.schema && this.schema.type && this.label) {
