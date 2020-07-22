@@ -5,7 +5,7 @@ jest.unmock('json-schema-faker')
 describe('generateFakeSchema', () => {
   const generateFakeSchemaTests = [
     {
-      title: 'base examples use',
+      title: 'basic usage of examples',
       schema: {
         type: 'object',
         examples: [{ foo: 'bar' }],
@@ -18,7 +18,7 @@ describe('generateFakeSchema', () => {
       }
     },
     {
-      title: 'using examples inside of properties should be return oneOf examples',
+      title: 'use of examples within properties',
       schema: {
         type: 'object',
         properties: {
@@ -33,7 +33,7 @@ describe('generateFakeSchema', () => {
       }
     },
     {
-      title: 'not supported from json-schema-faker - example key outside a properties',
+      title: 'not supported by json-schema-faker - example key outside the properties',
       schema: {
         type: 'object',
         example: {foo: 'bar'},
@@ -49,7 +49,7 @@ describe('generateFakeSchema', () => {
       }
     },
     {
-      title: 'not supported from json-schema-faker - example key inside a properties',
+      title: 'not supported by json-schema-faker - example key inside the properties',
       schema: {
         type: 'object',
         properties: {
