@@ -200,6 +200,7 @@ exports[`JSONForm  snapshot 1`] = `
               >
                 <label
                   class="required"
+                  for="root[petId]"
                 >
                   petId 
                   <em
@@ -211,6 +212,7 @@ exports[`JSONForm  snapshot 1`] = `
                 <input
                   class="form-control"
                   data-schemaformat="int64"
+                  id="root[petId]"
                   name="root[petId]"
                   type="text"
                 />
@@ -408,7 +410,9 @@ exports[`JSONForm  snapshot 1`] = `
                         <div
                           class="form-group"
                         >
-                          <label>
+                          <label
+                            for="root[petPedigree][petName]"
+                          >
                             petName 
                             <em
                               style="opacity: 0.5"
@@ -418,6 +422,7 @@ exports[`JSONForm  snapshot 1`] = `
                           </label>
                           <input
                             class="form-control"
+                            id="root[petPedigree][petName]"
                             name="root[petPedigree][petName]"
                             type="text"
                           />
