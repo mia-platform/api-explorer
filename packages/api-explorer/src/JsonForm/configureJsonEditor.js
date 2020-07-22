@@ -22,7 +22,7 @@ function setDefaultCustomization (JSONEditor) {
           this.editjson_textarea.style.fontFamily = 'monospace'
         } 
 
-        if (this.schema.id === undefined && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
+        if (this.schema.id !== 'root' && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
           const outsideClickListener = event => {
             if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
               this.hideEditJSON()
@@ -53,7 +53,7 @@ function setDefaultCustomization (JSONEditor) {
       }
       postBuild() {
         super.postBuild()
-        if(this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel){
+        if (this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
           this.editjson_inline_header = document.createElement('div')
           this.editjson_inline_header.style.display = 'flex'
           this.editjson_inline_header.style.justifyContent = 'space-between'
@@ -95,7 +95,7 @@ function setDefaultCustomization (JSONEditor) {
             this.editjson_card_holder.append(this.editjson_inline_footer)
           }
 
-          if (this.schema.id === undefined && this.editjson_holder) {
+          if (this.schema.id !== 'root' && this.editjson_holder) {
             this.editjson_holder.insertBefore(this.editjson_inline_header, this.editjson_textarea)
             this.editjson_holder.append(this.editjson_inline_footer)
           }
