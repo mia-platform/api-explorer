@@ -16,10 +16,6 @@
           "content": {
             "application/json": {
               "schema": {
-                "example": {
-                  "pet_type": "Carlino",
-                  "pet_children": ["john", "doo"]
-                },
                 "anyOf": [
                   {
                     "title": "Pet by Type",
@@ -50,10 +46,10 @@
                     "type": "object",
                     "properties": {
                       "pet_type": {
-                        "type": "number"
+                        "type": "string"
                       },
                       "pet_country": {
-                        "type": "any"
+                        "type": "string"
                       }
                     }
                   }
@@ -75,35 +71,39 @@
               "schema": {
                 "anyOf": [
                   {
-                    "PetType": {
-                      "title": "Pet by Type",
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "pet_type": {
-                            "type": "string"
-                          },
-                          "pet_children": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          }
+                    "title": "Pet by Type",
+                    "type": "object",
+                    "properties": {
+                      "pet_type": {
+                        "type": "string"
+                      },
+                      "pet_children": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
                         }
                       }
                     }
                   },
                   {
-                    "PetName": {
-                      "type": "string"
+                    "title": "Pet by Name",
+                    "type": "object",
+                    "properties": {
+                      "pet_name": {
+                        "type": "string"
+                      }
                     }
                   },
                   {
-                    "PetAge": {
-                      "type": "number",
-                      "maximum": 20,
-                      "minimum": 1
+                    "title": "Pet by Address",
+                    "type": "object",
+                    "properties": {
+                      "pet_type": {
+                        "type": "string"
+                      },
+                      "pet_country": {
+                        "type": "string"
+                      }
                     }
                   }
                 ]
