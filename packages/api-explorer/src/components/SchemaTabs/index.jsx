@@ -97,9 +97,7 @@ export default class SchemaTabs extends Component {
     } catch (error) {
       return <Alert type={'error'} message={error.message} />
     }
-
-    console.log('generatedSchema', JSON.stringify(schema, null, 2), generatedSchema)
-
+    
     return (
       <JsonViewer
         missingMessage={'schemaTabs.missing.example'}
