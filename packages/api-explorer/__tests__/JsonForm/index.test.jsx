@@ -42,15 +42,18 @@ describe('JSONForm ', () => {
    
     const originalDateNow = Date.now
     const originalRandom = Math.random
+    const originalRequestAnimationFrame = window.requestAnimationFrame
 
     Date.now = jest.fn().mockReturnValue(1589886640576)
     Math.random = jest.fn().mockReturnValue(0.5)
+    window.requestAnimationFrame = jest.fn()
 
     const element = await mountJsonForm(props)
     expect(element.getDOMNode()).toMatchSnapshot()
 
     Date.now = originalDateNow
     Math.random = originalRandom
+    window.requestAnimationFrame = originalRequestAnimationFrame
   })
 
   it('when form submits, calls onSubmit prop', async () => {
