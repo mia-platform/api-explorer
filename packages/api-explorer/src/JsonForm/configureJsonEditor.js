@@ -12,7 +12,7 @@ function setDefaultCustomization (JSONEditor) {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
       showEditJSON(){
         super.showEditJSON()
-        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder && this.editjson_textarea){
+        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder && this.editjson_textarea) {
           this.editjson_holder.style.display = 'none'
           this.editor_holder.style.display = 'none'
           this.editjson_card_holder.style.display = 'block'
