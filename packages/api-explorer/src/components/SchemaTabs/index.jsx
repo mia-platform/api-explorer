@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
-import jsf from 'json-schema-faker'
 import refParser from '@apidevtools/json-schema-ref-parser'
 import {FormattedMessage} from 'react-intl';
 import {omit} from 'ramda'
 import {Alert} from 'antd'
 
 import parametersToJsonSchema from '../../lib/parameters-to-json-schema'
+import generateFakeSchema from '../../../lib/generateFakeSchema'
+
 import BlockWithTab from '../BlockWithTab'
 import colors from '../../colors'
 import JsonViewer from "../JsonViewer";
@@ -47,12 +48,6 @@ function renderMissingSchema(nameSchema) {
     </div>
   )
 }
-
-jsf.option({
-  failOnInvalidTypes: false,
-  failOnInvalidFormat: false,
-  useDefaultValue: true,
-})
 
 const styles = {
   responseSchemaWrapper: {
@@ -102,17 +97,20 @@ export default class SchemaTabs extends Component {
       example = get(schema.items, EXAMPLE)
     }
 
+    let generatedSchema
     try {
-      return (
-        <JsonViewer
-          missingMessage={'schemaTabs.missing.example'}
-          schema={example || jsf.generate(schema)}
-          key={'json-viewer-example'}
-        />
-      )
+      generatedSchema = generateFakeSchema(example)
     } catch (error) {
       return <Alert type={'error'} message={error.message} />
     }
+
+    return (
+      <JsonViewer
+        missingMessage={'schemaTabs.missing.example'}
+        schema={example || generatedSchema}
+        key={'json-viewer-example'}
+      />
+    )
   }
 
   renderResponseSchema() {
