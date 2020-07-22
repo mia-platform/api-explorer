@@ -12,13 +12,14 @@ function setDefaultCustomization (JSONEditor) {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
       showEditJSON(){
         super.showEditJSON()
-        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder){
+        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder && this.editjson_textarea){
           this.editjson_holder.style.display = 'none'
           this.editor_holder.style.display = 'none'
           this.editjson_card_holder.style.display = 'block'
           this.editjson_textarea.style.width = `100%`
           this.editjson_textarea.style.height = '500px'
           this.editjson_textarea.style.resize = 'vertical'
+          this.editjson_textarea.style.fontFamily = 'monospace'
         } 
 
         if (this.schema.id === undefined && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
@@ -34,6 +35,7 @@ function setDefaultCustomization (JSONEditor) {
           document.addEventListener('click', outsideClickListener)
           this.editjson_textarea.style.width = '450px'
           this.editjson_textarea.style.height = '340px'
+          this.editjson_textarea.style.fontFamily = 'monospace'
           const leftSize = parseInt(this.editjson_holder.style.left, 10) - this.editjson_holder.offsetWidth - parseInt(this.editjson_control.style.marginLeft, 10)
           if(leftSize && typeof leftSize === 'number' && !isNaN(leftSize)){
             this.editjson_holder.style.left = `${leftSize}px`
