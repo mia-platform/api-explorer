@@ -15,9 +15,18 @@ describe('JSONForm ', () => {
           type: 'integer',
           description: 'ID of pet to return',
           format: 'int64'
+        },
+        petPedigree: {
+          type: 'object',
+          properties: {
+            petName: {
+              type: 'string',
+              description: 'Name of pet to return'
+            }
+          }
         }
       },
-      required: ['petId']
+      required: ['petId', 'petPedigree']
     },
     onChange: jest.fn(),
     onSubmit: jest.fn(),
