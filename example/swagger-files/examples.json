@@ -10,63 +10,42 @@
     "version": "1.0"
   },
   "paths": {
-    "/pets": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "anyOf": [
-                  {
-                    "title": "Pet by Type",
-                    "type": "object",
-                    "properties": {
-                      "pet_type": {
-                        "type": "string",
-                        "examples": ["carlino"]
-                      },
-                      "pet_children": {
-                        "type": "array",
-                        "items": {
-                          "type": "string",
-                          "examples": ["john", "doo"]
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "title": "Pet by Name",
-                    "type": "object",
-                    "examples": [{ "pet_name": "scooby" }],
-                    "properties": {
-                      "pet_name": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  {
-                    "title": "Pet by Address",
-                    "type": "object",
-                    "properties": {
-                      "pet_type": {
-                        "type": "string"
-                      },
-                      "pet_country": {
-                        "type": "string",
-                        "examples": ["neverland"]
+    "/results": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "response": {
+                    "value": {
+                      "user": {
+                        "email": "test@example.com",
+                        "name": "Test user name"
                       }
                     }
                   }
-                ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/xml": {
+                "examples": {
+                  "response": {
+                    "value":
+                      "<?xml version=\"1.0\" encoding=\"UTF-8\"?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>"
+                  }
+                }
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "Updated"
-          }
-        }
+        "summary": "Update Password"
       }
     }
   },
@@ -81,11 +60,5 @@
   },
   "x-explorer-enabled": true,
   "x-samples-enabled": true,
-  "x-samples-languages": [
-    "curl",
-    "node",
-    "ruby",
-    "javascript",
-    "python"
-  ]
+  "x-samples-languages": ["curl", "node", "ruby", "javascript", "python"]
 }
