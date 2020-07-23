@@ -10,50 +10,6 @@ function setDefaultCustomization (JSONEditor) {
 
   editorsKeys.forEach(key => {
     JSONEditor.defaults.editors[key] = class Customization extends JSONEditor.defaults.editors[key] {
-      showEditJSON(){
-        super.showEditJSON()
-        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder && this.editjson_holder && this.editjson_textarea) {
-          this.editjson_holder.style.display = 'none'
-          this.editor_holder.style.display = 'none'
-          this.editjson_card_holder.style.display = 'block'
-          this.editjson_textarea.style.width = `100%`
-          this.editjson_textarea.style.height = '500px'
-          this.editjson_textarea.style.resize = 'vertical'
-          this.editjson_textarea.style.fontFamily = 'monospace'
-        } 
-        if (this.schema.id !== 'root' && this.editjson_holder && this.editjson_textarea && this.editjson_control) {
-          const outsideClickListener = event => {
-            if (!this.editjson_holder.contains(event.target) && this.editjson_holder.style.display !== 'none') {
-              this.hideEditJSON()
-            }
-          }
-          const removeClickListener = () => {
-            document.removeEventListener('click', outsideClickListener)
-          }
-          this.removeListener = removeClickListener
-          document.addEventListener('click', outsideClickListener)
-          this.editjson_textarea.style.width = '450px'
-          this.editjson_textarea.style.height = '340px'
-          this.editjson_textarea.style.fontFamily = 'monospace'
-          const leftSize = this.addproperty_button.offsetWidth - this.editjson_holder.offsetWidth + parseInt(this.addproperty_button.style.marginLeft, 10) + parseInt(this.addproperty_button.style.marginRight, 10)
-          if(leftSize && typeof leftSize === 'number' && !isNaN(leftSize)){
-            this.editjson_holder.style.left = `${leftSize}px`
-          }
-          this.editjson_holder.style.top = `-104px`
-          this.editjson_holder.style.display = ''
-        }
-      }
-      hideEditJSON(){
-        super.hideEditJSON()
-        if(this.removeListener !== undefined){
-          this.removeListener()
-          this.removeListener = undefined
-        }
-        if (this.schema.id === 'root' && this.editor_holder && this.editjson_card_holder) {
-          this.editor_holder.style.display = ''
-          this.editjson_card_holder.style.display = 'none'
-        }
-      }
       postBuild() {
         super.postBuild()
         if (this.editjson_textarea && this.editjson_copy && this.editjson_save && this.editjson_cancel) {
@@ -157,10 +113,10 @@ module.exports = function configureJSONEditor(JSONEditor, intl, setFormSubmissio
     setDefaultCustomization(JSONEditor)
     JSONEditor.defaults.editors.anyOf = anyOfEditor(intl, setFormSubmissionListener, JSONEditor.defaults.editors.multiple)
     JSONEditor.isCustomized = true
+    JSONEditor.defaults.editors.object = objectsEditor(JSONEditor.defaults.editors.object)
   }
 
   JSONEditor.defaults.editors.not = notCustomEditor(JSONEditor.defaults.editors.multiple)
-  JSONEditor.defaults.editors.object = objectsEditor(JSONEditor.defaults.editors.object)
 
   // eslint-disable-next-line consistent-return
   JSONEditor.defaults.resolvers.unshift((scheme) => {
