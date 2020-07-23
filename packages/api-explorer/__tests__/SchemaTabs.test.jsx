@@ -86,7 +86,7 @@ describe('SchemaTabs', () => {
   describe('with example schema selected', () => {
     test('render jsonEditor with examples', (done) => {
       const mockExample = {pet_type: 'carlino', pet_children: ['scooby', 'doo']}
-      jsf._generateReturnValue(() => (mockExample))
+      jsf._generateReturnValue(() => mockExample)
       element = shallow(<SchemaTabs oas={oasWithExample} operation={operationWithExample} />)
       setTimeout(() => {
         element.update()
