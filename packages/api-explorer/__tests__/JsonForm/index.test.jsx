@@ -46,6 +46,11 @@ describe('JSONForm ', () => {
 
     Date.now = jest.fn().mockReturnValue(1589886640576)
     Math.random = jest.fn().mockReturnValue(0.5)
+
+    /**
+    * window.requestAnimationFrame has been mocked to avoid a non-deterministic behaviour of the test.
+    * Removing the line below could make the test produce a different snapshot from the expected one.
+    */
     window.requestAnimationFrame = jest.fn()
 
     const element = await mountJsonForm(props)
