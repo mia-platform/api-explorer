@@ -79,7 +79,6 @@ export default class SchemaTabs extends Component {
 
   componentDidMount() {
     const { operation, oas } = this.props
-    console.log('parametersToJsonSchema(operation, oas)', parametersToJsonSchema(operation, oas))
     const schema = get(parametersToJsonSchema(operation, oas), '[0].schema', {})
     refParser.dereference(resolveRootRef(schema), (err, schemaResolved) => {
       if (!err) {

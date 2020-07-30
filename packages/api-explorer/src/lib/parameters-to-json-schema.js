@@ -94,8 +94,6 @@ module.exports = (pathOperation, oas) => {
 
   if (!hasParameters && !hasRequestBody) return null;
 
-  console.log('getBodyParam(pathOperation, oas', getBodyParam(pathOperation, oas))
-  console.log('getOtherParams(pathOperation, oas', getOtherParams(pathOperation, oas))
   return [getBodyParam(pathOperation, oas)]
     .concat(...getOtherParams(pathOperation, oas))
     .filter(Boolean);
