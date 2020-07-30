@@ -47,7 +47,7 @@ function getOtherParams(pathOperation, oas) {
     if (parameters.length === 0) return null;
 
     const properties = parameters.reduce((prev, current) => {
-      const schema = { type: 'string' };
+      const schema = {type: 'string'};
 
       if (current.description) schema.description = current.description;
 
@@ -56,11 +56,12 @@ function getOtherParams(pathOperation, oas) {
           schema.type = 'array';
           schema.items = current.schema.items;
         }
-
         if (typeof current.schema.default !== 'undefined') schema.default = current.schema.default;
         if (current.schema.enum) schema.enum = current.schema.enum;
         if (current.schema.type) schema.type = current.schema.type;
         if (current.schema.format) schema.format = current.schema.format;
+        if (current.schema.pattern) schema.pattern = current.schema.pattern;
+        if (current.examples) schema.examples = current.examples;
       }
 
       prev[current.name] = schema;
@@ -90,6 +91,8 @@ module.exports = (pathOperation, oas) => {
 
   if (!hasParameters && !hasRequestBody) return null;
 
+  console.log('getBodyParam(pathOperation, oas', getBodyParam(pathOperation, oas))
+  console.log('getOtherParams(pathOperation, oas', getOtherParams(pathOperation, oas))
   return [getBodyParam(pathOperation, oas)]
     .concat(...getOtherParams(pathOperation, oas))
     .filter(Boolean);
