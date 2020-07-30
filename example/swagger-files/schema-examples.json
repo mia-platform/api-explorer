@@ -8,18 +8,16 @@
   "paths": {
     "/v2/customers/": {
       "get": {
-        "summary": "Get a list of customers",
+        "summary": "The most important endpoint with examples",
         "description": "The list can be filtered specifying the following parameters",
-        "tags": [
-          "Customers"
-        ],
+        "tags": ["Customers"],
         "parameters": [
           {
             "examples": [
               "5f227688780d3e001130daea"
             ],
-            "description": "Hexadecimal identifier of the document in the collection",
-            "required": false,
+            "description": "should be 5f227688780d3e001130daea in generated examples",
+            "required": true,
             "name": "_id",
             "in": "query",
             "schema": {
@@ -29,7 +27,7 @@
           },
           {
             "description": "creatorId",
-            "required": false,
+            "required": true,
             "name": "creatorId",
             "in": "query",
             "schema": {
@@ -37,8 +35,8 @@
             }
           },
           {
-            "description": "createdAt",
-            "required": false,
+            "description": "should be something like this 6719-46-56T24:51:40Z",
+            "required": true,
             "name": "createdAt",
             "in": "query",
             "schema": {
@@ -56,8 +54,8 @@
             }
           },
           {
-            "description": "updatedAt",
-            "required": false,
+            "description": "should be something like this 6719-46-56T24:51:40Z",
+            "required": true,
             "name": "updatedAt",
             "in": "query",
             "schema": {
@@ -66,7 +64,7 @@
             }
           },
           {
-            "required": false,
+            "required": true,
             "name": "name",
             "in": "query",
             "schema": {
@@ -74,7 +72,11 @@
             }
           },
           {
-            "required": false,
+            "examples": [
+              "test.name.surname@email.country"
+            ],
+            "description": "should be 'test.name.surname@email.country' in generated examples",
+            "required": true,
             "name": "email",
             "in": "query",
             "schema": {
@@ -82,7 +84,11 @@
             }
           },
           {
-            "required": false,
+            "examples": [
+              "via calatafimi 10, Milano 20147"
+            ],
+            "description": "should be 'via calatafimi 10, Milano 20147' in generated examples",
+            "required": true,
             "name": "deliveryAddress",
             "in": "query",
             "schema": {
@@ -90,7 +96,11 @@
             }
           },
           {
-            "required": false,
+            "examples": [
+              "3333333333"
+            ],
+            "description": "should be '3333333333' in generated examples",
+            "required": true,
             "name": "phone",
             "in": "query",
             "schema": {
@@ -98,7 +108,11 @@
             }
           },
           {
-            "required": false,
+            "examples": [
+              "rossi", "verdi", "bianchi", "scuri"
+            ],
+            "description": "should be one of \"rossi\", \"verdi\", \"bianchi\", \"scuri\" in generated examples",
+            "required": true,
             "name": "surname",
             "in": "query",
             "schema": {
@@ -106,8 +120,11 @@
             }
           },
           {
-            "description": "Additional query part to forward to MongoDB",
-            "required": false,
+            "examples": [
+              "queryString1"
+            ],
+            "description": "should be 'queryString1' in generated examples",
+            "required": true,
             "name": "_q",
             "in": "query",
             "schema": {
@@ -115,8 +132,8 @@
             }
           },
           {
-            "description": "Return only the properties specified in a comma separated list",
-            "required": false,
+            "description": "should respect this pattern in generated example",
+            "required": true,
             "name": "_p",
             "in": "query",
             "schema": {
@@ -125,8 +142,8 @@
             }
           },
           {
-            "description": "Filter by \\_\\_STATE__, multiple states can be specified in OR by providing a comma separated list",
-            "required": false,
+            "description": "should respect default value 'PUBLIC' in generated example",
+            "required": true,
             "name": "_st",
             "in": "query",
             "schema": {
@@ -136,20 +153,19 @@
             }
           },
           {
-            "description": "Limits the number of documents, max 200 elements, minimum 1",
-            "required": false,
+            "description": "should be a range from 1 to 200 in generated examples",
+            "required": true,
             "name": "_l",
             "in": "query",
             "schema": {
               "type": "integer",
               "minimum": 1,
-              "maximum": 200,
-              "default": 25
+              "maximum": 200
             }
           },
           {
-            "description": "Skip the specified number of documents",
-            "required": false,
+            "description": "Should respect minimum 0 in generated examples",
+            "required": true,
             "name": "_sk",
             "in": "query",
             "schema": {
@@ -158,8 +174,8 @@
             }
           },
           {
-            "description": "Sort by the specified property (Start with a \"-\" to invert the sort order)",
-            "required": false,
+            "description": "should respect this pattern in generated example",
+            "required": true,
             "name": "_s",
             "in": "query",
             "schema": {

@@ -61,6 +61,9 @@ function getOtherParams(pathOperation, oas) {
         if (current.schema.type) schema.type = current.schema.type;
         if (current.schema.format) schema.format = current.schema.format;
         if (current.schema.pattern) schema.pattern = current.schema.pattern;
+        if (current.schema.minimum) schema.minimum = current.schema.minimum;
+        if (current.schema.maximum) schema.maximum = current.schema.maximum;
+        if (current.schema.pattern) schema.pattern = current.schema.pattern;
         if (current.examples) schema.examples = current.examples;
       }
 
