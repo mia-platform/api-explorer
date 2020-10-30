@@ -50,7 +50,7 @@ module.exports = (classReference) => class objectCustomEditor extends classRefer
   postBuild() {
     super.postBuild()
 
-    if (this.currentDepth > 1) {
+    if (this.parent) {
       console.log('this.', this)
       this.header.style.fontSize = '14px'
       this.header.style.fontWeight = '400'
