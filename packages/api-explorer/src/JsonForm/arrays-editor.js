@@ -8,7 +8,12 @@ module.exports = (classReference) => class arrayCustomEditor extends classRefere
     this.header.style.fontWeight = '400'
     this.header.style.textTransform = 'unset'
 
-    if (this.jsoneditor && this.jsoneditor.schema && this.jsoneditor.schema.required.includes(this.key)) {
+    if (
+      this.jsoneditor &&
+      this.jsoneditor.schema &&
+      Array.isArray(this.jsoneditor.schema.required) &&
+      this.jsoneditor.schema.required.includes(this.key)
+    ) {
       this.header.classList.add('required')
     }
   }
