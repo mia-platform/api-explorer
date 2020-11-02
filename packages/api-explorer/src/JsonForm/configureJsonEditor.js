@@ -113,10 +113,10 @@ module.exports = function configureJSONEditor(JSONEditor, intl, setFormSubmissio
 
   if (!JSONEditor.isCustomized) {
     setDefaultCustomization(JSONEditor)
+    JSONEditor.defaults.editors.array = arraysEditor(JSONEditor.defaults.editors.array)
     JSONEditor.defaults.editors.anyOf = anyOfEditor(intl, setFormSubmissionListener, JSONEditor.defaults.editors.multiple)
     JSONEditor.isCustomized = true
     JSONEditor.defaults.editors.object = objectsEditor(JSONEditor.defaults.editors.object)
-    JSONEditor.defaults.editors.array = arraysEditor(JSONEditor.defaults.editors.array)
   }
 
   JSONEditor.defaults.editors.not = notCustomEditor(JSONEditor.defaults.editors.multiple)
