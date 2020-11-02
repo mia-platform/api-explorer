@@ -4,7 +4,6 @@ module.exports = (classReference) => class arrayCustomEditor extends classRefere
     super.postBuild()
 
     if (this.parent) {
-      console.log('EHY IAM AN ARRAY', this)
       this.header.style.fontSize = '14px'
       this.header.style.fontWeight = '400'
       this.header.style.textTransform = 'unset'
