@@ -3,7 +3,7 @@ module.exports = (classReference) => class arrayCustomEditor extends classRefere
   postBuild() {
     super.postBuild()
 
-    if (this.parent) {
+    if (this.parent && this.header) {
       this.header.style.textTransform = 'unset'
       this.header.style.fontSize = '14px'
       this.header.style.fontWeight = '400'
