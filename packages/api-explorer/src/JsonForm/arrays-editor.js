@@ -11,9 +11,8 @@ module.exports = (classReference) => class arrayCustomEditor extends classRefere
       if (
         this.jsoneditor &&
         this.jsoneditor.schema &&
-        this.jsoneditor.schema.required &&
+        Array.isArray(this.jsoneditor.schema.required) &&
         this.jsoneditor.schema.required.includes(this.key) &&
-        Array.isArray(this.jsoneditor.schema.required)
       ) {
         this.header.classList.add('required')
       }
