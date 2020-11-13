@@ -21,13 +21,20 @@
                     "title": "Pet by Type",
                     "type": "object",
                     "properties": {
-                      "pet_type": {
+                      "_id": {
+                        "pattern": "^[a-fA-F\\d]{24}$",
+                        "example": "000000000000000000000000",
                         "type": "string"
+                      },
+                      "pet_type": {
+                        "type": "string",
+                        "example": "bassotto"
                       },
                       "pet_children": {
                         "type": "array",
                         "items": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "bassotto 2"
                         }
                       }
                     }
@@ -37,7 +44,8 @@
                     "type": "object",
                     "properties": {
                       "pet_name": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "bassotto"
                       }
                     }
                   },
@@ -46,10 +54,12 @@
                     "type": "object",
                     "properties": {
                       "pet_type": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "bassotto"
                       },
                       "pet_country": {
-                        "type": "string"
+                        "type": "string",
+                        "example": "spagna"
                       }
                     }
                   }
@@ -123,7 +133,7 @@
     "schemas": {},
     "responses": {},
     "parameters": {},
-    "examples": {},
+    "example": {},
     "requestBodies": {},
     "securitySchemes": {},
     "headers": {}
