@@ -45,7 +45,7 @@
                     "properties": {
                       "pet_name": {
                         "type": "string",
-                        "example": "bassotto"
+                        "example": "dachshund"
                       }
                     }
                   },
