@@ -59,7 +59,7 @@
                       },
                       "pet_country": {
                         "type": "string",
-                        "example": "spagna"
+                        "example": "spain"
                       }
                     }
                   }
