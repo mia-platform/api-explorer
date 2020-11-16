@@ -34,7 +34,7 @@
                         "type": "array",
                         "items": {
                           "type": "string",
-                          "example": "bassotto 2"
+                          "example": "long haired dachshund"
                         }
                       }
                     }
