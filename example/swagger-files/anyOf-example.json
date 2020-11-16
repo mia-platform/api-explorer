@@ -55,7 +55,7 @@
                     "properties": {
                       "pet_type": {
                         "type": "string",
-                        "example": "bassotto"
+                        "example": "dachshund"
                       },
                       "pet_country": {
                         "type": "string",
