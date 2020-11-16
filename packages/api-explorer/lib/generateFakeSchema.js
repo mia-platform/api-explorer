@@ -9,7 +9,7 @@ jsf.option({
 })
 
 function generateObjectExample(example, properties) {
-  const generatedExample = { ...properties ? jsf.generate(properties) : {} }
+  const generatedExample = properties ? jsf.generate(properties) : {}
   // eslint-disable-next-line guard-for-in
   for (const key in example) {
     generatedExample[key] = generateExampleFromType(example[key], example[key])
