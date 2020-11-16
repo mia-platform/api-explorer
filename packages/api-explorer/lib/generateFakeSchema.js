@@ -10,7 +10,6 @@ jsf.option({
 
 function generateObjectExample(example, properties) {
   const generatedExample = properties ? jsf.generate(properties) : {}
-  // eslint-disable-next-line guard-for-in
   for (const key in example) {
     generatedExample[key] = generateExampleFromType(example[key], example[key])
   }
@@ -18,11 +17,7 @@ function generateObjectExample(example, properties) {
 }
 
 function generateArrayExample(example) {
-  const generatedExample = []
-  example.forEach(item => {
-    generatedExample.push(generateExampleFromType(item, item))
-  })
-  return generatedExample
+  return example.map(item => generateExampleFromType(item, item))
 }
 
 function generateExampleFromType (example, schema) {
