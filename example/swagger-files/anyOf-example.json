@@ -28,7 +28,7 @@
                       },
                       "pet_type": {
                         "type": "string",
-                        "example": "bassotto"
+                        "example": "dachshund"
                       },
                       "pet_children": {
                         "type": "array",
