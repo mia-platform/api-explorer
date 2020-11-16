@@ -29,7 +29,7 @@ function generateExampleFromType (example, schema) {
   if(Array.isArray(example)) {
     return generateArrayExample(example)
   }
-  if (example !== null && !Array.isArray(example) && typeof example === 'object'){
+  if (example !== null && !Array.isArray(example) && typeof example === 'object') {
     return generateObjectExample(example, schema.properties)
   }
   return example
