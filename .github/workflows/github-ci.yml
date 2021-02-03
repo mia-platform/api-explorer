@@ -1,18 +1,23 @@
 name: github ci
-on: [push]
-jobs: 
-    node-testing:
-        runs-on: ubuntu-latest
-        steps:
-            -uses: actions/checkout@v2
-            -uses: actions/setup-node@v2
-            -uses: actions/cache@v2
-                with:
-                    path: ~/.npm
-                    key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
-                    restore-keys: v1-npm-deps-
+on: 
+	push:
+		branches: [master]
+	pull_request:
+		branches: [master]
 
-            -run: npm i
-            -run: npx lerna bootstrap
-            -run: npm run test
+jobs: 
+	node-testing:
+		runs-on: ubuntu-latest
+		steps:
+			-uses: actions/checkout@v2
+			-uses: actions/setup-node@v2
+			-uses: actions/cache@v2
+				with:
+					path: ~/.npm
+					key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
+					restore-keys: v1-npm-deps-
+
+			-run: npm i
+			-run: npx lerna bootstrap
+			-run: npm run test
 
