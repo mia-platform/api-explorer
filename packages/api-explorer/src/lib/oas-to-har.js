@@ -126,7 +126,7 @@ module.exports = (
   if (query && Object.keys(query).length > har.queryString.length) {
     const keys = Object.keys(query)
     const alreadyKeys = har.queryString.map(queryParam => queryParam.name)
-    const missingKeys = keys.filter( key => !alreadyKeys.includes(key))
+    const missingKeys = keys.filter(key => !alreadyKeys.includes(key))
     missingKeys.forEach(key => {
       har.queryString.push({
         name: key,
