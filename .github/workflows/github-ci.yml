@@ -35,4 +35,19 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           path-to-lcov: ./packages/api-logs/coverage/lcov.info
-      
+      - name: coverall markdown
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          path-to-lcov: ./packages/markdown/coverage/lcov.info
+      - name: coverall syntax-highlighter
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          path-to-lcov: ./packages/syntax-highlihgter/coverage/lcov.info
+      - name: coverall variable
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          path-to-lcov: ./packages/variable/coverage/lcov.info
+              
