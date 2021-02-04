@@ -19,4 +19,10 @@ jobs:
           npm i
           npx lerna bootstrap
           npm run test
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: v1-npm-deps-
 
