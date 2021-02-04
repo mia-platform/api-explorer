@@ -25,27 +25,27 @@ jobs:
           npm i
           npx lerna bootstrap
           npm run test
-      - name: coverall api-explorer
+      - name: Coverall api-explorer
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
           path-to-lcov: ./packages/api-explorer/coverage/lcov.info
-      - name: coverall api-logs
+      - name: Coverall api-logs
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
           path-to-lcov: ./packages/api-logs/coverage/lcov.info
-      - name: coverall markdown
+      - name: Coverall markdown
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
           path-to-lcov: ./packages/markdown/coverage/lcov.info
-      - name: coverall syntax-highlighter
+      - name: Coverall syntax-highlighter
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
-          path-to-lcov: ./packages/syntax-highlihgter/coverage/lcov.info
-      - name: coverall variable
+          path-to-lcov: ./packages/syntax-highlighter/coverage/lcov.info
+      - name: Coverall variable
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
