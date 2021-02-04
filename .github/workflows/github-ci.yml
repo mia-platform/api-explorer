@@ -9,10 +9,12 @@ on:
 jobs: 
   node-testing:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-        name: Set up Node
+      - name: Set up Node
         uses: actions/setup-node@v2
+      - name: Launch test
         run: |
           npm i
           npx lerna bootstrap
