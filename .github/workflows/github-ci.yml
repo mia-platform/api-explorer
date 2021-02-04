@@ -25,9 +25,22 @@ jobs:
           npm i
           npx lerna bootstrap
           npm run test
+  coveralls:
+    needs: node-testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path:
+          - ./packages/api-explorer/coverage/lcov.info
+          - ./packages/api-logs/coverage/lcov.info
+
+    steps:
       - name: Coveralls Parallel
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
+          path-to-lcov: ${{ matrix.path }}
+          flag-name: run-${{ matrix.path }}
+          parallel: true
 
 
