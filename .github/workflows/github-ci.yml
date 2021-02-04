@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node
-      - uses: actions/setup-node@v2
-      - run: npm i
-      - run: npx lerna bootstrap
-      - run: npm run test
+        uses: actions/setup-node@v2
+        run: |
+          npm i
+          npx lerna bootstrap
+          npm run test
 
